@@ -1,0 +1,41 @@
+---
+title: 'EpiFusion: Joint inference of the effective
+  reproduction number by integrating epidemiological and phylodynamic modelling with
+  particle filtering'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Code to Fully Reproduce Results {.tabset}
+
+## Main Manuscript
+We will be loading the EpiFusion results using the R package `EpiFusionUtilities`, and plotting them using some functions in the `plotting_utilities` script in this repo. To install `EpiFusionUtilities` via devtools you can run this chunk:
+```{r install_EpiFusionUtilities} 
+devtools::install_github("")
+library(EpiFusionUtilities)
+```
+
+### Loading Dataset Truths
+Throughout the paper, the true value of the infection or R(t) trajectories is used in graphs,
+
+### Figure 1 is a schematic made in powerpoint
+
+### Figure 2
+
+```{r Figure2}
+introduction_combined <- extract_posterior_epifusion(load_raw_epifusion("Results/introduction_Combined_300Particles_2000Steps_AnalysisType1_2024-03-27_18-17-34/"))
+
+```
+
+## Supplementary Information
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+

@@ -69,7 +69,13 @@ This is a repository to fully reproduce the results of the paper 'EpiFusion: Joi
 The output results of the models run for this paper are in the `Results` folder. Each EpiFusion model has it's own sub-folder, and the benchmarking results (other programs) are in the subfolder `benchmarking`. If you work through the `replicate_results.Rmd` file in this repository, you will be able to fully recreate the graphs and tables in this paper using these output files
 
 ### Rerunning whole models
-Should you wish to rerun the models quoted in the paper using the EpiFusion program, the XML files of the models are in `Data/`, and the EpiFusion jar file used to run them is included in the repository `EpiFusion.jar`. If you have cloned this repository and are in the working directory, you can use the below commands verbatim to rerun the models. The model XML files are preloaded with file names that will place them in a new folder, called `Results2`, so as not to overwrite the actual paper results. If you use this option of rerunning the models, be sure to change the results repository to `Results2` in the `replicate_results.Rmd` file when you are plotting the results. While EpiFusion runs quite quickly, there are X models run for the paper (with instructions on how to rerun each below), and this may take some time.
+Should you wish to rerun the models quoted in the paper using the EpiFusion program, the XML files of the models are in `Data/`, and the EpiFusion jar file used to run them is included in the repository `EpiFusion.jar`. If you have cloned this repository, navigate to it in your terminal, and you can use the below commands verbatim to rerun the models. The model XML files are preloaded with file names that will place them in a new folder, called `Results2`, so as not to overwrite the actual paper results. If you use this option of rerunning the models, be sure to change the results repository to `Results2` in the `replicate_results.Rmd` file when you are plotting the results. While EpiFusion runs quite quickly, there are X models run for the paper (with instructions on how to rerun each below), and this may take some time.
+
+#### 1. Simulated Baseline/Introduction Scenario, Combined
+```
+java -jar EpiFusion.jar Data/intro_combined.xml
+```
 
 ## Recreating all plots and table statistics
+To recreate all the plots and tables in the paper, open the `replicate_results.Rmd` RMarkdown file and follow the instructions enclosed within. Most importantly, if you have rerun the EpiFusion models and wish to use those results for the plots, make sure to change `results_repository` to the correct destination (now `Results2`).
 
