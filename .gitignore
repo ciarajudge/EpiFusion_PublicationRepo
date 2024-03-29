@@ -5,6 +5,7 @@
 .DS_Store
 
 *.docx
+*.html
 
 Results/*
 Data/*
