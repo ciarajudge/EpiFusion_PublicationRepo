@@ -1,0 +1,25 @@
+
+<beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
+    <run spec="Simulator" nSims="1">
+        <simulate spec="SimulatedTree" id="SIRTree">
+            <trajectory spec="StochasticTrajectory" id="SIRTrajectory" mustHave="sample&gt;100" maxTime="150">
+                <population spec="RealParameter" id="S" value="999999"/>
+                <population spec="RealParameter" id="I" value="1"/>
+                <population spec="RealParameter" id="R" value="0"/>
+                <samplePopulation spec="RealParameter" id="sample" value="0"/>
+
+                <reaction spec="Reaction" rate="0.00000029"> I + S -> I + I </reaction>
+                <reaction spec="Reaction" rate="0.143"> I -> R </reaction>
+                <reaction spec="Reaction" rate="0.0317 0.0173 0.0225 0.0178 0.0197 0.0218 0.0247 0.0249 0.017 0.0174 0.0177 0.0267 0.0075 0.0242 0.0192 0.0199 0.0247 0.0302 0.0196 0.0223 0.0205 0.0239" changeTimes="7 14 21 28 35 42 49 56 63 70 77 84 91 98 105 112 119 126 133 140 147"> I -> sample + R </reaction>
+            </trajectory>
+        </simulate>
+
+        <logger spec="Logger" fileName="$(filebase).traj">
+            <log idref="SIRTrajectory"/>
+        </logger>
+
+        <logger spec="Logger" mode="tree" fileName="$(filebase).trees">
+            <log spec="TypedTreeLogger" tree="@SIRTree" removeSingletonNodes = "true"/>
+        </logger>
+    </run>
+</beast>

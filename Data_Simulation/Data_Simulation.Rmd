@@ -1,0 +1,493 @@
+---
+title: "Outbreak Data Simulation"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+set.seed(100)
+library(ape)
+library(stringr)
+library(dplyr)
+library(tidyr)
+library(magrittr)
+```
+
+## Simulating Data {.tabset}
+
+To test EpiFusion we simulated a range of outbreak scenarios using the program ReMASTER. The parameters for the simulations are included in the supplementary information of the manuscript, and the code for post-processing the ReMASTER output into 'EpiFusion ready data' (and any preprocessing, if applicable) is here. The trees and incidence data generated from this script are what is in the EpiFusion XMLs in the `Data` folder of this repository.
+
+---
+
+For the ReMASTER simulations, the first step of parsing the output is a set of terminal commands that tidy the `.trees` file and the `.traj` file into R friendly files. These are:
+
+`sed -e "s/\[\&type=\"I\",time=/_/g" (filebase).trees > (filebase).tree `
+
+and 
+
+`sed -e "s/;/\n/g" -e "s/t=//g" -e "s/:R=/,/g" -e "s/:S=/,/g" -e "s/:sample=/,/g" -e "s/:E=/,/g" -e "s/:I=/,/g" (filebase).traj > (filebase).txt`
+
+This creates two cleaned files with the extensions `tree` and `txt` that we will process in R into EpiFusion output. We also manually convert the tree file from nexus to newick format, as it helps to load the labels correctly, and manually add column headers (t,R,S,I,sample) to the `txt` file. Next we need to create `weekly case incidence` counts and a `tree` compatible with EpiFusion. We write functions for each of these below (and will reuse these frequently):
+
+```{r parse_incidence}
+get_incidence <- function(txtfile) {
+  table <- read.csv(txtfile, header = T)
+  table <- table %>%
+    select(t, sample) %>%
+    distinct(sample, .keep_all = T) %>%
+    filter(sample != 0) %>%
+    transmute(t = floor(t)) %>%
+    group_by(t) %>%
+    mutate(Incidence = n()) %>%
+    distinct()
+  return(table)
+}
+
+get_weekly_incidence <- function(incidence) {
+  incidence$t <- as.integer(as.character(incidence$t))
+  incidence$Incidence[1] <- 0
+  weekly_incidence <- c()
+  for (t in seq(0, max(incidence$t+7), 7)) {
+    dates <- seq(t,t+6)
+    inc <- incidence[which(incidence$t %in% dates),2]
+    weekly_incidence <- append(weekly_incidence, sum(inc))
+  }
+  plot(weekly_incidence, main = "Weekly Incidence", pch = 13, xlab = "Week", ylab = "Case Incidence")
+  return(weekly_incidence)
+}
+
+```
+
+```{r parse_tree}
+get_tree <- function(treefile, downsamplefactor) {
+  tree <- read.tree(treefile)
+  ntips <- length(tree$tip.label)
+  labels <- tree$tip.label
+  for ( i in 1:length(labels)) {
+    tmp <- unlist(str_split(str_remove(labels[i], "]"), "_"))
+    labels[i] <- paste0("leaf_", tmp[1], "[", tmp[2], "]")
+  }
+  tree$tip.label <- labels
+  
+  nodelabels <- tree$node.label
+  for (i in 1:length(nodelabels)) {
+    tmp <- str_remove(str_remove(nodelabels[i], "_"), "]")
+    nodelabels[i] <- paste0("node_", i, "[", tmp, "]")
+  }
+  tree$node.label <- nodelabels
+  
+  numsamples <- round(ntips*downsamplefactor)
+  
+  #Downsample the tree
+  sampled_tips <- sample(tree$tip.label, numsamples, replace = F)
+  downsampled_tree <- keep.tip(tree, sampled_tips)
+  
+  return(downsampled_tree)
+}
+
+
+```
+
+---
+
+As a reminder, here is an index of the datasets generated:
+
+| Dataset Identifier | Section | Description |
+| :--- | :--- | ----------- |
+| baseline | main_scenarios | Simple intro of pathogen to immune naive population |
+| sampling | main_scenarios | Introduction of pathogen to immune naive population with low sampling initially |
+| transmission | main_scenarios | Increase in transmissibility of an endemic pathogen |
+| low-noise-baseline | observation_noise | baseline scenario with slight observation noise |
+| medium-noise-baseline | observation_noise | baseline scenario with medium observation noise |
+| high-noise-baseline | observation_noise | baseline scenario with high observation noise |
+| low-noise-transmission | observation_noise | transmission step-change scenario with slight observation noise |
+| medium-noise-transmission | observation_noise | transmission step-change scenario with medium observation noise |
+| high-noise-transmission | observation_noise | transmission step-change scenario with high observation noise |
+| small-epidemic | epidemic_size | small baseline scenario |
+| medium-epidemic | epidemic_size | medium sized baseline scenario |
+| large-epidemic | epidemic_size | large outbreak baseline scenario |
+| small-tree | tree_size | baseline scenario with a sparsely sampled tree |
+| medium-tree | tree_size | baseline scenario with a medium sampled tree |
+| large-tree | tree_size | baseline scenario with a densely sampled tree |
+
+
+---
+
+### Main Scenarios {.tabset}
+The three main scenarios examined in detail in the paper are a baseline scenario, a step-change in sampling scenario, and a step-change in transmission scenario. These are described in detail in the paper. The ReMASTER XMLs to generate these three scenarios are in the `Main_Scenarios` folder, as well as the raw remaster output (the traj file of each remaster output has ungergone one manual step to separate simulated events onto separate lines).
+
+
+
+
+#### Baseline
+
+##### Load txt file and plot simulation
+``` {r load_nnb_simulation}
+no_noise_baseline <- read.csv('Observation_Noise/no-noise-baseline/no-noise-baseline.txt', header = T)
+plot(no_noise_baseline$t, no_noise_baseline$S, type = "l", col = "red", main = 'no_noise_baseline', ylim = c(0, 20000))
+  lines(no_noise_baseline$t, no_noise_baseline$I, col = "green")
+  lines(no_noise_baseline$t, no_noise_baseline$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r nnb_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+no_noise_baseline_incidence <- get_weekly_incidence(get_incidence('Observation_Noise/no-noise-baseline/no-noise-baseline.txt'))
+write.table(no_noise_baseline_incidence, 'Observation_Noise/no-noise-baseline/no-noise-baseline_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+no_noise_baseline_tree <- get_tree('Observation_Noise/no-noise-baseline/no-noise-baseline.tree', 0.05)
+plot(no_noise_baseline_tree)
+write.tree(no_noise_baseline_tree, 'Observation_Noise/no-noise-baseline/no-noise-baseline_downsampledtree.tree') 
+```
+
+
+
+---
+
+#### Sampling
+##### Load txt file and plot simulation
+``` {r load_sampling_simulation}
+sampling <- read.csv('Main_Scenarios/sampling/sampling.txt', header = T)
+plot(sampling$t, sampling$S, type = "l", col = "red", main = 'Sampling', ylim = c(0, 20000))
+  lines(sampling$t, sampling$I, col = "green")
+  lines(sampling$t, sampling$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r sampling_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+sampling_incidence <- get_weekly_incidence(get_incidence('Main_Scenarios/sampling/sampling.txt'))
+write.table(sampling_incidence, "Main_Scenarios/sampling/sampling_weeklyincidence.txt", row.names = F, quote = F, col.names = F)
+
+sampling_tree <- get_tree('Main_Scenarios/sampling/sampling.tree', 0.05)
+plot(sampling_tree)
+#write.tree('Main_Scenarios/sampling/sampling_downsampledtree.tree') (this is commented out so as to not overwrite the saved tree)
+```
+
+---
+
+#### Transmission
+##### Load txt file and plot simulation
+``` {r load_transmission_simulation}
+transmission <- read.csv('Main_Scenarios/transmission/transmission.txt', header = T)
+plot(transmission$t, transmission$S, type = "l", col = "red", main = 'Transmission', ylim = c(0, 20000))
+  lines(transmission$t, transmission$I, col = "green")
+  lines(transmission$t, transmission$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r transmission_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+transmission_incidence <- get_weekly_incidence(get_incidence('Main_Scenarios/transmission/transmission.txt'))
+write.table(transmission_incidence, "Main_Scenarios/transmission/transmission_weeklyincidence.txt", row.names = F, quote = F, col.names = F)
+
+transmission_tree <- get_tree('Main_Scenarios/transmission/transmission.tree', 0.05)
+plot(transmission_tree)
+```
+
+
+
+
+### Observation Noise {.tabset}
+##### Preprocessing step - generating noise
+For the baseline and step-change in transmission scenario, we repeated simulations with increasing observation noise. To achieve this, we changed the rate of case sampling every 7 days in the ReMASTER simulation, drawing the rate normal distributions with increasing standard deviations.
+
+``` {r draw_sampling_rates}
+low_noise <- round(rnorm(22, mean = 0.02, sd = 0.001),4)
+paste0(low_noise, collapse = " ")
+
+medium_noise <- round(rnorm(22, mean = 0.02, sd = 0.005), 4)
+paste0(medium_noise, collapse = " ")
+
+large_noise <- abs(round(rnorm(22, mean = 0.02, sd = 0.01), 4))
+paste0(large_noise, collapse = " ")
+
+changetimes <- seq(7, 150, 7)
+paste0(changetimes, collapse = " ")
+```
+
+By pasting these rates into the ReMASTER XML's it introduces observation noise to both the case incidence and the tree, and this graph shows how the sampling rate changes over time:
+
+``` {r samplingnoise, echo = F}
+plot(large_noise, type = 'l', col = "green", ylab = "Sampling Rate", xlab = "Time")
+lines(low_noise, col = "blue")
+lines(medium_noise, col = "yellow")
+lines(rep(0.02, 22), col = "red")
+
+```
+
+---
+
+#### low-noise-baseline
+##### Load txt file and plot simulation
+``` {r load_lnb_simulation}
+low_noise_baseline <- read.csv('Observation_Noise/low-noise-baseline/low-noise-baseline.txt', header = T)
+plot(low_noise_baseline$t, low_noise_baseline$S, type = "l", col = "red", main = 'low_noise_baseline', ylim = c(0, 20000))
+  lines(low_noise_baseline$t, low_noise_baseline$I, col = "green")
+  lines(low_noise_baseline$t, low_noise_baseline$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r lnb_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+low_noise_baseline_incidence <- get_weekly_incidence(get_incidence('Observation_Noise/low-noise-baseline/low-noise-baseline.txt'))
+write.table(low_noise_baseline_incidence, 'Observation_Noise/low-noise-baseline/low-noise-baseline_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+low_noise_baseline_tree <- get_tree('Observation_Noise/low-noise-baseline/low-noise-baseline.tree', 0.05)
+plot(low_noise_baseline_tree)
+write.tree(low_noise_baseline_tree, 'Observation_Noise/low-noise-baseline/low-noise-baseline_downsampledtree.tree') 
+```
+
+#### medium-noise-baseline
+##### Load txt file and plot simulation
+``` {r load_mnb_simulation}
+medium_noise_baseline <- read.csv('Observation_Noise/medium-noise-baseline/medium-noise-baseline.txt', header = T)
+plot(medium_noise_baseline$t, medium_noise_baseline$S, type = "l", col = "red", main = 'medium_noise_baseline', ylim = c(0, 20000))
+  lines(medium_noise_baseline$t, medium_noise_baseline$I, col = "green")
+  lines(medium_noise_baseline$t, medium_noise_baseline$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r mnb_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+medium_noise_baseline_incidence <- get_weekly_incidence(get_incidence('Observation_Noise/medium-noise-baseline/medium-noise-baseline.txt'))
+write.table(medium_noise_baseline_incidence, 'Observation_Noise/medium-noise-baseline/medium-noise-baseline_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+medium_noise_baseline_tree <- get_tree('Observation_Noise/medium-noise-baseline/medium-noise-baseline.tree', 0.05)
+plot(medium_noise_baseline_tree)
+write.tree(medium_noise_baseline_tree, 'Observation_Noise/medium-noise-baseline/medium-noise-baseline_downsampledtree.tree') 
+```
+
+#### high-noise-baseline
+##### Load txt file and plot simulation
+``` {r load_hnb_simulation}
+high_noise_baseline <- read.csv('Observation_Noise/high-noise-baseline/high-noise-baseline.txt', header = T)
+plot(high_noise_baseline$t, high_noise_baseline$S, type = "l", col = "red", main = 'high_noise_baseline', ylim = c(0, 20000))
+  lines(high_noise_baseline$t, high_noise_baseline$I, col = "green")
+  lines(high_noise_baseline$t, high_noise_baseline$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r hnb_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+high_noise_baseline_incidence <- get_weekly_incidence(get_incidence('Observation_Noise/high-noise-baseline/high-noise-baseline.txt'))
+write.table(high_noise_baseline_incidence, 'Observation_Noise/high-noise-baseline/high-noise-baseline_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+high_noise_baseline_tree <- get_tree('Observation_Noise/high-noise-baseline/high-noise-baseline.tree', 0.05)
+plot(high_noise_baseline_tree)
+write.tree(high_noise_baseline_tree, 'Observation_Noise/high-noise-baseline/high-noise-baseline_downsampledtree.tree') 
+```
+
+
+#### low-noise-transmission
+We draw sampling rates again for a slightly longer simulation (step-change in transmission)
+``` {r lnt_draw_sampling}
+low_noise <- round(rnorm(43, mean = 0.02, sd = 0.001),4)
+paste0(low_noise, collapse = " ")
+
+changetimes <- seq(7, 300, 7)
+paste0(changetimes, collapse = " ")
+
+```
+
+##### Load txt file and plot simulation
+``` {r load_lnt_simulation}
+low_noise_transmission <- read.csv('Observation_Noise/low-noise-transmission/low-noise-transmission.txt', header = T)
+plot(low_noise_transmission$t, low_noise_transmission$S, type = "l", col = "red", main = 'low_noise_transmission', ylim = c(0, 20000))
+  lines(low_noise_transmission$t, low_noise_transmission$I, col = "green")
+  lines(low_noise_transmission$t, low_noise_transmission$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r lnt_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+low_noise_transmission_incidence <- get_weekly_incidence(get_incidence('Observation_Noise/low-noise-transmission/low-noise-transmission.txt'))
+write.table(low_noise_transmission_incidence, 'Observation_Noise/low-noise-transmission/low-noise-transmission_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+low_noise_transmission_tree <- get_tree('Observation_Noise/low-noise-transmission/low-noise-transmission.tree', 0.05)
+plot(low_noise_transmission_tree)
+write.tree(low_noise_transmission_tree, 'Observation_Noise/low-noise-transmission/low-noise-transmission_downsampledtree.tree') 
+```
+
+
+
+#### medium-noise-transmission
+
+We draw sampling rates again for a slightly longer simulation (step-change in transmission)
+``` {r mnt_draw_sampling}
+medium_noise <- round(rnorm(43, mean = 0.02, sd = 0.005),4)
+paste0(medium_noise, collapse = " ")
+
+changetimes <- seq(7, 300, 7)
+paste0(changetimes, collapse = " ")
+
+```
+
+##### Load txt file and plot simulation
+``` {r load_mnt_simulation}
+medium_noise_transmission <- read.csv('Observation_Noise/medium-noise-transmission/medium-noise-transmission.txt', header = T)
+plot(medium_noise_transmission$t, medium_noise_transmission$S, type = "l", col = "red", main = 'medium_noise_transmission', ylim = c(0, 20000))
+  lines(medium_noise_transmission$t, medium_noise_transmission$I, col = "green")
+  lines(medium_noise_transmission$t, medium_noise_transmission$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r mnt_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+medium_noise_transmission_incidence <- get_weekly_incidence(get_incidence('Observation_Noise/medium-noise-transmission/medium-noise-transmission.txt'))
+write.table(medium_noise_transmission_incidence, 'Observation_Noise/medium-noise-transmission/medium-noise-transmission_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+medium_noise_transmission_tree <- get_tree('Observation_Noise/medium-noise-transmission/medium-noise-transmission.tree', 0.05)
+plot(medium_noise_transmission_tree)
+write.tree(medium_noise_transmission_tree, 'Observation_Noise/medium-noise-transmission/medium-noise-transmission_downsampledtree.tree') 
+```
+
+
+#### high-noise-transmission
+``` {r hnt_draw_sampling}
+high_noise <- abs(round(rnorm(43, mean = 0.02, sd = 0.01),4))
+paste0(high_noise, collapse = " ")
+
+changetimes <- seq(7, 300, 7)
+paste0(changetimes, collapse = " ")
+
+```
+
+##### Load txt file and plot simulation
+``` {r load_hnt_simulation}
+high_noise_transmission <- read.csv('Observation_Noise/high-noise-transmission/high-noise-transmission.txt', header = T)
+plot(high_noise_transmission$t, high_noise_transmission$S, type = "l", col = "red", main = 'high_noise_transmission', ylim = c(0, 20000))
+  lines(high_noise_transmission$t, high_noise_transmission$I, col = "green")
+  lines(high_noise_transmission$t, high_noise_transmission$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r hnt_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+high_noise_transmission_incidence <- get_weekly_incidence(get_incidence('Observation_Noise/high-noise-transmission/high-noise-transmission.txt'))
+write.table(high_noise_transmission_incidence, 'Observation_Noise/high-noise-transmission/high-noise-transmission_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+high_noise_transmission_tree <- get_tree('Observation_Noise/high-noise-transmission/high-noise-transmission.tree', 0.05)
+plot(high_noise_transmission_tree)
+write.tree(high_noise_transmission_tree, 'Observation_Noise/high-noise-transmission/high-noise-transmission_downsampledtree.tree') 
+```
+
+
+### Epidemic Size {.tabset}
+#### small-epidemic
+##### Load txt file and plot simulation
+``` {r load_smallepidemic_simulation}
+small_epidemic <- read.csv('Epidemic_Size/small-epidemic/small-epidemic.txt', header = T)
+plot(small_epidemic$t, small_epidemic$S, type = "l", col = "red", main = 'small-epidemic', ylim = c(0, 10000))
+  lines(small_epidemic$t, small_epidemic$I, col = "green")
+  lines(small_epidemic$t, small_epidemic$R, col = "blue")
+  legend(0, 8000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r small_epidemic_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+small_epidemic_incidence <- get_weekly_incidence(get_incidence('Epidemic_Size/small-epidemic/small-epidemic.txt'))
+write.table(small_epidemic_incidence, 'Epidemic_Size/small-epidemic/small-epidemic_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+small_epidemic_tree <- get_tree('Epidemic_Size/small-epidemic/small-epidemic.tree', 0.05)
+plot(small_epidemic_tree)
+write.tree(small_epidemic_tree, 'Epidemic_Size/small-epidemic/small-epidemic_downsampledtree.tree') 
+```
+
+
+#### medium-epidemic
+##### Load txt file and plot simulation
+``` {r load_mediumepidemic_simulation}
+medium_epidemic <- read.csv('Epidemic_Size/medium-epidemic/medium-epidemic.txt', header = T)
+plot(medium_epidemic$t, medium_epidemic$S, type = "l", col = "red", main = 'medium-epidemic', ylim = c(0, 100000))
+  lines(medium_epidemic$t, medium_epidemic$I, col = "green")
+  lines(medium_epidemic$t, medium_epidemic$R, col = "blue")
+  legend(30, 50000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r medium_epidemic_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+medium_epidemic_incidence <- get_weekly_incidence(get_incidence('Epidemic_Size/medium-epidemic/medium-epidemic.txt'))
+write.table(medium_epidemic_incidence, 'Epidemic_Size/medium-epidemic/medium-epidemic_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+medium_epidemic_tree <- get_tree('Epidemic_Size/medium-epidemic/medium-epidemic.tree', 0.05)
+plot(medium_epidemic_tree)
+write.tree(medium_epidemic_tree, 'Epidemic_Size/medium-epidemic/medium-epidemic_downsampledtree.tree') 
+```
+
+#### large-epidemic
+##### Load txt file and plot simulation
+``` {r load_largeepidemic_simulation}
+large_epidemic <- read.csv('Epidemic_Size/large-epidemic/large-epidemic.txt', header = T)
+plot(large_epidemic$t, large_epidemic$S, type = "l", col = "red", main = 'large-epidemic', ylim = c(0, 1000000))
+  lines(large_epidemic$t, large_epidemic$I, col = "green")
+  lines(large_epidemic$t, large_epidemic$R, col = "blue")
+  legend(10, 500000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+For this large epidemic, this section takes a long time to run due to the high volume of cases.
+``` {r large_epidemic_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+large_epidemic_incidence <- get_weekly_incidence(get_incidence('Epidemic_Size/large-epidemic/large-epidemic.txt'))
+write.table(large_epidemic_incidence, 'Epidemic_Size/large-epidemic/large-epidemic_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+large_epidemic_tree <- get_tree('Epidemic_Size/large-epidemic/large-epidemic.tree', 0.05)
+plot(large_epidemic_tree)
+write.tree(large_epidemic_tree, 'Epidemic_Size/large-epidemic/large-epidemic_downsampledtree.tree') 
+```
+
+
+### Tree Size {.tabset}
+For this section, we will just use one simulated outbreak, but alter the density of 'sequencing'. We will simulate a baseline scenario with a small amount of observation noise, similar to `low-noise-baseline`. The output of this simulation is saved in the `Tree_Size` folder and the code in each tab is used to create trees of different size.
+
+##### Plot simulation and get incidence
+This will be the same for all three sub-simulations (the thing we are varying here is the tree size, not case incidence) so we can do that now for all of them:
+
+``` {r plottreesize}
+treesize_epidemic <- read.csv('Tree_Size/tree-size.txt', header = T)
+plot(treesize_epidemic$t, treesize_epidemic$S, type = "l", col = "red", main = 'tree-size', ylim = c(0, 1000000))
+  lines(treesize_epidemic$t, treesize_epidemic$I, col = "green")
+  lines(treesize_epidemic$t, treesize_epidemic$R, col = "blue")
+  legend(10, 500000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+
+``` {r saveincidence}
+treesize_incidence <- get_weekly_incidence(get_incidence('Tree_Size/tree-size.txt'))
+write.table(treesize_incidence, 'Tree_Size/small-tree/tree-size_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+write.table(treesize_incidence, 'Tree_Size/medium-tree/tree-size_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+write.table(treesize_incidence, 'Tree_Size/large-tree/tree-size_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+```
+
+
+#### small-tree
+``` {r small_tree, fig.show = 'hold', out.width = "50%"}
+small_tree <- get_tree('Tree_Size/tree-size.tree', 0.01)
+plot(small_tree)
+write.tree(small_tree, 'Tree_Size/small-tree/small-tree_downsampledtree.tree') 
+```
+#### medium-tree
+``` {r medium_tree, fig.show = 'hold', out.width = "50%"}
+medium_tree <- get_tree('Tree_Size/tree-size.tree', 0.1)
+plot(medium_tree)
+write.tree(medium_tree, 'Tree_Size/medium-tree/medium-tree_downsampledtree.tree') 
+```
+
+#### large-tree
+``` {r large_tree, fig.show = 'hold', out.width = "50%"}
+large_tree <- get_tree('Tree_Size/tree-size.tree', 0.25)
+plot(large_tree)
+write.tree(large_tree, 'Tree_Size/large-tree/large-tree_downsampledtree.tree') 
+```
+
+
+
+
+
+
+
+
+
+
+

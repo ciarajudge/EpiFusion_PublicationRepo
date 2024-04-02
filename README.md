@@ -1,7 +1,21 @@
 # EpiFusion Publication Repository
-This is a repository to fully reproduce the results of the paper 'EpiFusion: Joint inference of the effective reproduction number by integrating phylodynamic and epidemiological modelling with particle filtering'. By cloning this repository and following the instructions in this README and in the `replicate_results.Rmd` file, you will be able to fully reproduce the results in the paper, including the appendix.
+This repository houses the data and code to fully reproduce the results of the paper 'EpiFusion: Joint inference of the effective reproduction number by integrating phylodynamic and epidemiological modelling with particle filtering'. By cloning this repository and following the instructions in this README and in the `replicate_results.Rmd` file, you will be able to fully reproduce the results in the paper, including the appendix.
 
-## Models in this paper and where they appear
+# Steps in the paper
+### 1. Simulating Data
+The information, XML files, and parsing code used to create each simulated dataset is in the Data_Simulation folder, divided out by section and by simulation. The Data_Simulation folder also contains a README with an index of every simulated dataset used in the paper.
+
+### 2. Running EpiFusion Models (EpiFusion XMLs)
+The `Data` folder contains the final EpiFusion XML parameter files (including any data simulated in step 1) for every model featured in the paper. Should you wish to rerun the models quoted in the paper using the EpiFusion program, you can use these XML files, and the EpiFusion jar file used to run them `EpiFusion.jar`. The model XML files are preloaded with file names that will place them in a new folder, called `Results2`, so as not to overwrite the actual paper results. The bottom of this page has further instructions on rerunning the models.
+
+### 3. Benchmarking (Other Programs)
+This paper also features models run with other tools in the section where we benchmark EpiFusion performance. We do not include detailed information on how to rerun these other programs, but we do provide the parameter files in the folder `Benchmarking_Parameters`, and the results are already in the `Results` folder.
+
+### 4. Results, Plotting and Tables
+Even if you do not complete steps 1-3, this repository has all the results featured in the paper in the `Results` folder, and you can use the .Rmd file `replicate_results.Rmd` to reproduce them. If you have rerun EpiFusion (per step 2) and want to use your own output, be sure to change the results folder in the script to `Results2` (this will be clearly marked in the script).
+
+
+# Models in this paper and where they appear
 ### EpiFusion Models
 1. **Simulated Baseline/Introduction Scenario, Combined:**
 * The data for this model is pictured in Fig 2
