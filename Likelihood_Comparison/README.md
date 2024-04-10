@@ -1,6 +1,6 @@
 # Likelihood Comparison
 
-To validate our discretised phylogenetic likelihood we compared the likelihood of ranges of parameters given the same dataset under a Phylo-Only EpiFusion model to a BDSky model. This folder contains all of the code and results for this section.
+To validate our discretised phylogenetic likelihood we compared the likelihood of ranges of parameters given the same dataset under a Phylo-Only EpiFusion model to a BDSky model. This folder contains all of the code needed to reproduce this section, and the final output of this section: a csv file containing the EpiFusion likelihood and BDSky likelihood for a range of model parameters on a range of datasets. The interim results (the epifusion files and outputs, and the densitymapper files and outputs), are not included as they are quite bulky and Github does not like them - however if you want to reproduce the interim results you can use the `Likelihood_Comparison.R` script (details below).
 
 ## Code
 The code that automated this process is in `Likelihood_Comparison.R`, as an R script rather than Rmd to make automation slightly easier. The steps taken in this script are walked through below. The automation process makes some assumptions: 
