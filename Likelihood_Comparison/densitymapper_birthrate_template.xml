@@ -1,0 +1,44 @@
+<beast version="2.0"
+    namespace="
+        beast.util
+        :beast.base.inference.parameter
+        :beast.base.evolution.tree.coalescent
+        :beast.base.evolution.tree
+        :feast.mapping
+        :bdsky.evolution.speciation">
+
+
+  <tree id="tree" spec="TreeParser"
+        adjustTipHeights="false"
+        IsLabelledNewick="true"
+        newick= "treetemplate"/>
+
+  <run spec="DensityMapper">
+
+        <realParam spec="RealParameter" id="birthRate" value="0.15" lower="lowerplaceholder" upper="upperplaceholder"/>
+        <steps spec="IntegerParameter" value="50"/>
+        <logScale spec="BooleanParameter" value="false"/>
+
+        <distribution spec="BirthDeathSkylineModel" id="density"
+                      tree="@tree"
+                      origin="originplaceholder"
+                      reverseTimeArrays="false false false false false"
+                      birthRate="@birthRate"
+                      deathRate="truedeathrate"
+                      samplingRate="truebirthrate"
+                      removalProbability="1">
+
+        </distribution>
+
+        <logger fileName="$(filebase).log" logEvery="1">
+          <log idref="birthRate"/>
+          <log idref="density"/>
+        </logger>
+
+        <logger id="screenlog" logEvery="1">
+          <log idref="birthRate"/>
+          <log idref="density"/>
+        </logger>
+    </run>
+
+</beast>

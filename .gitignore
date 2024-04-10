@@ -9,3 +9,9 @@
 
 Results/*
 Data/*
+
+Simulation_Based_Calibration/rep*
+Scenario_Testing/*
+
+Likelihood_Comparison/*/*
+
