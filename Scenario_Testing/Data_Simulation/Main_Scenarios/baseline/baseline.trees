@@ -1,0 +1,2384 @@
+#NEXUS
+
+Begin taxa;
+	Dimensions ntax=1186;
+		Taxlabels
+			leaf_0
+			leaf_1
+			leaf_2
+			leaf_3
+			leaf_4
+			leaf_5
+			leaf_6
+			leaf_7
+			leaf_8
+			leaf_9
+			leaf_10
+			leaf_11
+			leaf_12
+			leaf_13
+			leaf_14
+			leaf_15
+			leaf_16
+			leaf_17
+			leaf_18
+			leaf_19
+			leaf_20
+			leaf_21
+			leaf_22
+			leaf_23
+			leaf_24
+			leaf_25
+			leaf_26
+			leaf_27
+			leaf_28
+			leaf_29
+			leaf_30
+			leaf_31
+			leaf_32
+			leaf_33
+			leaf_34
+			leaf_35
+			leaf_36
+			leaf_37
+			leaf_38
+			leaf_39
+			leaf_40
+			leaf_41
+			leaf_42
+			leaf_43
+			leaf_44
+			leaf_45
+			leaf_46
+			leaf_47
+			leaf_48
+			leaf_49
+			leaf_50
+			leaf_51
+			leaf_52
+			leaf_53
+			leaf_54
+			leaf_55
+			leaf_56
+			leaf_57
+			leaf_58
+			leaf_59
+			leaf_60
+			leaf_61
+			leaf_62
+			leaf_63
+			leaf_64
+			leaf_65
+			leaf_66
+			leaf_67
+			leaf_68
+			leaf_69
+			leaf_70
+			leaf_71
+			leaf_72
+			leaf_73
+			leaf_74
+			leaf_75
+			leaf_76
+			leaf_77
+			leaf_78
+			leaf_79
+			leaf_80
+			leaf_81
+			leaf_82
+			leaf_83
+			leaf_84
+			leaf_85
+			leaf_86
+			leaf_87
+			leaf_88
+			leaf_89
+			leaf_90
+			leaf_91
+			leaf_92
+			leaf_93
+			leaf_94
+			leaf_95
+			leaf_96
+			leaf_97
+			leaf_98
+			leaf_99
+			leaf_100
+			leaf_101
+			leaf_102
+			leaf_103
+			leaf_104
+			leaf_105
+			leaf_106
+			leaf_107
+			leaf_108
+			leaf_109
+			leaf_110
+			leaf_111
+			leaf_112
+			leaf_113
+			leaf_114
+			leaf_115
+			leaf_116
+			leaf_117
+			leaf_118
+			leaf_119
+			leaf_120
+			leaf_121
+			leaf_122
+			leaf_123
+			leaf_124
+			leaf_125
+			leaf_126
+			leaf_127
+			leaf_128
+			leaf_129
+			leaf_130
+			leaf_131
+			leaf_132
+			leaf_133
+			leaf_134
+			leaf_135
+			leaf_136
+			leaf_137
+			leaf_138
+			leaf_139
+			leaf_140
+			leaf_141
+			leaf_142
+			leaf_143
+			leaf_144
+			leaf_145
+			leaf_146
+			leaf_147
+			leaf_148
+			leaf_149
+			leaf_150
+			leaf_151
+			leaf_152
+			leaf_153
+			leaf_154
+			leaf_155
+			leaf_156
+			leaf_157
+			leaf_158
+			leaf_159
+			leaf_160
+			leaf_161
+			leaf_162
+			leaf_163
+			leaf_164
+			leaf_165
+			leaf_166
+			leaf_167
+			leaf_168
+			leaf_169
+			leaf_170
+			leaf_171
+			leaf_172
+			leaf_173
+			leaf_174
+			leaf_175
+			leaf_176
+			leaf_177
+			leaf_178
+			leaf_179
+			leaf_180
+			leaf_181
+			leaf_182
+			leaf_183
+			leaf_184
+			leaf_185
+			leaf_186
+			leaf_187
+			leaf_188
+			leaf_189
+			leaf_190
+			leaf_191
+			leaf_192
+			leaf_193
+			leaf_194
+			leaf_195
+			leaf_196
+			leaf_197
+			leaf_198
+			leaf_199
+			leaf_200
+			leaf_201
+			leaf_202
+			leaf_203
+			leaf_204
+			leaf_205
+			leaf_206
+			leaf_207
+			leaf_208
+			leaf_209
+			leaf_210
+			leaf_211
+			leaf_212
+			leaf_213
+			leaf_214
+			leaf_215
+			leaf_216
+			leaf_217
+			leaf_218
+			leaf_219
+			leaf_220
+			leaf_221
+			leaf_222
+			leaf_223
+			leaf_224
+			leaf_225
+			leaf_226
+			leaf_227
+			leaf_228
+			leaf_229
+			leaf_230
+			leaf_231
+			leaf_232
+			leaf_233
+			leaf_234
+			leaf_235
+			leaf_236
+			leaf_237
+			leaf_238
+			leaf_239
+			leaf_240
+			leaf_241
+			leaf_242
+			leaf_243
+			leaf_244
+			leaf_245
+			leaf_246
+			leaf_247
+			leaf_248
+			leaf_249
+			leaf_250
+			leaf_251
+			leaf_252
+			leaf_253
+			leaf_254
+			leaf_255
+			leaf_256
+			leaf_257
+			leaf_258
+			leaf_259
+			leaf_260
+			leaf_261
+			leaf_262
+			leaf_263
+			leaf_264
+			leaf_265
+			leaf_266
+			leaf_267
+			leaf_268
+			leaf_269
+			leaf_270
+			leaf_271
+			leaf_272
+			leaf_273
+			leaf_274
+			leaf_275
+			leaf_276
+			leaf_277
+			leaf_278
+			leaf_279
+			leaf_280
+			leaf_281
+			leaf_282
+			leaf_283
+			leaf_284
+			leaf_285
+			leaf_286
+			leaf_287
+			leaf_288
+			leaf_289
+			leaf_290
+			leaf_291
+			leaf_292
+			leaf_293
+			leaf_294
+			leaf_295
+			leaf_296
+			leaf_297
+			leaf_298
+			leaf_299
+			leaf_300
+			leaf_301
+			leaf_302
+			leaf_303
+			leaf_304
+			leaf_305
+			leaf_306
+			leaf_307
+			leaf_308
+			leaf_309
+			leaf_310
+			leaf_311
+			leaf_312
+			leaf_313
+			leaf_314
+			leaf_315
+			leaf_316
+			leaf_317
+			leaf_318
+			leaf_319
+			leaf_320
+			leaf_321
+			leaf_322
+			leaf_323
+			leaf_324
+			leaf_325
+			leaf_326
+			leaf_327
+			leaf_328
+			leaf_329
+			leaf_330
+			leaf_331
+			leaf_332
+			leaf_333
+			leaf_334
+			leaf_335
+			leaf_336
+			leaf_337
+			leaf_338
+			leaf_339
+			leaf_340
+			leaf_341
+			leaf_342
+			leaf_343
+			leaf_344
+			leaf_345
+			leaf_346
+			leaf_347
+			leaf_348
+			leaf_349
+			leaf_350
+			leaf_351
+			leaf_352
+			leaf_353
+			leaf_354
+			leaf_355
+			leaf_356
+			leaf_357
+			leaf_358
+			leaf_359
+			leaf_360
+			leaf_361
+			leaf_362
+			leaf_363
+			leaf_364
+			leaf_365
+			leaf_366
+			leaf_367
+			leaf_368
+			leaf_369
+			leaf_370
+			leaf_371
+			leaf_372
+			leaf_373
+			leaf_374
+			leaf_375
+			leaf_376
+			leaf_377
+			leaf_378
+			leaf_379
+			leaf_380
+			leaf_381
+			leaf_382
+			leaf_383
+			leaf_384
+			leaf_385
+			leaf_386
+			leaf_387
+			leaf_388
+			leaf_389
+			leaf_390
+			leaf_391
+			leaf_392
+			leaf_393
+			leaf_394
+			leaf_395
+			leaf_396
+			leaf_397
+			leaf_398
+			leaf_399
+			leaf_400
+			leaf_401
+			leaf_402
+			leaf_403
+			leaf_404
+			leaf_405
+			leaf_406
+			leaf_407
+			leaf_408
+			leaf_409
+			leaf_410
+			leaf_411
+			leaf_412
+			leaf_413
+			leaf_414
+			leaf_415
+			leaf_416
+			leaf_417
+			leaf_418
+			leaf_419
+			leaf_420
+			leaf_421
+			leaf_422
+			leaf_423
+			leaf_424
+			leaf_425
+			leaf_426
+			leaf_427
+			leaf_428
+			leaf_429
+			leaf_430
+			leaf_431
+			leaf_432
+			leaf_433
+			leaf_434
+			leaf_435
+			leaf_436
+			leaf_437
+			leaf_438
+			leaf_439
+			leaf_440
+			leaf_441
+			leaf_442
+			leaf_443
+			leaf_444
+			leaf_445
+			leaf_446
+			leaf_447
+			leaf_448
+			leaf_449
+			leaf_450
+			leaf_451
+			leaf_452
+			leaf_453
+			leaf_454
+			leaf_455
+			leaf_456
+			leaf_457
+			leaf_458
+			leaf_459
+			leaf_460
+			leaf_461
+			leaf_462
+			leaf_463
+			leaf_464
+			leaf_465
+			leaf_466
+			leaf_467
+			leaf_468
+			leaf_469
+			leaf_470
+			leaf_471
+			leaf_472
+			leaf_473
+			leaf_474
+			leaf_475
+			leaf_476
+			leaf_477
+			leaf_478
+			leaf_479
+			leaf_480
+			leaf_481
+			leaf_482
+			leaf_483
+			leaf_484
+			leaf_485
+			leaf_486
+			leaf_487
+			leaf_488
+			leaf_489
+			leaf_490
+			leaf_491
+			leaf_492
+			leaf_493
+			leaf_494
+			leaf_495
+			leaf_496
+			leaf_497
+			leaf_498
+			leaf_499
+			leaf_500
+			leaf_501
+			leaf_502
+			leaf_503
+			leaf_504
+			leaf_505
+			leaf_506
+			leaf_507
+			leaf_508
+			leaf_509
+			leaf_510
+			leaf_511
+			leaf_512
+			leaf_513
+			leaf_514
+			leaf_515
+			leaf_516
+			leaf_517
+			leaf_518
+			leaf_519
+			leaf_520
+			leaf_521
+			leaf_522
+			leaf_523
+			leaf_524
+			leaf_525
+			leaf_526
+			leaf_527
+			leaf_528
+			leaf_529
+			leaf_530
+			leaf_531
+			leaf_532
+			leaf_533
+			leaf_534
+			leaf_535
+			leaf_536
+			leaf_537
+			leaf_538
+			leaf_539
+			leaf_540
+			leaf_541
+			leaf_542
+			leaf_543
+			leaf_544
+			leaf_545
+			leaf_546
+			leaf_547
+			leaf_548
+			leaf_549
+			leaf_550
+			leaf_551
+			leaf_552
+			leaf_553
+			leaf_554
+			leaf_555
+			leaf_556
+			leaf_557
+			leaf_558
+			leaf_559
+			leaf_560
+			leaf_561
+			leaf_562
+			leaf_563
+			leaf_564
+			leaf_565
+			leaf_566
+			leaf_567
+			leaf_568
+			leaf_569
+			leaf_570
+			leaf_571
+			leaf_572
+			leaf_573
+			leaf_574
+			leaf_575
+			leaf_576
+			leaf_577
+			leaf_578
+			leaf_579
+			leaf_580
+			leaf_581
+			leaf_582
+			leaf_583
+			leaf_584
+			leaf_585
+			leaf_586
+			leaf_587
+			leaf_588
+			leaf_589
+			leaf_590
+			leaf_591
+			leaf_592
+			leaf_593
+			leaf_594
+			leaf_595
+			leaf_596
+			leaf_597
+			leaf_598
+			leaf_599
+			leaf_600
+			leaf_601
+			leaf_602
+			leaf_603
+			leaf_604
+			leaf_605
+			leaf_606
+			leaf_607
+			leaf_608
+			leaf_609
+			leaf_610
+			leaf_611
+			leaf_612
+			leaf_613
+			leaf_614
+			leaf_615
+			leaf_616
+			leaf_617
+			leaf_618
+			leaf_619
+			leaf_620
+			leaf_621
+			leaf_622
+			leaf_623
+			leaf_624
+			leaf_625
+			leaf_626
+			leaf_627
+			leaf_628
+			leaf_629
+			leaf_630
+			leaf_631
+			leaf_632
+			leaf_633
+			leaf_634
+			leaf_635
+			leaf_636
+			leaf_637
+			leaf_638
+			leaf_639
+			leaf_640
+			leaf_641
+			leaf_642
+			leaf_643
+			leaf_644
+			leaf_645
+			leaf_646
+			leaf_647
+			leaf_648
+			leaf_649
+			leaf_650
+			leaf_651
+			leaf_652
+			leaf_653
+			leaf_654
+			leaf_655
+			leaf_656
+			leaf_657
+			leaf_658
+			leaf_659
+			leaf_660
+			leaf_661
+			leaf_662
+			leaf_663
+			leaf_664
+			leaf_665
+			leaf_666
+			leaf_667
+			leaf_668
+			leaf_669
+			leaf_670
+			leaf_671
+			leaf_672
+			leaf_673
+			leaf_674
+			leaf_675
+			leaf_676
+			leaf_677
+			leaf_678
+			leaf_679
+			leaf_680
+			leaf_681
+			leaf_682
+			leaf_683
+			leaf_684
+			leaf_685
+			leaf_686
+			leaf_687
+			leaf_688
+			leaf_689
+			leaf_690
+			leaf_691
+			leaf_692
+			leaf_693
+			leaf_694
+			leaf_695
+			leaf_696
+			leaf_697
+			leaf_698
+			leaf_699
+			leaf_700
+			leaf_701
+			leaf_702
+			leaf_703
+			leaf_704
+			leaf_705
+			leaf_706
+			leaf_707
+			leaf_708
+			leaf_709
+			leaf_710
+			leaf_711
+			leaf_712
+			leaf_713
+			leaf_714
+			leaf_715
+			leaf_716
+			leaf_717
+			leaf_718
+			leaf_719
+			leaf_720
+			leaf_721
+			leaf_722
+			leaf_723
+			leaf_724
+			leaf_725
+			leaf_726
+			leaf_727
+			leaf_728
+			leaf_729
+			leaf_730
+			leaf_731
+			leaf_732
+			leaf_733
+			leaf_734
+			leaf_735
+			leaf_736
+			leaf_737
+			leaf_738
+			leaf_739
+			leaf_740
+			leaf_741
+			leaf_742
+			leaf_743
+			leaf_744
+			leaf_745
+			leaf_746
+			leaf_747
+			leaf_748
+			leaf_749
+			leaf_750
+			leaf_751
+			leaf_752
+			leaf_753
+			leaf_754
+			leaf_755
+			leaf_756
+			leaf_757
+			leaf_758
+			leaf_759
+			leaf_760
+			leaf_761
+			leaf_762
+			leaf_763
+			leaf_764
+			leaf_765
+			leaf_766
+			leaf_767
+			leaf_768
+			leaf_769
+			leaf_770
+			leaf_771
+			leaf_772
+			leaf_773
+			leaf_774
+			leaf_775
+			leaf_776
+			leaf_777
+			leaf_778
+			leaf_779
+			leaf_780
+			leaf_781
+			leaf_782
+			leaf_783
+			leaf_784
+			leaf_785
+			leaf_786
+			leaf_787
+			leaf_788
+			leaf_789
+			leaf_790
+			leaf_791
+			leaf_792
+			leaf_793
+			leaf_794
+			leaf_795
+			leaf_796
+			leaf_797
+			leaf_798
+			leaf_799
+			leaf_800
+			leaf_801
+			leaf_802
+			leaf_803
+			leaf_804
+			leaf_805
+			leaf_806
+			leaf_807
+			leaf_808
+			leaf_809
+			leaf_810
+			leaf_811
+			leaf_812
+			leaf_813
+			leaf_814
+			leaf_815
+			leaf_816
+			leaf_817
+			leaf_818
+			leaf_819
+			leaf_820
+			leaf_821
+			leaf_822
+			leaf_823
+			leaf_824
+			leaf_825
+			leaf_826
+			leaf_827
+			leaf_828
+			leaf_829
+			leaf_830
+			leaf_831
+			leaf_832
+			leaf_833
+			leaf_834
+			leaf_835
+			leaf_836
+			leaf_837
+			leaf_838
+			leaf_839
+			leaf_840
+			leaf_841
+			leaf_842
+			leaf_843
+			leaf_844
+			leaf_845
+			leaf_846
+			leaf_847
+			leaf_848
+			leaf_849
+			leaf_850
+			leaf_851
+			leaf_852
+			leaf_853
+			leaf_854
+			leaf_855
+			leaf_856
+			leaf_857
+			leaf_858
+			leaf_859
+			leaf_860
+			leaf_861
+			leaf_862
+			leaf_863
+			leaf_864
+			leaf_865
+			leaf_866
+			leaf_867
+			leaf_868
+			leaf_869
+			leaf_870
+			leaf_871
+			leaf_872
+			leaf_873
+			leaf_874
+			leaf_875
+			leaf_876
+			leaf_877
+			leaf_878
+			leaf_879
+			leaf_880
+			leaf_881
+			leaf_882
+			leaf_883
+			leaf_884
+			leaf_885
+			leaf_886
+			leaf_887
+			leaf_888
+			leaf_889
+			leaf_890
+			leaf_891
+			leaf_892
+			leaf_893
+			leaf_894
+			leaf_895
+			leaf_896
+			leaf_897
+			leaf_898
+			leaf_899
+			leaf_900
+			leaf_901
+			leaf_902
+			leaf_903
+			leaf_904
+			leaf_905
+			leaf_906
+			leaf_907
+			leaf_908
+			leaf_909
+			leaf_910
+			leaf_911
+			leaf_912
+			leaf_913
+			leaf_914
+			leaf_915
+			leaf_916
+			leaf_917
+			leaf_918
+			leaf_919
+			leaf_920
+			leaf_921
+			leaf_922
+			leaf_923
+			leaf_924
+			leaf_925
+			leaf_926
+			leaf_927
+			leaf_928
+			leaf_929
+			leaf_930
+			leaf_931
+			leaf_932
+			leaf_933
+			leaf_934
+			leaf_935
+			leaf_936
+			leaf_937
+			leaf_938
+			leaf_939
+			leaf_940
+			leaf_941
+			leaf_942
+			leaf_943
+			leaf_944
+			leaf_945
+			leaf_946
+			leaf_947
+			leaf_948
+			leaf_949
+			leaf_950
+			leaf_951
+			leaf_952
+			leaf_953
+			leaf_954
+			leaf_955
+			leaf_956
+			leaf_957
+			leaf_958
+			leaf_959
+			leaf_960
+			leaf_961
+			leaf_962
+			leaf_963
+			leaf_964
+			leaf_965
+			leaf_966
+			leaf_967
+			leaf_968
+			leaf_969
+			leaf_970
+			leaf_971
+			leaf_972
+			leaf_973
+			leaf_974
+			leaf_975
+			leaf_976
+			leaf_977
+			leaf_978
+			leaf_979
+			leaf_980
+			leaf_981
+			leaf_982
+			leaf_983
+			leaf_984
+			leaf_985
+			leaf_986
+			leaf_987
+			leaf_988
+			leaf_989
+			leaf_990
+			leaf_991
+			leaf_992
+			leaf_993
+			leaf_994
+			leaf_995
+			leaf_996
+			leaf_997
+			leaf_998
+			leaf_999
+			leaf_1000
+			leaf_1001
+			leaf_1002
+			leaf_1003
+			leaf_1004
+			leaf_1005
+			leaf_1006
+			leaf_1007
+			leaf_1008
+			leaf_1009
+			leaf_1010
+			leaf_1011
+			leaf_1012
+			leaf_1013
+			leaf_1014
+			leaf_1015
+			leaf_1016
+			leaf_1017
+			leaf_1018
+			leaf_1019
+			leaf_1020
+			leaf_1021
+			leaf_1022
+			leaf_1023
+			leaf_1024
+			leaf_1025
+			leaf_1026
+			leaf_1027
+			leaf_1028
+			leaf_1029
+			leaf_1030
+			leaf_1031
+			leaf_1032
+			leaf_1033
+			leaf_1034
+			leaf_1035
+			leaf_1036
+			leaf_1037
+			leaf_1038
+			leaf_1039
+			leaf_1040
+			leaf_1041
+			leaf_1042
+			leaf_1043
+			leaf_1044
+			leaf_1045
+			leaf_1046
+			leaf_1047
+			leaf_1048
+			leaf_1049
+			leaf_1050
+			leaf_1051
+			leaf_1052
+			leaf_1053
+			leaf_1054
+			leaf_1055
+			leaf_1056
+			leaf_1057
+			leaf_1058
+			leaf_1059
+			leaf_1060
+			leaf_1061
+			leaf_1062
+			leaf_1063
+			leaf_1064
+			leaf_1065
+			leaf_1066
+			leaf_1067
+			leaf_1068
+			leaf_1069
+			leaf_1070
+			leaf_1071
+			leaf_1072
+			leaf_1073
+			leaf_1074
+			leaf_1075
+			leaf_1076
+			leaf_1077
+			leaf_1078
+			leaf_1079
+			leaf_1080
+			leaf_1081
+			leaf_1082
+			leaf_1083
+			leaf_1084
+			leaf_1085
+			leaf_1086
+			leaf_1087
+			leaf_1088
+			leaf_1089
+			leaf_1090
+			leaf_1091
+			leaf_1092
+			leaf_1093
+			leaf_1094
+			leaf_1095
+			leaf_1096
+			leaf_1097
+			leaf_1098
+			leaf_1099
+			leaf_1100
+			leaf_1101
+			leaf_1102
+			leaf_1103
+			leaf_1104
+			leaf_1105
+			leaf_1106
+			leaf_1107
+			leaf_1108
+			leaf_1109
+			leaf_1110
+			leaf_1111
+			leaf_1112
+			leaf_1113
+			leaf_1114
+			leaf_1115
+			leaf_1116
+			leaf_1117
+			leaf_1118
+			leaf_1119
+			leaf_1120
+			leaf_1121
+			leaf_1122
+			leaf_1123
+			leaf_1124
+			leaf_1125
+			leaf_1126
+			leaf_1127
+			leaf_1128
+			leaf_1129
+			leaf_1130
+			leaf_1131
+			leaf_1132
+			leaf_1133
+			leaf_1134
+			leaf_1135
+			leaf_1136
+			leaf_1137
+			leaf_1138
+			leaf_1139
+			leaf_1140
+			leaf_1141
+			leaf_1142
+			leaf_1143
+			leaf_1144
+			leaf_1145
+			leaf_1146
+			leaf_1147
+			leaf_1148
+			leaf_1149
+			leaf_1150
+			leaf_1151
+			leaf_1152
+			leaf_1153
+			leaf_1154
+			leaf_1155
+			leaf_1156
+			leaf_1157
+			leaf_1158
+			leaf_1159
+			leaf_1160
+			leaf_1161
+			leaf_1162
+			leaf_1163
+			leaf_1164
+			leaf_1165
+			leaf_1166
+			leaf_1167
+			leaf_1168
+			leaf_1169
+			leaf_1170
+			leaf_1171
+			leaf_1172
+			leaf_1173
+			leaf_1174
+			leaf_1175
+			leaf_1176
+			leaf_1177
+			leaf_1178
+			leaf_1179
+			leaf_1180
+			leaf_1181
+			leaf_1182
+			leaf_1183
+			leaf_1184
+			leaf_1185
+			;
+End;
+Begin trees;
+	Translate
+		   1 leaf_0,
+		   2 leaf_1,
+		   3 leaf_2,
+		   4 leaf_3,
+		   5 leaf_4,
+		   6 leaf_5,
+		   7 leaf_6,
+		   8 leaf_7,
+		   9 leaf_8,
+		  10 leaf_9,
+		  11 leaf_10,
+		  12 leaf_11,
+		  13 leaf_12,
+		  14 leaf_13,
+		  15 leaf_14,
+		  16 leaf_15,
+		  17 leaf_16,
+		  18 leaf_17,
+		  19 leaf_18,
+		  20 leaf_19,
+		  21 leaf_20,
+		  22 leaf_21,
+		  23 leaf_22,
+		  24 leaf_23,
+		  25 leaf_24,
+		  26 leaf_25,
+		  27 leaf_26,
+		  28 leaf_27,
+		  29 leaf_28,
+		  30 leaf_29,
+		  31 leaf_30,
+		  32 leaf_31,
+		  33 leaf_32,
+		  34 leaf_33,
+		  35 leaf_34,
+		  36 leaf_35,
+		  37 leaf_36,
+		  38 leaf_37,
+		  39 leaf_38,
+		  40 leaf_39,
+		  41 leaf_40,
+		  42 leaf_41,
+		  43 leaf_42,
+		  44 leaf_43,
+		  45 leaf_44,
+		  46 leaf_45,
+		  47 leaf_46,
+		  48 leaf_47,
+		  49 leaf_48,
+		  50 leaf_49,
+		  51 leaf_50,
+		  52 leaf_51,
+		  53 leaf_52,
+		  54 leaf_53,
+		  55 leaf_54,
+		  56 leaf_55,
+		  57 leaf_56,
+		  58 leaf_57,
+		  59 leaf_58,
+		  60 leaf_59,
+		  61 leaf_60,
+		  62 leaf_61,
+		  63 leaf_62,
+		  64 leaf_63,
+		  65 leaf_64,
+		  66 leaf_65,
+		  67 leaf_66,
+		  68 leaf_67,
+		  69 leaf_68,
+		  70 leaf_69,
+		  71 leaf_70,
+		  72 leaf_71,
+		  73 leaf_72,
+		  74 leaf_73,
+		  75 leaf_74,
+		  76 leaf_75,
+		  77 leaf_76,
+		  78 leaf_77,
+		  79 leaf_78,
+		  80 leaf_79,
+		  81 leaf_80,
+		  82 leaf_81,
+		  83 leaf_82,
+		  84 leaf_83,
+		  85 leaf_84,
+		  86 leaf_85,
+		  87 leaf_86,
+		  88 leaf_87,
+		  89 leaf_88,
+		  90 leaf_89,
+		  91 leaf_90,
+		  92 leaf_91,
+		  93 leaf_92,
+		  94 leaf_93,
+		  95 leaf_94,
+		  96 leaf_95,
+		  97 leaf_96,
+		  98 leaf_97,
+		  99 leaf_98,
+		 100 leaf_99,
+		 101 leaf_100,
+		 102 leaf_101,
+		 103 leaf_102,
+		 104 leaf_103,
+		 105 leaf_104,
+		 106 leaf_105,
+		 107 leaf_106,
+		 108 leaf_107,
+		 109 leaf_108,
+		 110 leaf_109,
+		 111 leaf_110,
+		 112 leaf_111,
+		 113 leaf_112,
+		 114 leaf_113,
+		 115 leaf_114,
+		 116 leaf_115,
+		 117 leaf_116,
+		 118 leaf_117,
+		 119 leaf_118,
+		 120 leaf_119,
+		 121 leaf_120,
+		 122 leaf_121,
+		 123 leaf_122,
+		 124 leaf_123,
+		 125 leaf_124,
+		 126 leaf_125,
+		 127 leaf_126,
+		 128 leaf_127,
+		 129 leaf_128,
+		 130 leaf_129,
+		 131 leaf_130,
+		 132 leaf_131,
+		 133 leaf_132,
+		 134 leaf_133,
+		 135 leaf_134,
+		 136 leaf_135,
+		 137 leaf_136,
+		 138 leaf_137,
+		 139 leaf_138,
+		 140 leaf_139,
+		 141 leaf_140,
+		 142 leaf_141,
+		 143 leaf_142,
+		 144 leaf_143,
+		 145 leaf_144,
+		 146 leaf_145,
+		 147 leaf_146,
+		 148 leaf_147,
+		 149 leaf_148,
+		 150 leaf_149,
+		 151 leaf_150,
+		 152 leaf_151,
+		 153 leaf_152,
+		 154 leaf_153,
+		 155 leaf_154,
+		 156 leaf_155,
+		 157 leaf_156,
+		 158 leaf_157,
+		 159 leaf_158,
+		 160 leaf_159,
+		 161 leaf_160,
+		 162 leaf_161,
+		 163 leaf_162,
+		 164 leaf_163,
+		 165 leaf_164,
+		 166 leaf_165,
+		 167 leaf_166,
+		 168 leaf_167,
+		 169 leaf_168,
+		 170 leaf_169,
+		 171 leaf_170,
+		 172 leaf_171,
+		 173 leaf_172,
+		 174 leaf_173,
+		 175 leaf_174,
+		 176 leaf_175,
+		 177 leaf_176,
+		 178 leaf_177,
+		 179 leaf_178,
+		 180 leaf_179,
+		 181 leaf_180,
+		 182 leaf_181,
+		 183 leaf_182,
+		 184 leaf_183,
+		 185 leaf_184,
+		 186 leaf_185,
+		 187 leaf_186,
+		 188 leaf_187,
+		 189 leaf_188,
+		 190 leaf_189,
+		 191 leaf_190,
+		 192 leaf_191,
+		 193 leaf_192,
+		 194 leaf_193,
+		 195 leaf_194,
+		 196 leaf_195,
+		 197 leaf_196,
+		 198 leaf_197,
+		 199 leaf_198,
+		 200 leaf_199,
+		 201 leaf_200,
+		 202 leaf_201,
+		 203 leaf_202,
+		 204 leaf_203,
+		 205 leaf_204,
+		 206 leaf_205,
+		 207 leaf_206,
+		 208 leaf_207,
+		 209 leaf_208,
+		 210 leaf_209,
+		 211 leaf_210,
+		 212 leaf_211,
+		 213 leaf_212,
+		 214 leaf_213,
+		 215 leaf_214,
+		 216 leaf_215,
+		 217 leaf_216,
+		 218 leaf_217,
+		 219 leaf_218,
+		 220 leaf_219,
+		 221 leaf_220,
+		 222 leaf_221,
+		 223 leaf_222,
+		 224 leaf_223,
+		 225 leaf_224,
+		 226 leaf_225,
+		 227 leaf_226,
+		 228 leaf_227,
+		 229 leaf_228,
+		 230 leaf_229,
+		 231 leaf_230,
+		 232 leaf_231,
+		 233 leaf_232,
+		 234 leaf_233,
+		 235 leaf_234,
+		 236 leaf_235,
+		 237 leaf_236,
+		 238 leaf_237,
+		 239 leaf_238,
+		 240 leaf_239,
+		 241 leaf_240,
+		 242 leaf_241,
+		 243 leaf_242,
+		 244 leaf_243,
+		 245 leaf_244,
+		 246 leaf_245,
+		 247 leaf_246,
+		 248 leaf_247,
+		 249 leaf_248,
+		 250 leaf_249,
+		 251 leaf_250,
+		 252 leaf_251,
+		 253 leaf_252,
+		 254 leaf_253,
+		 255 leaf_254,
+		 256 leaf_255,
+		 257 leaf_256,
+		 258 leaf_257,
+		 259 leaf_258,
+		 260 leaf_259,
+		 261 leaf_260,
+		 262 leaf_261,
+		 263 leaf_262,
+		 264 leaf_263,
+		 265 leaf_264,
+		 266 leaf_265,
+		 267 leaf_266,
+		 268 leaf_267,
+		 269 leaf_268,
+		 270 leaf_269,
+		 271 leaf_270,
+		 272 leaf_271,
+		 273 leaf_272,
+		 274 leaf_273,
+		 275 leaf_274,
+		 276 leaf_275,
+		 277 leaf_276,
+		 278 leaf_277,
+		 279 leaf_278,
+		 280 leaf_279,
+		 281 leaf_280,
+		 282 leaf_281,
+		 283 leaf_282,
+		 284 leaf_283,
+		 285 leaf_284,
+		 286 leaf_285,
+		 287 leaf_286,
+		 288 leaf_287,
+		 289 leaf_288,
+		 290 leaf_289,
+		 291 leaf_290,
+		 292 leaf_291,
+		 293 leaf_292,
+		 294 leaf_293,
+		 295 leaf_294,
+		 296 leaf_295,
+		 297 leaf_296,
+		 298 leaf_297,
+		 299 leaf_298,
+		 300 leaf_299,
+		 301 leaf_300,
+		 302 leaf_301,
+		 303 leaf_302,
+		 304 leaf_303,
+		 305 leaf_304,
+		 306 leaf_305,
+		 307 leaf_306,
+		 308 leaf_307,
+		 309 leaf_308,
+		 310 leaf_309,
+		 311 leaf_310,
+		 312 leaf_311,
+		 313 leaf_312,
+		 314 leaf_313,
+		 315 leaf_314,
+		 316 leaf_315,
+		 317 leaf_316,
+		 318 leaf_317,
+		 319 leaf_318,
+		 320 leaf_319,
+		 321 leaf_320,
+		 322 leaf_321,
+		 323 leaf_322,
+		 324 leaf_323,
+		 325 leaf_324,
+		 326 leaf_325,
+		 327 leaf_326,
+		 328 leaf_327,
+		 329 leaf_328,
+		 330 leaf_329,
+		 331 leaf_330,
+		 332 leaf_331,
+		 333 leaf_332,
+		 334 leaf_333,
+		 335 leaf_334,
+		 336 leaf_335,
+		 337 leaf_336,
+		 338 leaf_337,
+		 339 leaf_338,
+		 340 leaf_339,
+		 341 leaf_340,
+		 342 leaf_341,
+		 343 leaf_342,
+		 344 leaf_343,
+		 345 leaf_344,
+		 346 leaf_345,
+		 347 leaf_346,
+		 348 leaf_347,
+		 349 leaf_348,
+		 350 leaf_349,
+		 351 leaf_350,
+		 352 leaf_351,
+		 353 leaf_352,
+		 354 leaf_353,
+		 355 leaf_354,
+		 356 leaf_355,
+		 357 leaf_356,
+		 358 leaf_357,
+		 359 leaf_358,
+		 360 leaf_359,
+		 361 leaf_360,
+		 362 leaf_361,
+		 363 leaf_362,
+		 364 leaf_363,
+		 365 leaf_364,
+		 366 leaf_365,
+		 367 leaf_366,
+		 368 leaf_367,
+		 369 leaf_368,
+		 370 leaf_369,
+		 371 leaf_370,
+		 372 leaf_371,
+		 373 leaf_372,
+		 374 leaf_373,
+		 375 leaf_374,
+		 376 leaf_375,
+		 377 leaf_376,
+		 378 leaf_377,
+		 379 leaf_378,
+		 380 leaf_379,
+		 381 leaf_380,
+		 382 leaf_381,
+		 383 leaf_382,
+		 384 leaf_383,
+		 385 leaf_384,
+		 386 leaf_385,
+		 387 leaf_386,
+		 388 leaf_387,
+		 389 leaf_388,
+		 390 leaf_389,
+		 391 leaf_390,
+		 392 leaf_391,
+		 393 leaf_392,
+		 394 leaf_393,
+		 395 leaf_394,
+		 396 leaf_395,
+		 397 leaf_396,
+		 398 leaf_397,
+		 399 leaf_398,
+		 400 leaf_399,
+		 401 leaf_400,
+		 402 leaf_401,
+		 403 leaf_402,
+		 404 leaf_403,
+		 405 leaf_404,
+		 406 leaf_405,
+		 407 leaf_406,
+		 408 leaf_407,
+		 409 leaf_408,
+		 410 leaf_409,
+		 411 leaf_410,
+		 412 leaf_411,
+		 413 leaf_412,
+		 414 leaf_413,
+		 415 leaf_414,
+		 416 leaf_415,
+		 417 leaf_416,
+		 418 leaf_417,
+		 419 leaf_418,
+		 420 leaf_419,
+		 421 leaf_420,
+		 422 leaf_421,
+		 423 leaf_422,
+		 424 leaf_423,
+		 425 leaf_424,
+		 426 leaf_425,
+		 427 leaf_426,
+		 428 leaf_427,
+		 429 leaf_428,
+		 430 leaf_429,
+		 431 leaf_430,
+		 432 leaf_431,
+		 433 leaf_432,
+		 434 leaf_433,
+		 435 leaf_434,
+		 436 leaf_435,
+		 437 leaf_436,
+		 438 leaf_437,
+		 439 leaf_438,
+		 440 leaf_439,
+		 441 leaf_440,
+		 442 leaf_441,
+		 443 leaf_442,
+		 444 leaf_443,
+		 445 leaf_444,
+		 446 leaf_445,
+		 447 leaf_446,
+		 448 leaf_447,
+		 449 leaf_448,
+		 450 leaf_449,
+		 451 leaf_450,
+		 452 leaf_451,
+		 453 leaf_452,
+		 454 leaf_453,
+		 455 leaf_454,
+		 456 leaf_455,
+		 457 leaf_456,
+		 458 leaf_457,
+		 459 leaf_458,
+		 460 leaf_459,
+		 461 leaf_460,
+		 462 leaf_461,
+		 463 leaf_462,
+		 464 leaf_463,
+		 465 leaf_464,
+		 466 leaf_465,
+		 467 leaf_466,
+		 468 leaf_467,
+		 469 leaf_468,
+		 470 leaf_469,
+		 471 leaf_470,
+		 472 leaf_471,
+		 473 leaf_472,
+		 474 leaf_473,
+		 475 leaf_474,
+		 476 leaf_475,
+		 477 leaf_476,
+		 478 leaf_477,
+		 479 leaf_478,
+		 480 leaf_479,
+		 481 leaf_480,
+		 482 leaf_481,
+		 483 leaf_482,
+		 484 leaf_483,
+		 485 leaf_484,
+		 486 leaf_485,
+		 487 leaf_486,
+		 488 leaf_487,
+		 489 leaf_488,
+		 490 leaf_489,
+		 491 leaf_490,
+		 492 leaf_491,
+		 493 leaf_492,
+		 494 leaf_493,
+		 495 leaf_494,
+		 496 leaf_495,
+		 497 leaf_496,
+		 498 leaf_497,
+		 499 leaf_498,
+		 500 leaf_499,
+		 501 leaf_500,
+		 502 leaf_501,
+		 503 leaf_502,
+		 504 leaf_503,
+		 505 leaf_504,
+		 506 leaf_505,
+		 507 leaf_506,
+		 508 leaf_507,
+		 509 leaf_508,
+		 510 leaf_509,
+		 511 leaf_510,
+		 512 leaf_511,
+		 513 leaf_512,
+		 514 leaf_513,
+		 515 leaf_514,
+		 516 leaf_515,
+		 517 leaf_516,
+		 518 leaf_517,
+		 519 leaf_518,
+		 520 leaf_519,
+		 521 leaf_520,
+		 522 leaf_521,
+		 523 leaf_522,
+		 524 leaf_523,
+		 525 leaf_524,
+		 526 leaf_525,
+		 527 leaf_526,
+		 528 leaf_527,
+		 529 leaf_528,
+		 530 leaf_529,
+		 531 leaf_530,
+		 532 leaf_531,
+		 533 leaf_532,
+		 534 leaf_533,
+		 535 leaf_534,
+		 536 leaf_535,
+		 537 leaf_536,
+		 538 leaf_537,
+		 539 leaf_538,
+		 540 leaf_539,
+		 541 leaf_540,
+		 542 leaf_541,
+		 543 leaf_542,
+		 544 leaf_543,
+		 545 leaf_544,
+		 546 leaf_545,
+		 547 leaf_546,
+		 548 leaf_547,
+		 549 leaf_548,
+		 550 leaf_549,
+		 551 leaf_550,
+		 552 leaf_551,
+		 553 leaf_552,
+		 554 leaf_553,
+		 555 leaf_554,
+		 556 leaf_555,
+		 557 leaf_556,
+		 558 leaf_557,
+		 559 leaf_558,
+		 560 leaf_559,
+		 561 leaf_560,
+		 562 leaf_561,
+		 563 leaf_562,
+		 564 leaf_563,
+		 565 leaf_564,
+		 566 leaf_565,
+		 567 leaf_566,
+		 568 leaf_567,
+		 569 leaf_568,
+		 570 leaf_569,
+		 571 leaf_570,
+		 572 leaf_571,
+		 573 leaf_572,
+		 574 leaf_573,
+		 575 leaf_574,
+		 576 leaf_575,
+		 577 leaf_576,
+		 578 leaf_577,
+		 579 leaf_578,
+		 580 leaf_579,
+		 581 leaf_580,
+		 582 leaf_581,
+		 583 leaf_582,
+		 584 leaf_583,
+		 585 leaf_584,
+		 586 leaf_585,
+		 587 leaf_586,
+		 588 leaf_587,
+		 589 leaf_588,
+		 590 leaf_589,
+		 591 leaf_590,
+		 592 leaf_591,
+		 593 leaf_592,
+		 594 leaf_593,
+		 595 leaf_594,
+		 596 leaf_595,
+		 597 leaf_596,
+		 598 leaf_597,
+		 599 leaf_598,
+		 600 leaf_599,
+		 601 leaf_600,
+		 602 leaf_601,
+		 603 leaf_602,
+		 604 leaf_603,
+		 605 leaf_604,
+		 606 leaf_605,
+		 607 leaf_606,
+		 608 leaf_607,
+		 609 leaf_608,
+		 610 leaf_609,
+		 611 leaf_610,
+		 612 leaf_611,
+		 613 leaf_612,
+		 614 leaf_613,
+		 615 leaf_614,
+		 616 leaf_615,
+		 617 leaf_616,
+		 618 leaf_617,
+		 619 leaf_618,
+		 620 leaf_619,
+		 621 leaf_620,
+		 622 leaf_621,
+		 623 leaf_622,
+		 624 leaf_623,
+		 625 leaf_624,
+		 626 leaf_625,
+		 627 leaf_626,
+		 628 leaf_627,
+		 629 leaf_628,
+		 630 leaf_629,
+		 631 leaf_630,
+		 632 leaf_631,
+		 633 leaf_632,
+		 634 leaf_633,
+		 635 leaf_634,
+		 636 leaf_635,
+		 637 leaf_636,
+		 638 leaf_637,
+		 639 leaf_638,
+		 640 leaf_639,
+		 641 leaf_640,
+		 642 leaf_641,
+		 643 leaf_642,
+		 644 leaf_643,
+		 645 leaf_644,
+		 646 leaf_645,
+		 647 leaf_646,
+		 648 leaf_647,
+		 649 leaf_648,
+		 650 leaf_649,
+		 651 leaf_650,
+		 652 leaf_651,
+		 653 leaf_652,
+		 654 leaf_653,
+		 655 leaf_654,
+		 656 leaf_655,
+		 657 leaf_656,
+		 658 leaf_657,
+		 659 leaf_658,
+		 660 leaf_659,
+		 661 leaf_660,
+		 662 leaf_661,
+		 663 leaf_662,
+		 664 leaf_663,
+		 665 leaf_664,
+		 666 leaf_665,
+		 667 leaf_666,
+		 668 leaf_667,
+		 669 leaf_668,
+		 670 leaf_669,
+		 671 leaf_670,
+		 672 leaf_671,
+		 673 leaf_672,
+		 674 leaf_673,
+		 675 leaf_674,
+		 676 leaf_675,
+		 677 leaf_676,
+		 678 leaf_677,
+		 679 leaf_678,
+		 680 leaf_679,
+		 681 leaf_680,
+		 682 leaf_681,
+		 683 leaf_682,
+		 684 leaf_683,
+		 685 leaf_684,
+		 686 leaf_685,
+		 687 leaf_686,
+		 688 leaf_687,
+		 689 leaf_688,
+		 690 leaf_689,
+		 691 leaf_690,
+		 692 leaf_691,
+		 693 leaf_692,
+		 694 leaf_693,
+		 695 leaf_694,
+		 696 leaf_695,
+		 697 leaf_696,
+		 698 leaf_697,
+		 699 leaf_698,
+		 700 leaf_699,
+		 701 leaf_700,
+		 702 leaf_701,
+		 703 leaf_702,
+		 704 leaf_703,
+		 705 leaf_704,
+		 706 leaf_705,
+		 707 leaf_706,
+		 708 leaf_707,
+		 709 leaf_708,
+		 710 leaf_709,
+		 711 leaf_710,
+		 712 leaf_711,
+		 713 leaf_712,
+		 714 leaf_713,
+		 715 leaf_714,
+		 716 leaf_715,
+		 717 leaf_716,
+		 718 leaf_717,
+		 719 leaf_718,
+		 720 leaf_719,
+		 721 leaf_720,
+		 722 leaf_721,
+		 723 leaf_722,
+		 724 leaf_723,
+		 725 leaf_724,
+		 726 leaf_725,
+		 727 leaf_726,
+		 728 leaf_727,
+		 729 leaf_728,
+		 730 leaf_729,
+		 731 leaf_730,
+		 732 leaf_731,
+		 733 leaf_732,
+		 734 leaf_733,
+		 735 leaf_734,
+		 736 leaf_735,
+		 737 leaf_736,
+		 738 leaf_737,
+		 739 leaf_738,
+		 740 leaf_739,
+		 741 leaf_740,
+		 742 leaf_741,
+		 743 leaf_742,
+		 744 leaf_743,
+		 745 leaf_744,
+		 746 leaf_745,
+		 747 leaf_746,
+		 748 leaf_747,
+		 749 leaf_748,
+		 750 leaf_749,
+		 751 leaf_750,
+		 752 leaf_751,
+		 753 leaf_752,
+		 754 leaf_753,
+		 755 leaf_754,
+		 756 leaf_755,
+		 757 leaf_756,
+		 758 leaf_757,
+		 759 leaf_758,
+		 760 leaf_759,
+		 761 leaf_760,
+		 762 leaf_761,
+		 763 leaf_762,
+		 764 leaf_763,
+		 765 leaf_764,
+		 766 leaf_765,
+		 767 leaf_766,
+		 768 leaf_767,
+		 769 leaf_768,
+		 770 leaf_769,
+		 771 leaf_770,
+		 772 leaf_771,
+		 773 leaf_772,
+		 774 leaf_773,
+		 775 leaf_774,
+		 776 leaf_775,
+		 777 leaf_776,
+		 778 leaf_777,
+		 779 leaf_778,
+		 780 leaf_779,
+		 781 leaf_780,
+		 782 leaf_781,
+		 783 leaf_782,
+		 784 leaf_783,
+		 785 leaf_784,
+		 786 leaf_785,
+		 787 leaf_786,
+		 788 leaf_787,
+		 789 leaf_788,
+		 790 leaf_789,
+		 791 leaf_790,
+		 792 leaf_791,
+		 793 leaf_792,
+		 794 leaf_793,
+		 795 leaf_794,
+		 796 leaf_795,
+		 797 leaf_796,
+		 798 leaf_797,
+		 799 leaf_798,
+		 800 leaf_799,
+		 801 leaf_800,
+		 802 leaf_801,
+		 803 leaf_802,
+		 804 leaf_803,
+		 805 leaf_804,
+		 806 leaf_805,
+		 807 leaf_806,
+		 808 leaf_807,
+		 809 leaf_808,
+		 810 leaf_809,
+		 811 leaf_810,
+		 812 leaf_811,
+		 813 leaf_812,
+		 814 leaf_813,
+		 815 leaf_814,
+		 816 leaf_815,
+		 817 leaf_816,
+		 818 leaf_817,
+		 819 leaf_818,
+		 820 leaf_819,
+		 821 leaf_820,
+		 822 leaf_821,
+		 823 leaf_822,
+		 824 leaf_823,
+		 825 leaf_824,
+		 826 leaf_825,
+		 827 leaf_826,
+		 828 leaf_827,
+		 829 leaf_828,
+		 830 leaf_829,
+		 831 leaf_830,
+		 832 leaf_831,
+		 833 leaf_832,
+		 834 leaf_833,
+		 835 leaf_834,
+		 836 leaf_835,
+		 837 leaf_836,
+		 838 leaf_837,
+		 839 leaf_838,
+		 840 leaf_839,
+		 841 leaf_840,
+		 842 leaf_841,
+		 843 leaf_842,
+		 844 leaf_843,
+		 845 leaf_844,
+		 846 leaf_845,
+		 847 leaf_846,
+		 848 leaf_847,
+		 849 leaf_848,
+		 850 leaf_849,
+		 851 leaf_850,
+		 852 leaf_851,
+		 853 leaf_852,
+		 854 leaf_853,
+		 855 leaf_854,
+		 856 leaf_855,
+		 857 leaf_856,
+		 858 leaf_857,
+		 859 leaf_858,
+		 860 leaf_859,
+		 861 leaf_860,
+		 862 leaf_861,
+		 863 leaf_862,
+		 864 leaf_863,
+		 865 leaf_864,
+		 866 leaf_865,
+		 867 leaf_866,
+		 868 leaf_867,
+		 869 leaf_868,
+		 870 leaf_869,
+		 871 leaf_870,
+		 872 leaf_871,
+		 873 leaf_872,
+		 874 leaf_873,
+		 875 leaf_874,
+		 876 leaf_875,
+		 877 leaf_876,
+		 878 leaf_877,
+		 879 leaf_878,
+		 880 leaf_879,
+		 881 leaf_880,
+		 882 leaf_881,
+		 883 leaf_882,
+		 884 leaf_883,
+		 885 leaf_884,
+		 886 leaf_885,
+		 887 leaf_886,
+		 888 leaf_887,
+		 889 leaf_888,
+		 890 leaf_889,
+		 891 leaf_890,
+		 892 leaf_891,
+		 893 leaf_892,
+		 894 leaf_893,
+		 895 leaf_894,
+		 896 leaf_895,
+		 897 leaf_896,
+		 898 leaf_897,
+		 899 leaf_898,
+		 900 leaf_899,
+		 901 leaf_900,
+		 902 leaf_901,
+		 903 leaf_902,
+		 904 leaf_903,
+		 905 leaf_904,
+		 906 leaf_905,
+		 907 leaf_906,
+		 908 leaf_907,
+		 909 leaf_908,
+		 910 leaf_909,
+		 911 leaf_910,
+		 912 leaf_911,
+		 913 leaf_912,
+		 914 leaf_913,
+		 915 leaf_914,
+		 916 leaf_915,
+		 917 leaf_916,
+		 918 leaf_917,
+		 919 leaf_918,
+		 920 leaf_919,
+		 921 leaf_920,
+		 922 leaf_921,
+		 923 leaf_922,
+		 924 leaf_923,
+		 925 leaf_924,
+		 926 leaf_925,
+		 927 leaf_926,
+		 928 leaf_927,
+		 929 leaf_928,
+		 930 leaf_929,
+		 931 leaf_930,
+		 932 leaf_931,
+		 933 leaf_932,
+		 934 leaf_933,
+		 935 leaf_934,
+		 936 leaf_935,
+		 937 leaf_936,
+		 938 leaf_937,
+		 939 leaf_938,
+		 940 leaf_939,
+		 941 leaf_940,
+		 942 leaf_941,
+		 943 leaf_942,
+		 944 leaf_943,
+		 945 leaf_944,
+		 946 leaf_945,
+		 947 leaf_946,
+		 948 leaf_947,
+		 949 leaf_948,
+		 950 leaf_949,
+		 951 leaf_950,
+		 952 leaf_951,
+		 953 leaf_952,
+		 954 leaf_953,
+		 955 leaf_954,
+		 956 leaf_955,
+		 957 leaf_956,
+		 958 leaf_957,
+		 959 leaf_958,
+		 960 leaf_959,
+		 961 leaf_960,
+		 962 leaf_961,
+		 963 leaf_962,
+		 964 leaf_963,
+		 965 leaf_964,
+		 966 leaf_965,
+		 967 leaf_966,
+		 968 leaf_967,
+		 969 leaf_968,
+		 970 leaf_969,
+		 971 leaf_970,
+		 972 leaf_971,
+		 973 leaf_972,
+		 974 leaf_973,
+		 975 leaf_974,
+		 976 leaf_975,
+		 977 leaf_976,
+		 978 leaf_977,
+		 979 leaf_978,
+		 980 leaf_979,
+		 981 leaf_980,
+		 982 leaf_981,
+		 983 leaf_982,
+		 984 leaf_983,
+		 985 leaf_984,
+		 986 leaf_985,
+		 987 leaf_986,
+		 988 leaf_987,
+		 989 leaf_988,
+		 990 leaf_989,
+		 991 leaf_990,
+		 992 leaf_991,
+		 993 leaf_992,
+		 994 leaf_993,
+		 995 leaf_994,
+		 996 leaf_995,
+		 997 leaf_996,
+		 998 leaf_997,
+		 999 leaf_998,
+		1000 leaf_999,
+		1001 leaf_1000,
+		1002 leaf_1001,
+		1003 leaf_1002,
+		1004 leaf_1003,
+		1005 leaf_1004,
+		1006 leaf_1005,
+		1007 leaf_1006,
+		1008 leaf_1007,
+		1009 leaf_1008,
+		1010 leaf_1009,
+		1011 leaf_1010,
+		1012 leaf_1011,
+		1013 leaf_1012,
+		1014 leaf_1013,
+		1015 leaf_1014,
+		1016 leaf_1015,
+		1017 leaf_1016,
+		1018 leaf_1017,
+		1019 leaf_1018,
+		1020 leaf_1019,
+		1021 leaf_1020,
+		1022 leaf_1021,
+		1023 leaf_1022,
+		1024 leaf_1023,
+		1025 leaf_1024,
+		1026 leaf_1025,
+		1027 leaf_1026,
+		1028 leaf_1027,
+		1029 leaf_1028,
+		1030 leaf_1029,
+		1031 leaf_1030,
+		1032 leaf_1031,
+		1033 leaf_1032,
+		1034 leaf_1033,
+		1035 leaf_1034,
+		1036 leaf_1035,
+		1037 leaf_1036,
+		1038 leaf_1037,
+		1039 leaf_1038,
+		1040 leaf_1039,
+		1041 leaf_1040,
+		1042 leaf_1041,
+		1043 leaf_1042,
+		1044 leaf_1043,
+		1045 leaf_1044,
+		1046 leaf_1045,
+		1047 leaf_1046,
+		1048 leaf_1047,
+		1049 leaf_1048,
+		1050 leaf_1049,
+		1051 leaf_1050,
+		1052 leaf_1051,
+		1053 leaf_1052,
+		1054 leaf_1053,
+		1055 leaf_1054,
+		1056 leaf_1055,
+		1057 leaf_1056,
+		1058 leaf_1057,
+		1059 leaf_1058,
+		1060 leaf_1059,
+		1061 leaf_1060,
+		1062 leaf_1061,
+		1063 leaf_1062,
+		1064 leaf_1063,
+		1065 leaf_1064,
+		1066 leaf_1065,
+		1067 leaf_1066,
+		1068 leaf_1067,
+		1069 leaf_1068,
+		1070 leaf_1069,
+		1071 leaf_1070,
+		1072 leaf_1071,
+		1073 leaf_1072,
+		1074 leaf_1073,
+		1075 leaf_1074,
+		1076 leaf_1075,
+		1077 leaf_1076,
+		1078 leaf_1077,
+		1079 leaf_1078,
+		1080 leaf_1079,
+		1081 leaf_1080,
+		1082 leaf_1081,
+		1083 leaf_1082,
+		1084 leaf_1083,
+		1085 leaf_1084,
+		1086 leaf_1085,
+		1087 leaf_1086,
+		1088 leaf_1087,
+		1089 leaf_1088,
+		1090 leaf_1089,
+		1091 leaf_1090,
+		1092 leaf_1091,
+		1093 leaf_1092,
+		1094 leaf_1093,
+		1095 leaf_1094,
+		1096 leaf_1095,
+		1097 leaf_1096,
+		1098 leaf_1097,
+		1099 leaf_1098,
+		1100 leaf_1099,
+		1101 leaf_1100,
+		1102 leaf_1101,
+		1103 leaf_1102,
+		1104 leaf_1103,
+		1105 leaf_1104,
+		1106 leaf_1105,
+		1107 leaf_1106,
+		1108 leaf_1107,
+		1109 leaf_1108,
+		1110 leaf_1109,
+		1111 leaf_1110,
+		1112 leaf_1111,
+		1113 leaf_1112,
+		1114 leaf_1113,
+		1115 leaf_1114,
+		1116 leaf_1115,
+		1117 leaf_1116,
+		1118 leaf_1117,
+		1119 leaf_1118,
+		1120 leaf_1119,
+		1121 leaf_1120,
+		1122 leaf_1121,
+		1123 leaf_1122,
+		1124 leaf_1123,
+		1125 leaf_1124,
+		1126 leaf_1125,
+		1127 leaf_1126,
+		1128 leaf_1127,
+		1129 leaf_1128,
+		1130 leaf_1129,
+		1131 leaf_1130,
+		1132 leaf_1131,
+		1133 leaf_1132,
+		1134 leaf_1133,
+		1135 leaf_1134,
+		1136 leaf_1135,
+		1137 leaf_1136,
+		1138 leaf_1137,
+		1139 leaf_1138,
+		1140 leaf_1139,
+		1141 leaf_1140,
+		1142 leaf_1141,
+		1143 leaf_1142,
+		1144 leaf_1143,
+		1145 leaf_1144,
+		1146 leaf_1145,
+		1147 leaf_1146,
+		1148 leaf_1147,
+		1149 leaf_1148,
+		1150 leaf_1149,
+		1151 leaf_1150,
+		1152 leaf_1151,
+		1153 leaf_1152,
+		1154 leaf_1153,
+		1155 leaf_1154,
+		1156 leaf_1155,
+		1157 leaf_1156,
+		1158 leaf_1157,
+		1159 leaf_1158,
+		1160 leaf_1159,
+		1161 leaf_1160,
+		1162 leaf_1161,
+		1163 leaf_1162,
+		1164 leaf_1163,
+		1165 leaf_1164,
+		1166 leaf_1165,
+		1167 leaf_1166,
+		1168 leaf_1167,
+		1169 leaf_1168,
+		1170 leaf_1169,
+		1171 leaf_1170,
+		1172 leaf_1171,
+		1173 leaf_1172,
+		1174 leaf_1173,
+		1175 leaf_1174,
+		1176 leaf_1175,
+		1177 leaf_1176,
+		1178 leaf_1177,
+		1179 leaf_1178,
+		1180 leaf_1179,
+		1181 leaf_1180,
+		1182 leaf_1181,
+		1183 leaf_1182,
+		1184 leaf_1183,
+		1185 leaf_1184,
+		1186 leaf_1185
+;
+tree STATE_0 = (((((((((((((((1[&type="I",time=92.52444766231453]:68.53803109841213,62[&type="I",time=50.835921530622926]:26.84950496672053)[&type="I",time=23.98641656390239]:7.173638178416837,(((89[&type="I",time=48.272251864159564]:26.855320017911815,((((103[&type="I",time=47.59532720509265]:13.915968095898556,260[&type="I",time=39.25158981167281]:5.572230702478713)[&type="I",time=33.679359109194095]:7.65312660080717,223[&type="I",time=40.64984277826132]:14.623610269874398)[&type="I",time=26.02623250838693]:0.32448635074142373,700[&type="I",time=29.873954951706942]:4.17220879406144)[&type="I",time=25.701746157645506]:4.095884536643567,289[&type="I",time=38.231164420471806]:16.62530279946987)[&type="I",time=21.60586162100193]:0.18892977475418604)[&type="I",time=21.416931846247742]:2.6450697275886768,((352[&type="I",time=36.59938085470347]:13.60459886382759,935[&type="I",time=25.25133723307311]:2.256555242197223)[&type="I",time=22.994781990875882]:3.922663658422124,(364[&type="I",time=36.199323524148106]:11.271250060367997,(598[&type="I",time=31.647650208123007]:5.160496182627838,866[&type="I",time=26.951771573366827]:0.4646175478716543)[&type="I",time=26.48715402549518]:1.5590805617150636)[&type="I",time=24.928073463780112]:5.855955131326354)[&type="I",time=19.07211833245376]:0.3002562137946825)[&type="I",time=18.77186211865907]:1.3307081536577101,538[&type="I",time=32.46287739105273]:15.021723426051366)[&type="I",time=17.441153965001366]:0.6283755795158044)[&type="I",time=16.812778385485554]:0.6052142598644394,(432[&type="I",time=34.433382625986816]:13.159089219026946,1052[&type="I",time=22.386209099315128]:1.1119156923552538)[&type="I",time=21.274293406959877]:5.066729281338752)[&type="I",time=16.207564125621122]:0.36842417117209436,1146[&type="I",time=18.439048081586712]:2.599908127137681)[&type="I",time=15.839139954449026]:0.23423873891614733,(71[&type="I",time=50.30546451485916]:31.844037287378605,(95[&type="I",time=47.89171570537991]:19.778777031217444,587[&type="I",time=31.729548405374857]:3.6166097312123924)[&type="I",time=28.112938674162468]:9.651511446681909)[&type="I",time=18.461427227480552]:2.856526011947679)[&type="I",time=15.60490121553287]:0.43602516128110835,(((((46[&type="I",time=53.42507154674088]:12.972630448799933,178[&type="I",time=42.20583710142307]:1.7533960034821234)[&type="I",time=40.45244109794095]:14.836622682038481,((91[&type="I",time=48.1656048443753]:11.27126023169258,188[&type="I",time=41.76751254340401]:4.873167930721287)[&type="I",time=36.89434461268272]:10.498584926115477,489[&type="I",time=33.22846685371591]:6.832707167148662)[&type="I",time=26.395759686567246]:0.7799412706647786)[&type="I",time=25.615818415902467]:4.786075162097276,519[&type="I",time=32.70032025467117]:11.870577000865978)[&type="I",time=20.82974325380519]:1.847861773415815,((524[&type="I",time=32.63877678065349]:11.957355604831136,1019[&type="I",time=23.24767373505595]:2.566252559233604)[&type="I",time=20.681421175822354]:1.177401935436805,((597[&type="I",time=31.65305218452637]:9.716362436855619,705[&type="I",time=29.762597148711077]:7.825907401040325)[&type="I",time=21.93668974767076]:0.7799664029677302,(1032[&type="I",time=22.9467576519003]:0.5398518756456809,1034[&type="I",time=22.843897452281034]:0.4369916760264232)[&type="I",time=22.40690577625461]:1.2501824315515933)[&type="I",time=21.15672334470302]:1.652704104317479)[&type="I",time=19.50401924038555]:0.5221377599961698)[&type="I",time=18.98188148038938]:3.6124950666886804,((815[&type="I",time=27.962303623993844]:12.018731621758363,1149[&type="I",time=18.1352191277767]:2.191647125541209)[&type="I",time=15.943572002235486]:0.5271673016258092,1174[&type="I",time=15.722891927591576]:0.30648722698190056)[&type="I",time=15.416404700609673]:0.04701828690897969)[&type="I",time=15.369386413700695]:0.20051035944892703)[&type="I",time=15.168876054251774]:0.4032565186028876,(((((((9[&type="I",time=64.10180233646969]:20.882464233311353,(25[&type="I",time=56.81148172097965]:7.891111216206788,42[&type="I",time=53.87510127215234]:4.9547307673794805)[&type="I",time=48.92037050477286]:5.701032401614526)[&type="I",time=43.219338103158336]:20.335366767533245,701[&type="I",time=29.85058777393829]:6.966616438313196)[&type="I",time=22.883971335625095]:0.2584335701087781,992[&type="I",time=23.993895575591644]:1.368357810075338)[&type="I",time=22.625537765516306]:0.8636917444902537,39[&type="I",time=54.42135154774911]:32.65950552672305)[&type="I",time=21.761846021026063]:3.6801497526283384,477[&type="I",time=33.54762082515343]:15.46592455675571)[&type="I",time=18.08169626839772]:0.9155632880229092,1165[&type="I",time=17.330169758022773]:0.16403677764796498)[&type="I",time=17.16613298037481]:1.0749489309552445,38[&type="I",time=54.63351311931542]:38.54232906989585)[&type="I",time=16.091184049419574]:1.3255645137706864)[&type="I",time=14.765619535648876]:4.682152565653283,(207[&type="I",time=41.099230315689695]:29.079641107991492,(622[&type="I",time=31.159383756764598]:11.63782397304118,(758[&type="I",time=29.048841866823935]:6.949178409700693,894[&type="I",time=26.138083344748058]:4.038419887624812)[&type="I",time=22.099663457123246]:2.5781036733998235)[&type="I",time=19.521559783723422]:7.501970576025215)[&type="I",time=12.019589207698203]:1.9361222377026053)[&type="I",time=10.0834669699956]:1.7521033879222188,(((((((43[&type="I",time=53.77298308720716]:17.25497869691958,347[&type="I",time=36.693462396674775]:0.17545800638719555)[&type="I",time=36.51800439028758]:11.079792073296183,763[&type="I",time=28.975935089214143]:3.5377227722227502)[&type="I",time=25.4382123169914]:4.39519615998276,((176[&type="I",time=42.368076119483185]:16.629881308827443,(744[&type="I",time=29.192705457151355]:1.6827853620691329,782[&type="I",time=28.573925370892375]:1.0640052758101533)[&type="I",time=27.509920095082215]:1.7717252844264806)[&type="I",time=25.73819481065575]:3.08667479116329,424[&type="I",time=34.62060068868435]:11.969080669191897)[&type="I",time=22.651520019492445]:1.6085038624838148)[&type="I",time=21.043016157008633]:3.0495163264923377,((206[&type="I",time=41.150617128913645]:4.977703032877443,210[&type="I",time=41.006479864262765]:4.833565768226563)[&type="I",time=36.1729140960362]:15.286592187297991,1063[&type="I",time=22.1821528305998]:1.2958309218615938)[&type="I",time=20.886321908738207]:2.8928220782219114)[&type="I",time=17.993499830516303]:0.17415406917162102,(((((97[&type="I",time=47.742235319052334]:13.203244993028235,255[&type="I",time=39.524384971444924]:4.9853946454208256)[&type="I",time=34.5389903260241]:1.3664996231756064,271[&type="I",time=38.738618874892424]:5.566128172043932)[&type="I",time=33.17249070284849]:6.543057758508368,510[&type="I",time=32.89088391885362]:6.261450974513494)[&type="I",time=26.62943294434012]:6.963365975976885,593[&type="I",time=31.683758336593453]:12.017691368230217)[&type="I",time=19.66606696836324]:0.6825965169364281,(339[&type="I",time=36.886637887525076]:15.527275049597698,457[&type="I",time=33.91669350511818]:12.557330667190804)[&type="I",time=21.359362837927385]:2.375892386500567)[&type="I",time=18.983470451426804]:1.164124690082133)[&type="I",time=17.81934576134467]:1.626044098604325,(738[&type="I",time=29.29273814729816]:10.949055433198758,(1090[&type="I",time=21.328100251378114]:2.6178653782284584,1127[&type="I",time=19.245393858224134]:0.5351589850744745)[&type="I",time=18.710234873149663]:0.36655215905025784)[&type="I",time=18.343682714099398]:2.150381051359048)[&type="I",time=16.19330166274035]:4.402774757438863,(((((54[&type="I",time=51.7463655143053]:11.381409302112502,162[&type="I",time=43.2634644273864]:2.8985082151936012)[&type="I",time=40.3649562121928]:8.366456316217317,300[&type="I",time=38.00246124933234]:6.003961353356857)[&type="I",time=31.99849989597549]:6.051940538911552,609[&type="I",time=31.490119001018993]:5.543559643955064)[&type="I",time=25.94655935706393]:9.155783760354396,(((((((284[&type="I",time=38.41918900955427]:13.370458707929998,830[&type="I",time=27.665115701746842]:2.6163854001225673)[&type="I",time=25.04873030162427]:0.28077007239491536,943[&type="I",time=25.131640555222493]:0.3636803259931298)[&type="I",time=24.767960229229356]:2.3794872006619983,(348[&type="I",time=36.65407632226596]:13.365794378431936,450[&type="I",time=34.02564985044389]:10.737367906609869)[&type="I",time=23.288281943834026]:0.8998089152666608)[&type="I",time=22.388473028567354]:0.842456294505439,871[&type="I",time=26.755693538669416]:5.209676804607497)[&type="I",time=21.54601673406192]:0.07164305681726546,1005[&type="I",time=23.550009865495444]:2.075636188250783)[&type="I",time=21.474373677244653]:0.1503463842717565,((294[&type="I",time=38.09264584211088]:14.612226816450757,(297[&type="I",time=38.03832243434748]:11.541790707080835,363[&type="I",time=36.202273045657016]:9.705741318390373)[&type="I",time=26.49653172726664]:3.0161127016065166)[&type="I",time=23.480419025660126]:1.8765104785322393,690[&type="I",time=30.106038109442576]:8.502129562314693)[&type="I",time=21.603908547127894]:0.27988125415498644)[&type="I",time=21.3240272929729]:1.139338702931937,367[&type="I",time=36.174541510554754]:15.98985292051379)[&type="I",time=20.184688590040963]:3.3939129933314263)[&type="I",time=16.790775596709544]:4.032661237853105,((216[&type="I",time=40.74739227076701]:7.870113933229177,278[&type="I",time=38.58404587071501]:5.706767533177178)[&type="I",time=32.87727833753783]:17.103935318948302,(944[&type="I",time=25.113887739913586]:2.832180446447083,1038[&type="I",time=22.719795824067994]:0.43808853060149033)[&type="I",time=22.2817072934665]:6.508364274876968)[&type="I",time=15.773343018589529]:3.015228659733097)[&type="I",time=12.75811435885643]:0.9675874535549411)[&type="I",time=11.790526905301487]:3.459163323228111)[&type="I",time=8.331363582073376]:0.7709355644740015,(((((127[&type="I",time=45.98108958580647]:17.03512137076988,227[&type="I",time=40.39609868834601]:11.450130473309414)[&type="I",time=28.945968215036594]:4.942912486961326,825[&type="I",time=27.7138736786315]:3.7108179505562333)[&type="I",time=24.00305572807527]:4.844358656389204,1000[&type="I",time=23.605622672312972]:4.446925600626912)[&type="I",time=19.15869707168607]:3.216415786947536,1130[&type="I",time=19.15677175182095]:3.2144904670824275)[&type="I",time=15.942281284738531]:6.8968411193478545,1186[&type="I",time=9.52582983714606]:0.4803896717553897)[&type="I",time=9.04544016539067]:1.485012147791295)[&type="I",time=7.560428017599381]:1.8628828921513474,((((((((((11[&type="I",time=61.99365320703872]:26.058597918187772,224[&type="I",time=40.56928806706623]:4.634232778215285)[&type="I",time=35.93505528885095]:11.202620662249743,47[&type="I",time=53.374066849185695]:28.64163222258449)[&type="I",time=24.732434626601208]:4.429397171970976,((21[&type="I",time=58.06429419598095]:27.902819828388502,(238[&type="I",time=40.03458231142537]:7.022450909751392,484[&type="I",time=33.41695956571365]:0.4048281640396709)[&type="I",time=33.012131401673976]:2.8506570340815287)[&type="I",time=30.161474367592447]:3.852652144046658,250[&type="I",time=39.68910584263288]:13.380283619087088)[&type="I",time=26.308822223545786]:6.005784768915561)[&type="I",time=20.303037454630232]:3.2372536826127742,(241[&type="I",time=39.93772396073178]:13.681625390410652,(359[&type="I",time=36.34976061691601]:4.480978800909888,518[&type="I",time=32.702052297182426]:0.8332704811763065)[&type="I",time=31.868781816006116]:5.612683245684991)[&type="I",time=26.25609857032112]:9.190314798303675)[&type="I",time=17.065783772017454]:1.2891236858606447,(222[&type="I",time=40.66578127699432]:24.79976545894381,(((333[&type="I",time=37.040820723868755]:12.977813033828987,493[&type="I",time=33.161313878910235]:9.098306188870467)[&type="I",time=24.063007690039765]:4.775392033905135,916[&type="I",time=25.63021624796866]:6.342600591834028)[&type="I",time=19.28761565613464]:1.244385407254569,624[&type="I",time=31.13691979532469]:13.093689546444622)[&type="I",time=18.043230248880064]:2.177214430829551)[&type="I",time=15.866015818050514]:0.08935573189370416)[&type="I",time=15.776660086156813]:0.060914938538005,((29[&type="I",time=56.31996290067978]:36.59981769929345,1107[&type="I",time=20.54221745777802]:0.8220722563916922)[&type="I",time=19.720145201386337]:3.7788697165805587,((((145[&type="I",time=44.720253124778225]:20.571770651827634,275[&type="I",time=38.622664506887695]:14.474182033937105)[&type="I",time=24.148482472950597]:3.1790214286426846,748[&type="I",time=29.131570143545602]:8.162109099237696)[&type="I",time=20.969461044307902]:1.1226275604809928,1057[&type="I",time=22.268805064459265]:2.421971580632359)[&type="I",time=19.846833483826913]:3.6412386040615843,(342[&type="I",time=36.763828735931696]:15.36943233926415,1086[&type="I",time=21.44481041264593]:0.050414015978390125)[&type="I",time=21.39439639666755]:5.188801516902217)[&type="I",time=16.20559487976533]:0.26431939495955703)[&type="I",time=15.941275484805777]:0.22553033718696724)[&type="I",time=15.7157451476188]:0.5069642883853476,(923[&type="I",time=25.447891432067937]:8.266494156994938,1145[&type="I",time=18.591343353273988]:1.4099460782009885)[&type="I",time=17.18139727507299]:1.9726164158395392)[&type="I",time=15.208780859233459]:0.45216196719117363,(502[&type="I",time=32.995185869710674]:10.90384913732634,799[&type="I",time=28.14341824700719]:6.052081514622856)[&type="I",time=22.091336732384338]:7.334717840342051)[&type="I",time=14.756618892042283]:3.6652506687036777,((245[&type="I",time=39.769720118757775]:19.011321344426094,715[&type="I",time=29.6356408851501]:8.877242110818415)[&type="I",time=20.758398774331685]:0.9072284784780322,806[&type="I",time=28.06180292186295]:8.2106326260093)[&type="I",time=19.851170295853652]:8.759802072515043)[&type="I",time=11.091368223338607]:2.5396079532130926,(((((96[&type="I",time=47.75106121993216]:22.1226767577106,(385[&type="I",time=35.51705263834713]:8.422409072728719,716[&type="I",time=29.623736004031546]:2.52909243841313)[&type="I",time=27.09464356561841]:1.466259103396851)[&type="I",time=25.628384462221565]:5.625600799408815,1069[&type="I",time=22.02954195368882]:2.0267582908760744)[&type="I",time=20.002783662812742]:0.34833577812305805,(691[&type="I",time=30.055401172670617]:7.704542461892785,840[&type="I",time=27.497039150361903]:5.146180439584072)[&type="I",time=22.350858710777825]:2.6964108260881403)[&type="I",time=19.654447884689684]:4.246942022546321,1157[&type="I",time=17.810192883244135]:2.4026870211007747)[&type="I",time=15.407505862143367]:4.5990515156251774,(((((((119[&type="I",time=46.29979793897862]:28.069248971337053,(375[&type="I",time=35.87736858161847]:7.475600451453587,516[&type="I",time=32.720455009986956]:4.318686879822074)[&type="I",time=28.401768130164886]:10.171219162523315)[&type="I",time=18.230548967641564]:0.7018637064306574,((309[&type="I",time=37.698166511634156]:13.528743325764069,626[&type="I",time=31.11950446102292]:6.950081275152833)[&type="I",time=24.169423185870084]:3.5283640491884682,1097[&type="I",time=20.919924999340594]:0.27886586265897506)[&type="I",time=20.641059136681626]:3.112373875470709)[&type="I",time=17.528685261210907]:0.38961959575321714,(184[&type="I",time=42.02978621677995]:11.602039060578186,299[&type="I",time=38.00369794177298]:7.575950785571216)[&type="I",time=30.427747156201757]:13.288681490744068)[&type="I",time=17.139065665457686]:0.5675174795712365,((549[&type="I",time=32.32814558247371]:3.6192046160687497,586[&type="I",time=31.74264469153911]:3.0337037251341528)[&type="I",time=28.70894096640496]:3.4053827051643495,(601[&type="I",time=31.618002189704935]:5.2016768342215585,879[&type="I",time=26.55757563410801]:0.14125027862462503)[&type="I",time=26.41632535548338]:1.1127670942427699)[&type="I",time=25.30355826124061]:8.732010075354154)[&type="I",time=16.571548185886453]:1.2538909039695056,1176[&type="I",time=15.318395649328371]:7.383674114151972E-4)[&type="I",time=15.317657281916949]:1.0599544220519164,1167[&type="I",time=17.162764756509937]:2.905061896644895)[&type="I",time=14.257702859865029]:2.960330966883106,((437[&type="I",time=34.28500240427764]:8.873421927181973,722[&type="I",time=29.550129970775114]:4.138549493679449)[&type="I",time=25.411580477095665]:4.041060971105907,1047[&type="I",time=22.66229347442656]:1.2917739684368001)[&type="I",time=21.37051950598976]:10.073147613007833)[&type="I",time=11.29737189298193]:0.488917546463739)[&type="I",time=10.808454346518188]:2.2566940763926766)[&type="I",time=8.551760270125515]:2.8542151446774824)[&type="I",time=5.6975451254480305]:1.5493141343900163,((((((((((((7[&type="I",time=66.95358027752637]:37.367675387302135,(281[&type="I",time=38.46465242401357]:6.197777638457936,345[&type="I",time=36.74310295664883]:4.476228171093197)[&type="I",time=32.266874785555636]:2.680969895331401)[&type="I",time=29.585904890224235]:8.931173332470799,561[&type="I",time=32.11547639509711]:11.460744837343675)[&type="I",time=20.654731557753433]:1.013097045413133,((475[&type="I",time=33.563198311135245]:8.570823070406682,781[&type="I",time=28.60173601940089]:3.6093607786723254)[&type="I",time=24.992375240728567]:4.77189733155943,926[&type="I",time=25.390959647312844]:5.170481738143707)[&type="I",time=20.22047790916914]:0.5788433968288302)[&type="I",time=19.64163451234031]:1.8035955344223566,1035[&type="I",time=22.822027492677257]:4.983988514759318)[&type="I",time=17.83803897791795]:0.6033408673823715,(((17[&type="I",time=59.37255028469465]:28.66245261786922,608[&type="I",time=31.5347606136395]:0.8246629468140725)[&type="I",time=30.710097666825426]:3.2617909171343555,(274[&type="I",time=38.643211924072105]:10.732940702495299,804[&type="I",time=28.077186831222832]:0.1669156096460256)[&type="I",time=27.910271221576803]:0.46196447188573586)[&type="I",time=27.44830674969107]:4.779360138781158,793[&type="I",time=28.290749690386175]:5.6218030794762655)[&type="I",time=22.668946610909906]:5.434248500374338)[&type="I",time=17.234698110535582]:0.39958379736722804,(311[&type="I",time=37.53001432306391]:17.353544331476357,1075[&type="I",time=21.82122854024471]:1.6447585486571654)[&type="I",time=20.17646999158755]:3.3413556784192053)[&type="I",time=16.835114313168344]:4.011938306429201,(((((419[&type="I",time=34.68974176542779]:11.331402700042212,(427[&type="I",time=34.528781998750205]:8.974711506588562,767[&type="I",time=28.892807838690924]:3.3387373465292853)[&type="I",time=25.554070492161646]:2.1957314267760637)[&type="I",time=23.358339065385582]:0.72288828792054,621[&type="I",time=31.189628548331065]:8.554177770866026)[&type="I",time=22.635450777465042]:6.953808350750663,1155[&type="I",time=17.93066655490807]:2.249024128193696)[&type="I",time=15.681642426714381]:0.10508894918899614,(670[&type="I",time=30.368705379782423]:12.765293566249127,968[&type="I",time=24.559654436471323]:6.956242622938021)[&type="I",time=17.603411813533295]:2.026858336007919)[&type="I",time=15.57655347752538]:0.331911376850357,575[&type="I",time=31.91608201236361]:16.671439911688587)[&type="I",time=15.244642100675023]:2.4214660939358765)[&type="I",time=12.823176006739144]:2.48724843501725,1184[&type="I",time=11.879693918365978]:1.5437663466440767)[&type="I",time=10.335927571721893]:0.7322663482564309,(((((((((60[&type="I",time=50.886458734736195]:27.534749237915847,467[&type="I",time=33.68629172128283]:10.33458222446248)[&type="I",time=23.351709496820348]:2.390640714731532,(648[&type="I",time=30.666641926881297]:6.3558583804691295,970[&type="I",time=24.52900405359262]:0.2182205071804475)[&type="I",time=24.31078354641216]:3.349714764323352)[&type="I",time=20.961068782088812]:2.4395566043808827,((((393[&type="I",time=35.3088768961035]:4.187946672036681,463[&type="I",time=33.82039308024699]:2.699462856180169)[&type="I",time=31.120930224066818]:7.840862760253408,(411[&type="I",time=34.9692075082004]:6.960972844840214,774[&type="I",time=28.798003316852558]:0.7897686534923736)[&type="I",time=28.00823466336018]:4.728167199546775)[&type="I",time=23.280067463813406]:0.8972323063980383,(545[&type="I",time=32.36494049187192]:3.2838014098206756,547[&type="I",time=32.336485033092345]:3.2553459510411002)[&type="I",time=29.081139082051244]:6.698303924635873)[&type="I",time=22.38283515741537]:1.1734637697371824,959[&type="I",time=24.772875367607785]:3.5635039799295924)[&type="I",time=21.209371387678196]:2.687859209970256)[&type="I",time=18.521512177707933]:0.28093450906558814,((((377[&type="I",time=35.83469071040815]:11.678852593560727,480[&type="I",time=33.48676894672262]:9.3309308298752)[&type="I",time=24.155838116847423]:0.9450901300734245,(405[&type="I",time=35.11126203057109]:4.359878820267774,617[&type="I",time=31.326815687709075]:0.5754324774057551)[&type="I",time=30.75138321030332]:7.540635223529321)[&type="I",time=23.210747986773992]:1.3598560968808897,473[&type="I",time=33.6290205059234]:11.778128616030294)[&type="I",time=21.85089188989311]:3.3720241391641252,(514[&type="I",time=32.84225885808122]:14.032415769664738,1126[&type="I",time=19.292987771025235]:0.4831446826087529)[&type="I",time=18.809843088416482]:0.3309753376875051)[&type="I",time=18.478867750728977]:0.23829008208663538)[&type="I",time=18.240577668642345]:1.7807821575138547,(456[&type="I",time=33.94414776209404]:10.404495298652911,733[&type="I",time=29.398915080783745]:5.859262617342615)[&type="I",time=23.539652463441133]:7.079856952312639)[&type="I",time=16.459795511128497]:1.9592639937711454,((645[&type="I",time=30.761452860917277]:7.634239683457892,682[&type="I",time=30.239295884970886]:7.1120827075115045)[&type="I",time=23.12721317745939]:6.289341697885135,1134[&type="I",time=18.979639730016217]:2.14176825044197)[&type="I",time=16.83787147957425]:2.3373399622169018)[&type="I",time=14.500531517357349]:0.47858957650450407,((914[&type="I",time=25.728164370765192]:3.73560037598655,964[&type="I",time=24.598964053434763]:2.6064000586561207)[&type="I",time=21.99256399477864]:6.02466154111292,1012[&type="I",time=23.425534356678963]:7.457631903013251)[&type="I",time=15.967902453665717]:1.9459605128128743)[&type="I",time=14.021941940852836]:0.009716371113910327,((464[&type="I",time=33.78835854561799]:16.376527703872974,643[&type="I",time=30.78678144191875]:13.374950600173733)[&type="I",time=17.411830841745008]:0.6640194989737012,(1039[&type="I",time=22.718376276874192]:5.951684577363366,1140[&type="I",time=18.75922310189026]:1.9925314023794272)[&type="I",time=16.766691699510833]:0.01888035673951549)[&type="I",time=16.747811342771318]:2.7355857730323834)[&type="I",time=14.012225569738927]:1.592016657969026,(((429[&type="I",time=34.505337918550545]:12.957077802871588,1084[&type="I",time=21.551501909446134]:0.0032417937671738173)[&type="I",time=21.548260115678964]:2.94875989544191,(664[&type="I",time=30.445705093676192]:10.17903940961655,((685[&type="I",time=30.183508900985156]:7.69205302849727,1013[&type="I",time=23.40046678689112]:0.9090109144032255)[&type="I",time=22.491455872487894]:0.026756666392444117,861[&type="I",time=27.123466308249544]:4.658767102154101)[&type="I",time=22.464699206095442]:2.1980335220358)[&type="I",time=20.266665684059642]:1.6671654638225988)[&type="I",time=18.59950022023705]:0.5739870450050688,647[&type="I",time=30.71241328375762]:12.686900108525641)[&type="I",time=18.025513175231975]:5.605304263462074)[&type="I",time=12.4202089117699]:2.816547688304439)[&type="I",time=9.603661223465464]:1.9290597697240344,(((((48[&type="I",time=52.7338570707342]:28.42349117565115,324[&type="I",time=37.2143701414924]:12.90400424640935)[&type="I",time=24.310365895083056]:2.60330646519499,823[&type="I",time=27.784096523590676]:6.077037093702614)[&type="I",time=21.70705942988806]:2.623946755461944,257[&type="I",time=39.45303167379628]:20.369918999370164)[&type="I",time=19.08311267442612]:1.1950638038492514,((((68[&type="I",time=50.55647853381509]:22.22655401156603,654[&type="I",time=30.61865545973908]:2.2887309374900227)[&type="I",time=28.329924522249062]:8.7181582258182,1080[&type="I",time=21.703061824330753]:2.091295527899902)[&type="I",time=19.611766296430858]:0.0015573122359597846,1014[&type="I",time=23.3825256603136]:3.772316676118706)[&type="I",time=19.610208984194895]:1.6639315844560087,772[&type="I",time=28.85221378437364]:10.90593638463475)[&type="I",time=17.946277399738886]:0.05822852916202237)[&type="I",time=17.888048870576874]:6.472662035806749,(185[&type="I",time=41.92977205463352]:8.561309563052362,277[&type="I",time=38.604273148587005]:5.23581065700585)[&type="I",time=33.368462491581155]:21.953075656811038)[&type="I",time=11.415386834770114]:3.7407853810286866)[&type="I",time=7.674601453741431]:0.5900236866162771,((((((((24[&type="I",time=57.145143843709015]:29.757277904268868,539[&type="I",time=32.45841180206864]:5.070545862628492)[&type="I",time=27.387865939440147]:7.45320628391616,(170[&type="I",time=42.9019382923934]:20.556827215363846,881[&type="I",time=26.505200721041604]:4.1600896440120465)[&type="I",time=22.345111077029564]:2.41045142150557)[&type="I",time=19.934659655523994]:0.7608986169051803,(343[&type="I",time=36.76164462763483]:11.708582129977295,350[&type="I",time=36.64569099059112]:11.592628492933585)[&type="I",time=25.053062497657542]:5.879301459038729)[&type="I",time=19.173761038618803]:0.6045326140479546,(824[&type="I",time=27.766353078835095]:6.354551107528735,1031[&type="I",time=22.977173917639988]:1.5653719463336273)[&type="I",time=21.411801971306353]:2.842573546735508)[&type="I",time=18.56922842457085]:0.7868627020810379,(441[&type="I",time=34.180981095050576]:14.473785513060157,(954[&type="I",time=24.96760329877752]:4.178791621941002,1030[&type="I",time=23.02810808861042]:2.239296411773907)[&type="I",time=20.788811676836513]:1.0816160948460976)[&type="I",time=19.707195581990423]:1.9248298595006048)[&type="I",time=17.78236572248982]:8.09299906055577,(((110[&type="I",time=47.3885094675597]:26.46757817568458,668[&type="I",time=30.402282061404353]:9.481350769529229)[&type="I",time=20.920931291875117]:1.5638857766582817,(((((233[&type="I",time=40.21296637657712]:13.431723559842005,338[&type="I",time=36.88940614774308]:10.108163331007965)[&type="I",time=26.78124281673511]:2.7398343671488306,952[&type="I",time=25.001165260359603]:0.9597568107733139)[&type="I",time=24.041408449586285]:1.200711543140244,674[&type="I",time=30.32373881895562]:7.483041912509577)[&type="I",time=22.84069690644605]:0.6094263315374349,669[&type="I",time=30.37845989843608]:8.14718932352747)[&type="I",time=22.231270574908603]:1.0887760880952726,1055[&type="I",time=22.2843881095199]:1.1418936227065615)[&type="I",time=21.142494486813337]:1.7854489715964945)[&type="I",time=19.35704551521684]:4.240984749269174,((((((189[&type="I",time=41.69122196298669]:18.85265323026327,(836[&type="I",time=27.587798712322773]:4.4552525639637395,838[&type="I",time=27.531623526343076]:4.399077377984042)[&type="I",time=23.13254614835903]:0.2939774156356094)[&type="I",time=22.838568732723417]:0.3880101408413452,(862[&type="I",time=27.10202610427092]:4.275978090265042,956[&type="I",time=24.850768818088618]:2.024720804082733)[&type="I",time=22.826048014005885]:0.3754894221238061)[&type="I",time=22.45055859188207]:0.4799122829783613,314[&type="I",time=37.50699185274034]:15.536345543836632)[&type="I",time=21.970646308903703]:3.0036998078653596,(217[&type="I",time=40.727569748282924]:12.950771068195728,558[&type="I",time=32.1862712303317]:4.409472550244502)[&type="I",time=27.776798680087193]:8.809852179048846)[&type="I",time=18.966946501038358]:0.12020690274840717,1112[&type="I",time=20.302310748014172]:1.4555711497242214)[&type="I",time=18.846739598289936]:3.59333250581669,(((((408[&type="I",time=35.06836783737455]:5.923550310741852,739[&type="I",time=29.25045458811199]:0.10563706147929253)[&type="I",time=29.1448175266327]:3.530187441349419,810[&type="I",time=28.026618351690182]:2.411988266406894)[&type="I",time=25.614630085283288]:2.266762495560357,(821[&type="I",time=27.865242339473077]:2.2492884101951205,912[&type="I",time=25.790813331540242]:0.17485940226227115)[&type="I",time=25.615953929277964]:2.2680863395550404)[&type="I",time=23.34786758972292]:3.594886813174412,(635[&type="I",time=31.003623282070418]:2.661271168334366,659[&type="I",time=30.565668472209776]:2.223316358473724)[&type="I",time=28.342352113736048]:8.589371337187544)[&type="I",time=19.752980776548508]:2.1691102207625477,1153[&type="I",time=18.007676544611986]:0.42380598882601817)[&type="I",time=17.58387055578597]:2.330463463312711)[&type="I",time=15.253407092473253]:0.13734632652558787)[&type="I",time=15.116060765947662]:5.42669410401362)[&type="I",time=9.689366661934038]:1.0317984933903404,((((((((44[&type="I",time=53.49735866075477]:17.073140630101676,107[&type="I",time=47.45030720944665]:11.026089178793555)[&type="I",time=36.424218030653094]:13.397520472222652,785[&type="I",time=28.53047749925472]:5.503779940824273)[&type="I",time=23.02669755843044]:0.8680631328009838,(468[&type="I",time=33.67281459675722]:9.51216196203643,(565[&type="I",time=32.08484926920588]:6.559152469966655,906[&type="I",time=25.86907411303597]:0.3433773137967506)[&type="I",time=25.52569679923923]:1.3650441645184372)[&type="I",time=24.160652634720794]:2.0020182090913323)[&type="I",time=22.158634425629458]:1.5712022189022719,209[&type="I",time=41.011979137126595]:20.42454693039941)[&type="I",time=20.587432206727186]:1.7958391560447637,(((((154[&type="I",time=43.93735180188896]:14.434942939871,191[&type="I",time=41.539822369239594]:12.037413507221636)[&type="I",time=29.502408862017955]:6.385979202234196,318[&type="I",time=37.350080206041454]:14.233650546257692)[&type="I",time=23.116429659783766]:0.36517703144329516,(460[&type="I",time=33.85446426774233]:4.358700009653738,713[&type="I",time=29.645755469649426]:0.14999121156083817)[&type="I",time=29.49576425808859]:6.744511629748125)[&type="I",time=22.751252628340463]:1.614453055400162,273[&type="I",time=38.69725056148065]:17.560450988540346)[&type="I",time=21.1367995729403]:0.704299153213654,541[&type="I",time=32.43204680063805]:11.999546380911397)[&type="I",time=20.43250041972665]:1.6409073690442284)[&type="I",time=18.791593050682422]:0.4580031357880898,(485[&type="I",time=33.41285805026933]:10.600030045566463,580[&type="I",time=31.806982237057706]:8.994154232354845)[&type="I",time=22.81282800470286]:4.479238089808533)[&type="I",time=18.33358991489433]:0.10917868084585791,1133[&type="I",time=19.009413745382027]:0.7850025113335448)[&type="I",time=18.22441123404848]:3.301685088436642,(((220[&type="I",time=40.67502446451841]:9.154288123132154,536[&type="I",time=32.483298255680225]:0.9625619142939712)[&type="I",time=31.52073634138625]:12.31377398544089,(395[&type="I",time=35.2763969514546]:14.13787866658815,898[&type="I",time=26.083399978285378]:4.944881693418935)[&type="I",time=21.138518284866453]:1.9315559289210853)[&type="I",time=19.206962355945365]:3.142506729160786,1141[&type="I",time=18.748396610801993]:2.6839409840174113)[&type="I",time=16.064455626784575]:1.1417294811727459)[&type="I",time=14.92272614561184]:6.265157977068128)[&type="I",time=8.657568168543705]:1.261992934206802,((((45[&type="I",time=53.446875396349725]:24.221871236499545,440[&type="I",time=34.20503305312448]:4.9800288932743015)[&type="I",time=29.22500415985018]:8.023169367803625,((133[&type="I",time=45.72885839311211]:15.732927511695635,651[&type="I",time=30.63662806406524]:0.6406971826487577)[&type="I",time=29.995930881416477]:5.707311987328758,316[&type="I",time=37.38575832714192]:13.097139433054203)[&type="I",time=24.28861889408772]:3.0867841020411646)[&type="I",time=21.201834792046558]:1.0591250753854524,((78[&type="I",time=49.514767912430045]:23.578047518259964,676[&type="I",time=30.316623665519245]:4.379903271349164)[&type="I",time=25.936720394170074]:3.6161120979837307,1041[&type="I",time=22.70102309652776]:0.38041480034141273)[&type="I",time=22.320608296186354]:2.177898579525248)[&type="I",time=20.1427097166611]:0.9126946481807892,(252[&type="I",time=39.59669147121357]:15.64170539849875,957[&type="I",time=24.842247191216046]:0.8872611185012289)[&type="I",time=23.954986072714817]:4.724971004234504)[&type="I",time=19.23001506848031]:11.83443983414341)[&type="I",time=7.395575234336899]:0.3109974672117488)[&type="I",time=7.084577767125148]:1.2653164318033134,((((416[&type="I",time=34.839108723392236]:14.367960870938383,1082[&type="I",time=21.653728352192694]:1.1825804997388332)[&type="I",time=20.471147852453857]:0.48939093397960676,((455[&type="I",time=33.95305927311947]:9.881981938061067,462[&type="I",time=33.8314359698085]:9.760358634750098)[&type="I",time=24.071077335058412]:1.6074359973553243,797[&type="I",time=28.18429945638325]:5.720658118680163)[&type="I",time=22.463641337703077]:2.481884419228834)[&type="I",time=19.981756918474247]:2.609593326741944,((459[&type="I",time=33.88809988585646]:5.394715982453874,672[&type="I",time=30.33724516271964]:1.8438612593170518)[&type="I",time=28.49338390340259]:3.4623225193530516,922[&type="I",time=25.48088126829822]:0.4498198842486829)[&type="I",time=25.031061384049533]:7.658897792317234)[&type="I",time=17.3721635917323]:6.557429393998689,1180[&type="I",time=13.916552641311744]:3.101818443578125)[&type="I",time=10.814734197733614]:4.9954728624117735)[&type="I",time=5.819261335321843]:1.6710303442638264)[&type="I",time=4.14823099105802]:0.7375491203785316,((((((((((((((3[&type="I",time=77.94318628907763]:39.943555980247204,195[&type="I",time=41.422496384722116]:3.4228660758916902)[&type="I",time=37.999630308830426]:18.47867045209653,1091[&type="I",time=21.258742871189]:1.737783014455104)[&type="I",time=19.520959856733896]:0.9648039544277367,(660[&type="I",time=30.53825172310208]:11.595740546830356,754[&type="I",time=29.084489969790386]:10.14197879351866)[&type="I",time=18.942511176271722]:0.38635527396556313)[&type="I",time=18.55615590230616]:0.45672168664583523,((117[&type="I",time=46.387205992153554]:25.120580792587745,(576[&type="I",time=31.913926822351346]:6.894563811624522,801[&type="I",time=28.096766283754384]:3.0774032730275565)[&type="I",time=25.019363010726817]:3.752737811161012)[&type="I",time=21.26662519956581]:1.3764645521226413,(474[&type="I",time=33.60561343387374]:13.19743097768891,(905[&type="I",time=25.881108148051553]:4.8474934761461554,1087[&type="I",time=21.350287244872987]:0.3166725729675903)[&type="I",time=21.033614671905404]:0.625432215720565)[&type="I",time=20.40818245618484]:0.5180218087416648)[&type="I",time=19.89016064744317]:1.7907264317828435)[&type="I",time=18.099434215660327]:0.509867831913283,((((74[&type="I",time=50.0398940066282]:26.616527354526752,234[&type="I",time=40.18392837330375]:16.7605617212023)[&type="I",time=23.423366652101457]:2.4272293330803336,187[&type="I",time=41.80970446039613]:20.81356714137501)[&type="I",time=20.996137319021123]:0.009448697679033558,1022[&type="I",time=23.219085987643577]:2.232397366301498)[&type="I",time=20.98668862134209]:2.72911282026422,901[&type="I",time=25.958567127412405]:7.700991326334545)[&type="I",time=18.25757580107787]:0.668009417330822)[&type="I",time=17.589566383747044]:0.8734798170513471,(882[&type="I",time=26.49284970166355]:8.958095281301127,((933[&type="I",time=25.282988620546544]:3.897846398393966,1042[&type="I",time=22.694438321725197]:1.3092960995726202)[&type="I",time=21.385142222152577]:0.5290018077174352,990[&type="I",time=24.024509329929256]:3.1683689154941135)[&type="I",time=20.85614041443515]:3.3213859940727275)[&type="I",time=17.534754420362415]:0.8186678536667245)[&type="I",time=16.7160865666957]:2.014364598222997,((737[&type="I",time=29.31385997614774]:8.236230223186737,1060[&type="I",time=22.220020213638726]:1.1423904606777313)[&type="I",time=21.077629752961005]:1.9439606426170002,1115[&type="I",time=20.1847846782082]:1.0511155678642012)[&type="I",time=19.13366911034401]:4.431947141871305)[&type="I",time=14.701721968472693]:1.554503318560677,((((((180[&type="I",time=42.16758714556358]:12.987069460184038,487[&type="I",time=33.32820878177749]:4.147691096397949)[&type="I",time=29.180517685379538]:3.4410985624852515,198[&type="I",time=41.369175005850394]:15.629755882956104)[&type="I",time=25.739419122894283]:6.174308624587127,794[&type="I",time=28.290121701059384]:8.725011202752228)[&type="I",time=19.56511049830717]:0.23623906019209073,374[&type="I",time=35.88390979661739]:16.555038358502316)[&type="I",time=19.328871438115073]:2.789062259829123,(((454[&type="I",time=33.95991794635513]:4.154974838368489,627[&type="I",time=31.10616507624952]:1.3012219682628867)[&type="I",time=29.804943107986638]:8.029600899930053,1029[&type="I",time=23.031113433125434]:1.2557712250688553)[&type="I",time=21.77534220805658]:2.428903190942947,1070[&type="I",time=22.00808910735325]:2.6616500902396183)[&type="I",time=19.34643901711363]:2.806629838827689)[&type="I",time=16.53980917828595]:2.1254270634307915,((((((383[&type="I",time=35.59894617910498]:5.138891476053338,653[&type="I",time=30.61945093099919]:0.15939622794755337)[&type="I",time=30.460054703051636]:10.39977662096095,706[&type="I",time=29.76075110526497]:9.700473023174283)[&type="I",time=20.060278082090694]:0.5806974803009126,583[&type="I",time=31.78189652276765]:12.302315920977875)[&type="I",time=19.47958060178978]:0.3021552860989374,(((402[&type="I",time=35.17526707775122]:8.308892380518238,(567[&type="I",time=32.073016672937534]:4.6397545485897425,756[&type="I",time=29.06247068119923]:1.629208556851438)[&type="I",time=27.433262124347785]:0.566887427114807)[&type="I",time=26.86637469723299]:3.9626614875971597,880[&type="I",time=26.536597082648576]:3.6328838730127586)[&type="I",time=22.903713209635832]:0.6940573778751826,596[&type="I",time=31.65574299467682]:9.446087162916179)[&type="I",time=22.20965583176064]:3.032230516069802)[&type="I",time=19.177425315690844]:2.2229711424892713,(482[&type="I",time=33.48021937867871]:12.151827269721338,(508[&type="I",time=32.899617715560105]:10.984175967218171,604[&type="I",time=31.59690907873735]:9.68146733039542)[&type="I",time=21.91544174834194]:0.5870496393845599)[&type="I",time=21.328392108957377]:4.373937935755805)[&type="I",time=16.954454173201572]:0.09830105582416593,1159[&type="I",time=17.671703171182607]:0.815550053805211)[&type="I",time=16.856153117377406]:2.4417710025222448)[&type="I",time=14.414382114855156]:1.2671634649431383)[&type="I",time=13.147218649912014]:1.3097554076854152,1183[&type="I",time=13.229091591130274]:1.3916283489036658)[&type="I",time=11.837463242226606]:1.3623486458194236,(((((12[&type="I",time=61.68353865907034]:30.84841119528732,(50[&type="I",time=52.42065303332284]:12.826039751139426,153[&type="I",time=43.964854151799805]:4.370240869616389)[&type="I",time=39.59461328218342]:8.7594858184004)[&type="I",time=30.835127463783017]:8.43448334700863,789[&type="I",time=28.40549744393481]:6.0048533271604185)[&type="I",time=22.40064411677438]:2.1630859132963707,(141[&type="I",time=45.16213698595707]:23.847114676522942,481[&type="I",time=33.48322475641733]:12.168202446983202)[&type="I",time=21.31502230943413]:1.0774641059561105)[&type="I",time=20.237558203478017]:1.6009984045136463,1026[&type="I",time=23.060749326435225]:4.424189527470858)[&type="I",time=18.63655979896437]:6.428790126552116,(1113[&type="I",time=20.22415032119588]:6.5337531360134875,1123[&type="I",time=19.497239660015218]:5.80684247483282)[&type="I",time=13.690397185182396]:1.4826275127701365)[&type="I",time=12.20776967241226]:1.7326550760050736)[&type="I",time=10.47511459640718]:0.08982456175357356,(((((19[&type="I",time=58.463662065908025]:37.20231191857627,588[&type="I",time=31.726048420947574]:10.464698273615824)[&type="I",time=21.261350147331747]:2.1825480376503776,(657[&type="I",time=30.599097438831784]:3.643423702662183,719[&type="I",time=29.60141581769915]:2.645742081529548)[&type="I",time=26.955673736169604]:7.876871626488224)[&type="I",time=19.07880210968138]:2.067780331689903,(37[&type="I",time=55.42712072876005]:35.48534281913745,(((136[&type="I",time=45.36477050359796]:20.610972139156637,(711[&type="I",time=29.688196619578115]:4.358636660422853,724[&type="I",time=29.50592998214039]:4.176370022985125)[&type="I",time=25.329559959155265]:0.5757615947139385)[&type="I",time=24.75379836444132]:1.1826750529951937,974[&type="I",time=24.412390360834316]:0.8412670493881933)[&type="I",time=23.571123311446126]:3.2932615527022904,163[&type="I",time=43.233140123989166]:22.955278365245327)[&type="I",time=20.277861758743846]:0.3360838491212377)[&type="I",time=19.941777909622598]:2.930756131631128)[&type="I",time=17.011021777991477]:4.280855668685916,((908[&type="I",time=25.84534718851526]:5.6495874931353,1099[&type="I",time=20.88576609813002]:0.6900064027500576)[&type="I",time=20.195759695379966]:1.4543807400666395,1025[&type="I",time=23.096117676469447]:4.354738721156124)[&type="I",time=18.741378955313323]:6.011212846007766)[&type="I",time=12.730166109305562]:0.43107320846155517,(1178[&type="I",time=14.542427055574537]:1.0944671872929774,1182[&type="I",time=13.454420017544217]:0.006460149262665027)[&type="I",time=13.447959868281561]:1.1488669674375558)[&type="I",time=12.299092900844004]:1.9138028661903945)[&type="I",time=10.385290034653606]:0.004056794916508011,((((((((13[&type="I",time=61.455019741273446]:14.901035860007092,87[&type="I",time=48.58571228307796]:2.0317284018116055)[&type="I",time=46.553983881266355]:21.33881493548534,(135[&type="I",time=45.68001394538713]:20.01572737760675,689[&type="I",time=30.10727015818109]:4.442983590400715)[&type="I",time=25.664286567780383]:0.44911762199936334)[&type="I",time=25.21516894578102]:2.12431119827464,594[&type="I",time=31.68363321788338]:8.592775470377006)[&type="I",time=23.090857747506377]:2.9935200070471097,(637[&type="I",time=30.95049053058438]:10.371071661997377,759[&type="I",time=29.037629990172316]:8.458211121585322)[&type="I",time=20.579418868587]:0.4820811281277315)[&type="I",time=20.097337740459263]:0.07237148809041116,1083[&type="I",time=21.588899738578913]:1.5639334862100611)[&type="I",time=20.024966252368863]:0.4227962072473872,((346[&type="I",time=36.717464044460975]:9.137269548872887,817[&type="I",time=27.924305836863272]:0.3441113412751804)[&type="I",time=27.58019449558808]:5.6210365468684245,931[&type="I",time=25.31933201855084]:3.3601740698311744)[&type="I",time=21.959157948719664]:2.3569879035981955)[&type="I",time=19.602170045121472]:8.698426715747843,79[&type="I",time=49.45408665565521]:38.550343326281585)[&type="I",time=10.90374332937362]:0.31588830660589906,((((((90[&type="I",time=48.19296233209689]:28.586546301885242,313[&type="I",time=37.50828229350771]:17.901866263296064)[&type="I",time=19.60641603021165]:1.3360247650677337,((155[&type="I",time=43.81844031019394]:21.979185457694022,946[&type="I",time=25.096683854703564]:3.2574290022036365)[&type="I",time=21.83925485249992]:3.164850025465043,632[&type="I",time=31.05765257945068]:12.383247752415798)[&type="I",time=18.674404827034877]:0.40401356189096305)[&type="I",time=18.27039126514392]:2.497535221165748,1081[&type="I",time=21.698476632683118]:5.925620588704959)[&type="I",time=15.77285604397817]:0.7399032677292325,(((((((203[&type="I",time=41.23171482004248]:5.1538857400000495,269[&type="I",time=38.936047656033104]:2.8582185759906764)[&type="I",time=36.07782908004243]:11.09312235298733,592[&type="I",time=31.686807498916032]:6.702100771860934)[&type="I",time=24.98470672705509]:1.1055213814587148,461[&type="I",time=33.84970331458594]:9.970517968989554)[&type="I",time=23.879185345596387]:3.321832402931122,((667[&type="I",time=30.40641600286526]:6.128193885336529,913[&type="I",time=25.762131974025376]:1.483909856496652)[&type="I",time=24.27822211752872]:2.3214775177263363,(725[&type="I",time=29.473088192385806]:4.940569788809839,927[&type="I",time=25.384836624534]:0.8523182209580398)[&type="I",time=24.532518403575956]:2.575773803773572)[&type="I",time=21.956744599802395]:1.39939165713713)[&type="I",time=20.55735294266526]:1.4897385920940138,((458[&type="I",time=33.89973558224319]:9.031618994477618,766[&type="I",time=28.907258872302705]:4.039142284537135)[&type="I",time=24.868116587765567]:2.5548129253772487,948[&type="I",time=25.083641281937116]:2.7703376195487976)[&type="I",time=22.313303662388325]:3.245689311817074)[&type="I",time=19.06761435057125]:0.8601145841150242,(((981[&type="I",time=24.251326441844014]:2.493232978563398,1045[&type="I",time=22.665298601145786]:0.9072051378651622)[&type="I",time=21.75809346328061]:1.9873849729869306,(1008[&type="I",time=23.48580012482325]:3.5331161390929253,1111[&type="I",time=20.44620616259916]:0.49352217686882227)[&type="I",time=19.95268398573034]:0.18197549543664593)[&type="I",time=19.770708490293682]:0.9786639062827192,1135[&type="I",time=18.92658673626011]:0.13454215224913924)[&type="I",time=18.792044584010963]:0.5845448175547432)[&type="I",time=18.207499766456216]:2.1104185066059955,(1138[&type="I",time=18.89435768168149]:1.622947760599601,1148[&type="I",time=18.29067095713277]:1.0192610360508922)[&type="I",time=17.27140992108189]:1.1743286612316552)[&type="I",time=16.09708125985023]:1.0641284836012943)[&type="I",time=15.032952776248926]:2.64209163447957,(809[&type="I",time=28.029834148499035]:4.727310716080552,878[&type="I",time=26.56863417039308]:3.2661107379746)[&type="I",time=23.30252343241849]:10.911662290649119)[&type="I",time=12.390861141769365]:0.5732147705820267,(((((104[&type="I",time=47.589753655129606]:18.19034553468188,615[&type="I",time=31.37146430132293]:1.9720561808752066)[&type="I",time=29.399408120447724]:4.582827325026464,123[&type="I",time=46.012309164649274]:21.195728369228014)[&type="I",time=24.816580795421263]:6.192642657623352,1015[&type="I",time=23.353072188441015]:4.729134050643111)[&type="I",time=18.623938137797907]:2.7499278788329065,(531[&type="I",time=32.546412766603794]:12.056028281344155,875[&type="I",time=26.67420924625869]:6.183824760999045)[&type="I",time=20.490384485259632]:4.616374226294639)[&type="I",time=15.874010258965006]:1.423108659290932,(571[&type="I",time=31.987940489920756]:10.99152377834767,858[&type="I",time=27.155017544092065]:6.158600832518971)[&type="I",time=20.99641671157309]:6.545515111899022)[&type="I",time=14.450901599674069]:2.633255228486732)[&type="I",time=11.817646371187337]:1.2297913484196101)[&type="I",time=10.58785502276773]:0.20662178303062717)[&type="I",time=10.3812332397371]:1.1436300896755967,(((((4[&type="I",time=70.55227651048784]:21.182259688520105,22[&type="I",time=57.97834076385597]:8.60832394188823)[&type="I",time=49.37001682196774]:19.343403362405127,108[&type="I",time=47.44805479639839]:17.421441336835777)[&type="I",time=30.026613459562615]:8.24673952351533,(100[&type="I",time=47.67875894813679]:24.121595215921218,780[&type="I",time=28.67310556050471]:5.115941828289138)[&type="I",time=23.55716373221557]:1.77728979616829)[&type="I",time=21.77987393604728]:12.041894788923614,(((((((((14[&type="I",time=59.84611811158457]:28.913846129572335,(212[&type="I",time=40.9223720524666]:6.741447616649836,423[&type="I",time=34.665276318176645]:0.48435188235988136)[&type="I",time=34.18092443581676]:3.2486524538045245)[&type="I",time=30.93227198201224]:1.0442773642290746,120[&type="I",time=46.2829343056496]:16.394939687866433)[&type="I",time=29.887994617783168]:2.9700222693984557,550[&type="I",time=32.32610955751856]:5.408137209133855)[&type="I",time=26.91797234838471]:5.419235772981281,(235[&type="I",time=40.15951473283888]:14.2796979423264,662[&type="I",time=30.496544719325335]:4.616727928812857)[&type="I",time=25.879816790512482]:4.381080215109051)[&type="I",time=21.49873657540343]:4.970308770219347,703[&type="I",time=29.81837646486818]:13.2899486596841)[&type="I",time=16.52842780518408]:2.286690195904228,(((264[&type="I",time=39.051576790434126]:5.8423807042157705,409[&type="I",time=35.05952578719858]:1.8503297009802253)[&type="I",time=33.209196086218356]:13.74968491018791,(415[&type="I",time=34.907790926398235]:13.840061471145432,937[&type="I",time=25.234184076483636]:4.166454621230827)[&type="I",time=21.067729455252795]:1.6082182792223563)[&type="I",time=19.459511176030443]:4.883641187689733,1124[&type="I",time=19.3700959304081]:4.794225942067385)[&type="I",time=14.575869988340708]:0.33413237906086124)[&type="I",time=14.241737609279856]:1.4510627183929898,995[&type="I",time=23.87709881530558]:11.086423924418725)[&type="I",time=12.790674890886859]:1.8306658398897468,(((((193[&type="I",time=41.48641762127217]:6.2401653817370715,263[&type="I",time=39.08836606636479]:3.8421138268296957)[&type="I",time=35.246252239535096]:6.6066350921939545,317[&type="I",time=37.380464564705406]:8.740847417364265)[&type="I",time=28.639617147341145]:7.825743378285736,982[&type="I",time=24.250847582777393]:3.436973813721991)[&type="I",time=20.813873769055405]:7.950267633987238,(1137[&type="I",time=18.922319887621594]:5.294677481139487,1175[&type="I",time=15.704127325435948]:2.076484918953838)[&type="I",time=13.62764240648211]:0.7640362714139428)[&type="I",time=12.863606135068167]:0.10998417946333916,(847[&type="I",time=27.361115383438868]:3.0690831071722897,950[&type="I",time=25.056975044911407]:0.7649427686448291)[&type="I",time=24.29203227626658]:11.538410320661754)[&type="I",time=12.75362195560483]:1.7936129046077127)[&type="I",time=10.960009050997114]:0.5050497055678136,(((397[&type="I",time=35.20978836456339]:6.18472058105916,666[&type="I",time=30.430137304903056]:1.4050695213988291)[&type="I",time=29.025067783504223]:12.592842781806837,1094[&type="I",time=21.138502962845784]:4.706277961148388)[&type="I",time=16.432225001697393]:4.753263800937475,(506[&type="I",time=32.93549779343722]:15.86803108767731,((595[&type="I",time=31.678424963039465]:3.8570913764164914,605[&type="I",time=31.569247265882566]:3.7479136792595966)[&type="I",time=27.821333586622977]:9.06810564913954,991[&type="I",time=24.00530998632096]:5.252082048837536)[&type="I",time=18.753227937483423]:1.685761231723518)[&type="I",time=17.06746670575991]:5.388505504999998)[&type="I",time=11.678961200759913]:1.224001855330613)[&type="I",time=10.454959345429302]:0.7169801983056345)[&type="I",time=9.737979147123664]:0.07377501481889226,(((((498[&type="I",time=33.05941479411871]:1.5567599774051502,591[&type="I",time=31.688748351948213]:0.18609353523465444)[&type="I",time=31.502654816713555]:6.44288938379475,938[&type="I",time=25.213217162671718]:0.1534517297529021)[&type="I",time=25.0597654329188]:0.5273580001697837,512[&type="I",time=32.874090394028855]:8.34168296127983)[&type="I",time=24.53240743274902]:3.8228895854800555,808[&type="I",time=28.036243151432522]:7.326725304163546)[&type="I",time=20.709517847268973]:2.0938642899759543,1068[&type="I",time=22.074946784897904]:3.4592932276048884)[&type="I",time=18.615653557293022]:8.95144942498824)[&type="I",time=9.664204132304778]:0.42660098224327214)[&type="I",time=9.237603150061497]:4.465498681290654,(((((((((((((((6[&type="I",time=67.51886867071075]:43.63306878964548,356[&type="I",time=36.45260016346848]:12.566800282403214)[&type="I",time=23.88579988106527]:2.9712112069617405,625[&type="I",time=31.131473059425236]:10.216884385321706)[&type="I",time=20.91458867410353]:3.2566160220480356,998[&type="I",time=23.674804388694977]:6.016831736639489)[&type="I",time=17.657972652055488]:0.6704186384578605,((((115[&type="I",time=46.551412477858406]:20.28837646674718,476[&type="I",time=33.550783360173]:7.287747349061775)[&type="I",time=26.263036011111218]:6.724893411974165,642[&type="I",time=30.789594625254594]:11.251452026117533)[&type="I",time=19.538142599137053]:0.6640016168377088,(373[&type="I",time=35.926678775429124]:13.571601223864008,(740[&type="I",time=29.243958060226856]:5.996832319623692,934[&type="I",time=25.27113440686537]:2.0240086662622048)[&type="I",time=23.247125740603167]:0.89204818903805)[&type="I",time=22.35507755156511]:3.480936569265765)[&type="I",time=18.87414098229935]:0.7590561281761836,(208[&type="I",time=41.07453344992648]:16.380836217176537,486[&type="I",time=33.39604639764104]:8.702349164891096)[&type="I",time=24.693697232749944]:6.578612378626772)[&type="I",time=18.115084854123168]:1.1275308405255373)[&type="I",time=16.987554013597638]:0.8983197683589594,((((710[&type="I",time=29.700846690907248]:5.865684902764023,812[&type="I",time=27.97434010097688]:4.13917831283365)[&type="I",time=23.835161788143218]:0.8734100129373701,1023[&type="I",time=23.121380657720806]:0.15962888251495144)[&type="I",time=22.961751775205858]:0.9949050451677124,1028[&type="I",time=23.034091404668676]:1.0672446746305297)[&type="I",time=21.96684673003815]:3.977724788377145,980[&type="I",time=24.262259047853377]:6.2731371061923795)[&type="I",time=17.98912194166099]:1.8998876964223257)[&type="I",time=16.08923424523868]:1.6043131511887339,1169[&type="I",time=16.796162466470737]:2.3112413724207954)[&type="I",time=14.484921094049941]:0.4642804646272509,1120[&type="I",time=19.76204267815239]:5.741402048729697)[&type="I",time=14.020640629422685]:1.095351146610028,((((137[&type="I",time=45.30972168589096]:13.945059065721267,231[&type="I",time=40.23875540251052]:8.874092782340824)[&type="I",time=31.3646626201697]:9.556846919497062,896[&type="I",time=26.127240818936396]:4.319425118263766)[&type="I",time=21.807815700672627]:5.395834350450528,(168[&type="I",time=43.082243394924575]:15.746697522052557,618[&type="I",time=31.260622653016696]:3.9250767801446784)[&type="I",time=27.335545872872018]:10.923564522649912)[&type="I",time=16.411981350222106]:3.060216059929857,(1101[&type="I",time=20.705851822902165]:2.4403028002575127,1147[&type="I",time=18.366986430385843]:0.10143740774118726)[&type="I",time=18.26554902264465]:4.9137837323524)[&type="I",time=13.351765290292251]:0.4264758074795907)[&type="I",time=12.925289482812666]:2.3990619214044244,((((((((((85[&type="I",time=48.75614479076917]:23.561187301554668,907[&type="I",time=25.86294388570707]:0.6679863964925659)[&type="I",time=25.194957489214506]:3.828407546361831,((152[&type="I",time=43.987816763326954]:16.979667208467937,795[&type="I",time=28.26322902345249]:1.255079468593479)[&type="I",time=27.00814955485902]:2.617141394667499,848[&type="I",time=27.360429800146306]:2.9694216399547884)[&type="I",time=24.391008160191518]:3.0244582173388466)[&type="I",time=21.36654994285267]:3.2646589022166808,105[&type="I",time=47.49162679235248]:29.389735751716486)[&type="I",time=18.10189104063599]:0.45099694868635254,(251[&type="I",time=39.60371174557608]:18.657804252091637,903[&type="I",time=25.899823644222558]:4.953916150738124)[&type="I",time=20.94590749348444]:3.2950134015348027)[&type="I",time=17.650894091949635]:0.6323855790656268,((((150[&type="I",time=44.281911193938924]:18.047230690477875,734[&type="I",time=29.384279459452124]:3.149598955991074)[&type="I",time=26.234680503461053]:5.54325098257776,(((248[&type="I",time=39.699515147208096]:17.000650590690803,(726[&type="I",time=29.46565069918437]:6.692246666951917,955[&type="I",time=24.95721976157087]:2.18381572933842)[&type="I",time=22.77340403223245]:0.07453947571515585)[&type="I",time=22.698864556517293]:1.2588187450318884,1049[&type="I",time=22.631098726089206]:1.1910529146038016)[&type="I",time=21.440045811485405]:0.5929754868855497,(610[&type="I",time=31.472437424662026]:9.228838571177526,890[&type="I",time=26.234189016190324]:3.9905901627058284)[&type="I",time=22.243598853484507]:1.3965285288846445)[&type="I",time=20.84707032459986]:0.1556408037165653)[&type="I",time=20.691429520883293]:1.1639014875343463,192[&type="I",time=41.527364554490816]:21.999836521141873)[&type="I",time=19.527528033348943]:1.6795644391868194,(846[&type="I",time=27.39366439246969]:6.675193536758243,(963[&type="I",time=24.67961578125028]:3.863168469516083,1016[&type="I",time=23.307118323194242]:2.4906710114600514)[&type="I",time=20.81644731173419]:0.0979764560227494)[&type="I",time=20.71847085571145]:2.870507261549321)[&type="I",time=17.847963594162128]:0.8294550812781125)[&type="I",time=17.018508512884008]:0.16316661944019017,(((((147[&type="I",time=44.42489024847262]:20.157107353674746,194[&type="I",time=41.44094826907126]:17.17316537427338)[&type="I",time=24.26778289479788]:0.33125367147461304,548[&type="I",time=32.332873690450306]:8.396344467127044)[&type="I",time=23.936529223323266]:1.2216019956842814,(407[&type="I",time=35.08039937330553]:12.308867706571228,641[&type="I",time=30.82708327436024]:8.055551607625937)[&type="I",time=22.7715316667343]:0.056604439095323755)[&type="I",time=22.714927227638984]:1.516134505258222,1001[&type="I",time=23.60447755566731]:2.405684833286557)[&type="I",time=21.198792722380766]:0.04846246935704812,328[&type="I",time=37.06901496887766]:15.91868471585395)[&type="I",time=21.150330253023718]:4.2949883595798894)[&type="I",time=16.855341893443818]:2.8026786652794726,(((422[&type="I",time=34.67349355372978]:10.963395412571352,865[&type="I",time=27.003053808530744]:3.2929556673723113)[&type="I",time=23.710098141158422]:1.6757659966499858,994[&type="I",time=23.95549797147419]:1.9211658269657477)[&type="I",time=22.03433214450844]:2.704235868893619,(835[&type="I",time=27.60091596982795]:2.3418106292476892,852[&type="I",time=27.264345072078495]:2.0052397314982358)[&type="I",time=25.25910534058027]:5.929009064965442)[&type="I",time=19.330096275614814]:5.277433047450472)[&type="I",time=14.052663228164349]:1.7055335758916499,(((((128[&type="I",time=45.97494864334885]:24.044580706999326,1067[&type="I",time=22.084503342889438]:0.15413540653990765)[&type="I",time=21.93036793634953]:0.9029995682147245,470[&type="I",time=33.65570062760392]:12.628332259469119)[&type="I",time=21.0273683681348]:4.631293797293196,(((253[&type="I",time=39.55559528478805]:13.375966325143914,786[&type="I",time=28.505660449503733]:2.326031489859602)[&type="I",time=26.179628959644134]:2.8104278846631843,1006[&type="I",time=23.524773615672842]:0.1555725406918924)[&type="I",time=23.369201074980943]:1.815480074367187,(323[&type="I",time=37.2939731623318]:9.638570217164308,735[&type="I",time=29.341060320760267]:1.6856573755927684)[&type="I",time=27.655402945167502]:6.101681944553732)[&type="I",time=21.55372100061376]:5.157646429772157)[&type="I",time=16.396074570841613]:0.7511550223823633,709[&type="I",time=29.704487366653435]:14.059567818194196)[&type="I",time=15.64491954845925]:0.5138476249814659,((((201[&type="I",time=41.29640296889818]:11.54157636699884,555[&type="I",time=32.220002784702814]:2.465176182803475)[&type="I",time=29.754826601899335]:6.490978178819134,(900[&type="I",time=25.972070711166243]:0.7793313443221592,941[&type="I",time=25.201974779660123]:0.009235412816039457)[&type="I",time=25.19273936684408]:1.928890943763875)[&type="I",time=23.263848423080198]:0.8704029720889679,807[&type="I",time=28.058550320925317]:5.665104869934083)[&type="I",time=22.393445450991234]:4.516119976597267,1136[&type="I",time=18.92331700016374]:1.0459915257697645)[&type="I",time=17.877325474393977]:2.746253550916194)[&type="I",time=15.131071923477778]:2.7839422712050776)[&type="I",time=12.347129652272693]:0.021479773101759747,(1062[&type="I",time=22.204804515453183]:9.189432908003255,1168[&type="I",time=16.7967139386251]:3.781342331175182)[&type="I",time=13.015371607449929]:0.6897217282789825)[&type="I",time=12.325649879170946]:1.0434082409369267,(((((124[&type="I",time=46.006208413266606]:19.293804081649526,396[&type="I",time=35.229204015631765]:8.516799684014686)[&type="I",time=26.712404331617076]:5.889410222569012,(401[&type="I",time=35.175833298962914]:12.083548533901975,833[&type="I",time=27.62211425398052]:4.5298294889195745)[&type="I",time=23.092284765060946]:2.2692906560128705)[&type="I",time=20.82299410904807]:3.3192429297146617,204[&type="I",time=41.19063485126715]:23.686883671933742)[&type="I",time=17.503751179333403]:3.723558548926661,1171[&type="I",time=16.34605767238471]:2.5658650419779576)[&type="I",time=13.780192630406752]:2.1929446609856598,(((((166[&type="I",time=43.14349964406511]:10.478120807897419,384[&type="I",time=35.581398164123456]:2.916019327955766)[&type="I",time=32.66537883616769]:13.172411508870681,387[&type="I",time=35.46833285943768]:15.975365532140671)[&type="I",time=19.492967327297013]:2.5975112469568415,634[&type="I",time=31.04222889184599]:14.146772811505826)[&type="I",time=16.895456080340175]:0.8191732764854578,(((247[&type="I",time=39.76384214069575]:15.298900394113637,629[&type="I",time=31.10275206973054]:6.637810323148429)[&type="I",time=24.464941746582106]:2.2641949398281156,(426[&type="I",time=34.56406251500488]:11.984060920932649,(574[&type="I",time=31.93821052181286]:5.67419321211861,819[&type="I",time=27.886728106660712]:1.6227107969664587)[&type="I",time=26.264017309694257]:3.6840157156220243)[&type="I",time=22.580001594072225]:0.3792547873182315)[&type="I",time=22.200746806754]:2.5358708527647167,776[&type="I",time=28.741091630680994]:9.076215676691717)[&type="I",time=19.664875953989277]:3.588593150134571)[&type="I",time=16.076282803854706]:3.1376628166476337,((((380[&type="I",time=35.730073118691294]:11.40981947935424,884[&type="I",time=26.467122924353934]:2.1468692850168765)[&type="I",time=24.32025363933705]:0.9798023684773653,953[&type="I",time=24.972770534963132]:1.6323192641034439)[&type="I",time=23.34045127085969]:3.4131224264309026,984[&type="I",time=24.18787093090976]:4.2605420864809815)[&type="I",time=19.927328844428782]:4.409161730475759,1173[&type="I",time=15.748288144117975]:0.2301210301649519)[&type="I",time=15.51816711395302]:2.5795471267459504)[&type="I",time=12.938619987207074]:1.351372017785991)[&type="I",time=11.587247969421085]:0.305006331187073)[&type="I",time=11.282241638234007]:0.7560140768257781)[&type="I",time=10.52622756140823]:0.11031888072862728,41[&type="I",time=54.18893361019304]:43.77302492951343)[&type="I",time=10.415908680679609]:0.8158787423754603,(((262[&type="I",time=39.19594829464305]:17.234952988181085,(336[&type="I",time=36.98590698340314]:12.391037675050214,(693[&type="I",time=30.023987303896583]:1.5206486390401253,771[&type="I",time=28.860143460933436]:0.3568047960769789)[&type="I",time=28.50333866485646]:3.908469356503531)[&type="I",time=24.594869308352923]:2.633874001890959)[&type="I",time=21.96099530646197]:3.8355178599019553,((361[&type="I",time=36.259980804797614]:13.449084480089049,958[&type="I",time=24.792687495977695]:1.9817911712691227)[&type="I",time=22.810896324708573]:3.9844924656183878,((544[&type="I",time=32.39977679238292]:1.5014191694605117,599[&type="I",time=31.634967298131265]:0.7366096752088538)[&type="I",time=30.89835762292241]:8.746142035758432,(962[&type="I",time=24.67965536513527]:1.5882100468403877,1018[&type="I",time=23.273277210223714]:0.1818318919288231)[&type="I",time=23.09144531829489]:0.9392297311309079)[&type="I",time=22.15221558716398]:3.325811728073802)[&type="I",time=18.826403859090174]:0.7009264125301655)[&type="I",time=18.125477446560012]:0.7542163131318631,(602[&type="I",time=31.60393274522212]:6.643496286509077,816[&type="I",time=27.956868820963013]:2.996432362249962)[&type="I",time=24.960436458713044]:7.589175325284899)[&type="I",time=17.371261133428156]:7.7712311951240025)[&type="I",time=9.600029938304148]:0.5919858445175663,((((((((23[&type="I",time=57.50711844980337]:37.01464324843994,290[&type="I",time=38.20267863434179]:17.710203432978354)[&type="I",time=20.49247520136344]:0.5709408038297568,(918[&type="I",time=25.568138105442987]:5.365087354403272,1110[&type="I",time=20.474245619337097]:0.2711948682973855)[&type="I",time=20.20305075103971]:0.281516353506035)[&type="I",time=19.921534397533676]:1.7349244403700794,(((99[&type="I",time=47.68359679575958]:19.370430523861607,381[&type="I",time=35.68559062238142]:7.372424350483449)[&type="I",time=28.313166271897973]:7.159232048592983,((420[&type="I",time=34.683414381351355]:9.186987272424332,686[&type="I",time=30.136957981355547]:4.640530872428528)[&type="I",time=25.496427108927016]:2.275718129086073,841[&type="I",time=27.493355640024205]:4.272646660183256)[&type="I",time=23.22070897984095]:2.0667747565359633)[&type="I",time=21.153934223304983]:2.4553734876040068,((546[&type="I",time=32.3605424024155]:6.941489166064635,590[&type="I",time=31.721483744484924]:6.302430508134066)[&type="I",time=25.419053236350862]:6.433462761743314,1129[&type="I",time=19.165827550916134]:0.1802370763085861)[&type="I",time=18.98559047460755]:0.28702973890656835)[&type="I",time=18.698560735700983]:0.5119507785373827)[&type="I",time=18.186609957163597]:1.260284069434519,((((((148[&type="I",time=44.37954435516871]:19.73624548929302,864[&type="I",time=27.006193496709503]:2.3628946308338072)[&type="I",time=24.643298865875693]:0.8295061120931138,619[&type="I",time=31.228492992532384]:7.414700238749802)[&type="I",time=23.813792753782586]:1.2220627020255819,930[&type="I",time=25.31968365304127]:2.72795360128427)[&type="I",time=22.591730051756993]:1.0447816107182604,1004[&type="I",time=23.58345808159237]:2.036509640553632)[&type="I",time=21.54694844103874]:0.4730679778868989,(310[&type="I",time=37.58632251993572]:13.517758160988137,961[&type="I",time=24.692729975782967]:0.6241656168353842)[&type="I",time=24.068564358947583]:2.9946838957957453)[&type="I",time=21.073880463151834]:2.7492743726772915,495[&type="I",time=33.10075514637613]:14.776149055901584)[&type="I",time=18.324606090474546]:1.3982802027454682)[&type="I",time=16.926325887729078]:0.7644352805496055,((((113[&type="I",time=47.181174059033]:8.779129758762217,161[&type="I",time=43.312570670092384]:4.9105263698216035)[&type="I",time=38.40204430027078]:3.3351892685338598,306[&type="I",time=37.81976337950825]:2.7529083477713314)[&type="I",time=35.06685503173692]:13.392017129100779,357[&type="I",time=36.44631242401497]:14.771474521378828)[&type="I",time=21.67483790263614]:2.888894464547974,(((280[&type="I",time=38.5236646169585]:5.699500965632907,398[&type="I",time=35.19450750286415]:2.370343851538557)[&type="I",time=32.82416365132559]:9.556506548597852,773[&type="I",time=28.83826016808678]:5.5706030653590375)[&type="I",time=23.267657102727746]:2.826459880174042,(803[&type="I",time=28.081561869485352]:6.082810484956212,1048[&type="I",time=22.64010599801805]:0.6413546134889145)[&type="I",time=21.998751384529143]:1.557554161975446)[&type="I",time=20.44119722255369]:1.655253784465529)[&type="I",time=18.785943438088168]:2.6240528309086955)[&type="I",time=16.161890607179473]:0.4052452468741876,((((((130[&type="I",time=45.86639781001474]:8.17940442275016,228[&type="I",time=40.385436995283264]:2.6984436080186853)[&type="I",time=37.68699338726458]:18.793796286545657,(164[&type="I",time=43.20561828343412]:21.435273009631416,(186[&type="I",time=41.855278112610094]:11.385676786484666,511[&type="I",time=32.885553789157214]:2.415952463031786)[&type="I",time=30.46960132612543]:8.699256052322724)[&type="I",time=21.7703452738027]:2.877148173083782)[&type="I",time=18.89319710071892]:0.17846620137700597,(552[&type="I",time=32.30721346556637]:12.49975833242582,1085[&type="I",time=21.537483609512186]:1.7300284763716434)[&type="I",time=19.807455133140554]:1.0927242337986343)[&type="I",time=18.71473089934191]:0.1229536990804263,971[&type="I",time=24.498006269527394]:5.906229069265905)[&type="I",time=18.591777200261493]:0.7878994600223876,(910[&type="I",time=25.804058528969183]:3.4114763935002657,999[&type="I",time=23.614010557856748]:1.221428422387831)[&type="I",time=22.39258213546892]:4.588704395229811)[&type="I",time=17.803877740239102]:0.5110810636968779,939[&type="I",time=25.21175716318847]:7.918960486646242)[&type="I",time=17.292796676542224]:1.5361513162369391)[&type="I",time=15.756645360305281]:5.233451047258143,(((((93[&type="I",time=47.95022754139481]:25.087694927600097,(501[&type="I",time=33.0152404320641]:9.304662622932106,(628[&type="I",time=31.102829379410974]:6.329807239977242,747[&type="I",time=29.14133328652719]:4.368311147093451)[&type="I",time=24.773022139433728]:1.0624443303017443)[&type="I",time=23.710577809131987]:0.8480451953372778)[&type="I",time=22.86253261379471]:0.9576147586828654,(556[&type="I",time=32.21853418153036]:9.383416873325245,859[&type="I",time=27.150931544110726]:4.315814235905606)[&type="I",time=22.835117308205117]:0.930199453093266)[&type="I",time=21.904917855111844]:3.6093834165446026,(((638[&type="I",time=30.884958700382903]:8.441105020600922,986[&type="I",time=24.117887450655726]:1.6740337708737485)[&type="I",time=22.44385367978198]:2.2227405337823143,1108[&type="I",time=20.521746089103708]:0.3006329431040342)[&type="I",time=20.221113145999666]:1.8318414830580139,813[&type="I",time=27.96683194612506]:9.577560283183402)[&type="I",time=18.38927166294166]:0.0937372243744079)[&type="I",time=18.29553443856724]:0.023342820188602786,((272[&type="I",time=38.72780790411765]:16.48793989340927,639[&type="I",time=30.85927955965693]:8.619411548948548)[&type="I",time=22.23986801070838]:0.07687722044917678,388[&type="I",time=35.452021699650736]:13.289030909391535)[&type="I",time=22.1629907902592]:3.890799171880559)[&type="I",time=18.27219161837865]:5.991334555094696,(((965[&type="I",time=24.586157804478024]:3.493343279643881,1050[&type="I",time=22.452783674607346]:1.3599691497732067)[&type="I",time=21.092814524834136]:5.977177956758624,1172[&type="I",time=16.086808828290707]:0.9711722602151838)[&type="I",time=15.115636568075509]:2.1366791057569117,(1103[&type="I",time=20.599547591096417]:3.8338469491789766,1118[&type="I",time=19.99589165154595]:3.2301910096284985)[&type="I",time=16.765700641917448]:3.7867431795988438)[&type="I",time=12.978957462318604]:0.6981003990346579)[&type="I",time=12.28085706328395]:1.757662750236804)[&type="I",time=10.523194313047147]:0.9838563658633888,((156[&type="I",time=43.75778852957715]:7.962325388824368,165[&type="I",time=43.160137941570056]:7.364674800817276)[&type="I",time=35.79546314075278]:4.238214855011158,530[&type="I",time=32.553540648597206]:0.9962923628555842)[&type="I",time=31.557248285741622]:22.01791033855787)[&type="I",time=9.539337947183757]:0.5312938533971732)[&type="I",time=9.008044093786577]:0.9543227397588225,(((1003[&type="I",time=23.58794196763227]:7.532455797320665,1098[&type="I",time=20.891403793770568]:4.835917623458968)[&type="I",time=16.055486170311593]:2.806030071010113,1024[&type="I",time=23.118414209247987]:9.868958109946504)[&type="I",time=13.249456099301485]:0.11476026615858359,1179[&type="I",time=14.095313431679939]:0.9606175985370413)[&type="I",time=13.134695833142896]:5.080974479115142)[&type="I",time=8.053721354027758]:0.826784507200955,(((((((20[&type="I",time=58.07254072601565]:32.471318044073065,129[&type="I",time=45.90359712842125]:20.30237444647866)[&type="I",time=25.601222681942595]:3.2733358989516717,((337[&type="I",time=36.92423101706583]:7.804628565091015,573[&type="I",time=31.9720668213904]:2.8524643694155856)[&type="I",time=29.119602451974814]:4.0237358526089935,925[&type="I",time=25.42684691533744]:0.33098031597161537)[&type="I",time=25.095866599365817]:2.767979816374904)[&type="I",time=22.327886782990912]:5.568339755998366,1095[&type="I",time=21.124941308521965]:4.365394281529419)[&type="I",time=16.759547026992553]:1.3511352072477933,((((((34[&type="I",time=55.71435538539036]:34.220069372288236,(70[&type="I",time=50.462382286124964]:24.951868562705798,798[&type="I",time=28.15359956935951]:2.643085845940348)[&type="I",time=25.510513723419166]:4.01622771031704)[&type="I",time=21.49428601310212]:2.3140073345325476,((((116[&type="I",time=46.40160932233228]:14.673865369458682,542[&type="I",time=32.4303222923501]:0.7025783394765028)[&type="I",time=31.7277439528736]:3.950849227524074,528[&type="I",time=32.59260393681853]:4.815709211469006)[&type="I",time=27.776894725349518]:2.463608197272947,792[&type="I",time=28.29214393902505]:2.9788574109484784)[&type="I",time=25.313286528076574]:2.8410726880358794,1017[&type="I",time=23.277559434957453]:0.8053455949167585)[&type="I",time=22.47221384004069]:3.291935161471116)[&type="I",time=19.18027867856958]:1.079928879997368,1119[&type="I",time=19.806700727517708]:1.706350928945497)[&type="I",time=18.100349798572214]:0.6011719510890288,((((67[&type="I",time=50.64383925471426]:22.117304101587386,118[&type="I",time=46.36652794916331]:17.83999279603644)[&type="I",time=28.526535153126876]:8.391600284177372,1078[&type="I",time=21.715229509832913]:1.5802946408834089)[&type="I",time=20.1349348689495]:2.25158679954761,1151[&type="I",time=18.07187291092836]:0.18852484152647264)[&type="I",time=17.883348069401894]:0.16024327304538133,749[&type="I",time=29.1266960319726]:11.40359123561609)[&type="I",time=17.72310479635651]:0.2239269488733271)[&type="I",time=17.499177847483175]:0.5012557545921936,(308[&type="I",time=37.796043916427955]:13.943805573834815,718[&type="I",time=29.606070104629268]:5.753831762036128)[&type="I",time=23.85223834259314]:6.854316249702151)[&type="I",time=16.997922092890995]:0.06477590505778608,(977[&type="I",time=24.297775185684994]:6.990283191400238,1158[&type="I",time=17.716825792527146]:0.40933379824238614)[&type="I",time=17.307491994284756]:0.3743458064515579)[&type="I",time=16.933146187833195]:1.5247343680884455)[&type="I",time=15.40841181974476]:0.8548089276675768,(72[&type="I",time=50.17452968122527]:28.482387325190352,1043[&type="I",time=22.692241634347525]:1.0000992783126037)[&type="I",time=21.692142356034925]:7.138539463957741)[&type="I",time=14.553602892077185]:0.11772681789773287,(((((81[&type="I",time=49.16300637668406]:23.853037727842853,790[&type="I",time=28.394819176838507]:3.084850527997304)[&type="I",time=25.309968648841206]:2.6080812484385376,171[&type="I",time=42.808311850276006]:20.106424449873337)[&type="I",time=22.701887400402676]:2.122801473835281,366[&type="I",time=36.195586439021724]:15.616500512454337)[&type="I",time=20.579085926567387]:4.365185104129054,1092[&type="I",time=21.24239805094798]:5.02849722850965)[&type="I",time=16.213900822438333]:0.1933281098051225,((448[&type="I",time=34.03760080720742]:14.839105254409326,967[&type="I",time=24.567362372186125]:5.368866819388032)[&type="I",time=19.198495552798086]:0.5502838258344411,1036[&type="I",time=22.81481252287409]:4.1666007959104405)[&type="I",time=18.648211726963652]:2.627639014330441)[&type="I",time=16.020572712633204]:1.5846966384537637)[&type="I",time=14.435876074179445]:2.504747293070878,(((((232[&type="I",time=40.21823132940849]:8.70596267002098,296[&type="I",time=38.04679822929683]:6.534529569909324)[&type="I",time=31.51226865938751]:11.24511466024051,860[&type="I",time=27.138171365820607]:6.8710173666736125)[&type="I",time=20.267153999147006]:4.380793796058782,(1132[&type="I",time=19.02327079236173]:3.0354163553598994,1154[&type="I",time=17.97655227511437]:1.988697838112543)[&type="I",time=15.987854437001825]:0.10149423391361267)[&type="I",time=15.886360203088223]:0.10245277375935302,1150[&type="I",time=18.081901236344898]:2.2979938070160415)[&type="I",time=15.783907429328867]:0.34912244882262655,1088[&type="I",time=21.338722867651608]:5.903937887145375)[&type="I",time=15.434784980506231]:3.5036561993976676)[&type="I",time=11.93112878110857]:4.704191934281766)[&type="I",time=7.226936846826807]:0.546724033418684,(((((259[&type="I",time=39.2552737243166]:13.930612855327759,741[&type="I",time=29.2259834983479]:3.9013226293590577)[&type="I",time=25.324660868988843]:2.674036269410607,303[&type="I",time=37.90729406553658]:15.256669465958346)[&type="I",time=22.65062459957824]:2.4473952864564836,579[&type="I",time=31.825733107628587]:11.622503794506834)[&type="I",time=20.20322931312176]:3.401297579969693,((365[&type="I",time=36.19578973437775]:10.534803545797793,471[&type="I",time=33.64922688423366]:7.988240695653708)[&type="I",time=25.66098618857995]:4.339450259067874,784[&type="I",time=28.547726162764732]:7.226190233252652)[&type="I",time=21.321535929512077]:4.519604196360021)[&type="I",time=16.801931733152063]:6.5933865546049475,1185[&type="I",time=11.805146880273863]:1.5966017017267546)[&type="I",time=10.20854517854712]:3.5283323651389935)[&type="I",time=6.680212813408115]:1.9081083446372702)[&type="I",time=4.772104468770848]:1.361422598091366)[&type="I",time=3.4106818706794892]:0.8417615720532297,((((((((((((((((5[&type="I",time=69.66499329203624]:45.042396924964635,392[&type="I",time=35.36766153353429]:10.74506516646268)[&type="I",time=24.6225963670716]:0.5702731518772168,151[&type="I",time=44.23147832821644]:20.17915511302205)[&type="I",time=24.052323215194395]:2.7826350892659946,(((55[&type="I",time=51.481890907253295]:17.590274567108537,243[&type="I",time=39.878369430609325]:5.986753090464568)[&type="I",time=33.89161634014476]:10.764969432371338,520[&type="I",time=32.69074466093977]:9.564097753166351)[&type="I",time=23.12664690777342]:0.03275164385271978,924[&type="I",time=25.428347040905816]:2.3344517769851194)[&type="I",time=23.093895263920697]:1.8242071379923033)[&type="I",time=21.2696881259284]:1.7118083639910537,658[&type="I",time=30.5893197136758]:11.031439951738456)[&type="I",time=19.55787976193734]:1.6788794406077443,((((149[&type="I",time=44.3442184283508]:19.419169111754996,932[&type="I",time=25.301578572172215]:0.3765292555764148)[&type="I",time=24.925049316595807]:0.9591476383367592,732[&type="I",time=29.4253755813169]:5.459473903057855)[&type="I",time=23.96590167825905]:3.0163424788512145,(177[&type="I",time=42.338608716212356]:17.361503424472225,661[&type="I",time=30.50323437329452]:5.526129081554387)[&type="I",time=24.977105291740124]:4.027546092332301)[&type="I",time=20.94955919940783]:0.5382275904173639,404[&type="I",time=35.12168160228967]:14.710349993299204)[&type="I",time=20.411331608990462]:2.532331287660867)[&type="I",time=17.879000321329595]:0.30126415085443625,((28[&type="I",time=56.48650411039145]:32.52274867641633,370[&type="I",time=36.030843109303795]:12.067087675328672)[&type="I",time=23.963755433975127]:5.0397833894426185,(572[&type="I",time=31.986835552826662]:9.81272981587334,656[&type="I",time=30.608984368058383]:8.434878631105065)[&type="I",time=22.174105736953322]:3.2501336924208175)[&type="I",time=18.923972044532498]:1.3462358740573421)[&type="I",time=17.577736170475163]:0.8631762444553033,(((((16[&type="I",time=59.48443924531808]:24.643083048446798,349[&type="I",time=36.651204568129174]:1.8098483712578926)[&type="I",time=34.84135619687128]:14.979369707027551,((((27[&type="I",time=56.50055658827601]:13.608588191655727,80[&type="I",time=49.39524250502576]:6.503274108405478)[&type="I",time=42.891968396620285]:10.273256945440274,413[&type="I",time=34.92296032841485]:2.3042488772348406)[&type="I",time=32.61871145118001]:11.243676207981785,911[&type="I",time=25.79227763904725]:4.417242395849016)[&type="I",time=21.37503524319823]:0.795519629038381,((109[&type="I",time=47.429713105240374]:15.78585971998271,425[&type="I",time=34.581473318118185]:2.937619932860521)[&type="I",time=31.643853385257664]:7.311363710862302,675[&type="I",time=30.317254314447517]:5.9847646400521555)[&type="I",time=24.332489674395358]:3.752974060235516)[&type="I",time=20.57951561415985]:0.7175291243161155)[&type="I",time=19.861986489843733]:1.571221831532327,((298[&type="I",time=38.02761445691718]:11.007348007095274,334[&type="I",time=37.03416117474233]:10.013894724920426)[&type="I",time=27.02026644982191]:8.661489136376673,(752[&type="I",time=29.08883271332511]:10.703019862076282,1125[&type="I",time=19.356412644859567]:0.9705997936107309)[&type="I",time=18.38581285124883]:0.027035537803598686)[&type="I",time=18.35877731344523]:0.0680126551338276)[&type="I",time=18.290764658311407]:1.0034984901684538,1114[&type="I",time=20.202842412957455]:2.9155762448145026)[&type="I",time=17.28726616814295]:0.41116838538184197,(888[&type="I",time=26.297977910227665]:6.542936902592359,921[&type="I",time=25.484936272157174]:5.729895264521872)[&type="I",time=19.755041007635302]:2.8789432248741917)[&type="I",time=16.876097782761114]:0.16153785674124777)[&type="I",time=16.714559926019856]:0.523744359894323,(56[&type="I",time=51.3639974237862]:34.825380506043686,1152[&type="I",time=18.05810818676399]:1.5194912690214721)[&type="I",time=16.538616917742523]:0.34780135161697956)[&type="I",time=16.190815566125536]:3.4580626086298167,(((((((75[&type="I",time=49.94495653125677]:24.283614170553967,410[&type="I",time=35.01692124000527]:9.355578879302463)[&type="I",time=25.661342360702807]:6.00002486200394,237[&type="I",time=40.05212252773741]:20.390805029038546)[&type="I",time=19.661317498698864]:0.8040245154226113,((344[&type="I",time=36.75037198620648]:15.562285873936666,403[&type="I",time=35.16765168018542]:13.979565567915607)[&type="I",time=21.18808611226982]:2.0303518498356823,1074[&type="I",time=21.825600591703722]:2.667866329269586)[&type="I",time=19.157734262434133]:0.3004412791578801)[&type="I",time=18.85729298327626]:1.5874543330797195,(488[&type="I",time=33.28488948302741]:3.0894624137228703,620[&type="I",time=31.215637664882063]:1.0202105955775238)[&type="I",time=30.19542706930454]:12.92558841910801)[&type="I",time=17.26983865019653]:0.03059417347421345,((83[&type="I",time=48.957259510214705]:22.857397649000454,787[&type="I",time=28.465526775741445]:2.3656649145272013)[&type="I",time=26.099861861214247]:7.449238023146137,1020[&type="I",time=23.24154303859319]:4.590919200525079)[&type="I",time=18.65062383806812]:1.4113793613457943)[&type="I",time=17.239244476722323]:0.09972520398993368,1106[&type="I",time=20.54684686991435]:3.407327597181961)[&type="I",time=17.139519272732382]:1.6376260676806424,((((77[&type="I",time=49.60439183629671]:19.265040588153774,435[&type="I",time=34.34833773659919]:4.008986488456252)[&type="I",time=30.33935124814294]:5.69079842756539,(173[&type="I",time=42.65821383953732]:17.313317236036035,811[&type="I",time=28.009437098700765]:2.664540495199475)[&type="I",time=25.34489660350128]:0.6963437829237336)[&type="I",time=24.64855282057755]:4.330136654566687,777[&type="I",time=28.715576738695084]:8.397160572684221)[&type="I",time=20.31841616601086]:3.8200328847598115,(1051[&type="I",time=22.409334996692817]:4.1630918838906865,1143[&type="I",time=18.686626434276473]:0.4403833214743429)[&type="I",time=18.24624311280213]:1.7478598315510823)[&type="I",time=16.49838328125105]:0.9964900761993079)[&type="I",time=15.501893205051744]:2.769140247556024)[&type="I",time=12.732752957495727]:0.6403793436912366,((((((((31[&type="I",time=56.10261262245555]:31.742373827604666,417[&type="I",time=34.73467136341712]:10.374432568566235)[&type="I",time=24.360238794850883]:5.501288677732106,((179[&type="I",time=42.179480199394774]:21.767935366802803,(197[&type="I",time=41.403144589227246]:20.582541113630988,494[&type="I",time=33.12676633643842]:12.306162860842164)[&type="I",time=20.820603475596265]:0.4090586430042862)[&type="I",time=20.41154483259197]:0.77584811469751,((((256[&type="I",time=39.46414355862451]:8.10403858417748,332[&type="I",time=37.04444992585455]:5.684344951407525)[&type="I",time=31.36010497444703]:7.921351129143545,831[&type="I",time=27.653926770480634]:4.215172925177157)[&type="I",time=23.438753845303484]:3.330464541897328,839[&type="I",time=27.5249298807609]:7.416640577354741)[&type="I",time=20.108289303406153]:0.46229681306498094,515[&type="I",time=32.7319050491357]:13.085912558794526)[&type="I",time=19.645992490341172]:0.010295772446710316)[&type="I",time=19.635696717894465]:0.7767466007756809)[&type="I",time=18.858950117118777]:2.5515485132807925,(((49[&type="I",time=52.67819638075501]:20.07025107149071,341[&type="I",time=36.80957030215006]:4.201624992885755)[&type="I",time=32.6079453092643]:4.511242195949329,764[&type="I",time=28.924766432168898]:0.8280633188539213)[&type="I",time=28.09670311331498]:1.5728884090715098,266[&type="I",time=38.97837629916216]:12.454561594918694)[&type="I",time=26.52381470424346]:10.216413100405475)[&type="I",time=16.307401603837988]:0.5776726157264989,(((((101[&type="I",time=47.65728985412254]:22.8891889957483,(442[&type="I",time=34.17431286605303]:4.637835869457646,646[&type="I",time=30.71922529951597]:1.1827483029205865)[&type="I",time=29.536476996595386]:4.768376138221143)[&type="I",time=24.768100858374233]:2.7536776848397295,(((287[&type="I",time=38.34698694690247]:10.096095644053229,720[&type="I",time=29.58964555746043]:1.3387542546111888)[&type="I",time=28.250891302849247]:4.156042715204691,679[&type="I",time=30.260637236417065]:6.165788648772519)[&type="I",time=24.09484858764455]:0.9012718561491795,805[&type="I",time=28.07140773685593]:4.877831005360562)[&type="I",time=23.193576731495373]:1.1791535579608592)[&type="I",time=22.014423173534514]:2.998469574327757,791[&type="I",time=28.30585454714138]:9.289900947934626)[&type="I",time=19.01595359920676]:2.5799152300254207,742[&type="I",time=29.21038896633617]:12.774350597154836)[&type="I",time=16.436038369181325]:0.6392506617311824,((532[&type="I",time=32.53971150755856]:13.186702454787572,566[&type="I",time=32.080287103058595]:12.727278050287609)[&type="I",time=19.353009052770986]:1.8398809465248291,(855[&type="I",time=27.227826623746225]:7.076425563482815,877[&type="I",time=26.615993722719864]:6.464592662456454)[&type="I",time=20.151401060263414]:2.6382729540172534)[&type="I",time=17.513128106246153]:1.7163403987960066)[&type="I",time=15.796787707450148]:0.06705871933866092)[&type="I",time=15.729728988111495]:0.030858854904806776,(((((52[&type="I",time=52.390985371410736]:8.167190679865527,106[&type="I",time=47.466161695212975]:3.2423670036677663)[&type="I",time=44.22379469154521]:17.104502107264878,(778[&type="I",time=28.68003452575462]:1.4929316646240238,842[&type="I",time=27.465262294728]:0.2781594335973949)[&type="I",time=27.1871028611306]:0.06781027685026686)[&type="I",time=27.119292584280327]:7.397627781667907,(131[&type="I",time=45.84113768945539]:22.916664355481522,834[&type="I",time=27.60305411610739]:4.678580782133523)[&type="I",time=22.924473333973864]:3.202808531361441)[&type="I",time=19.72166480261242]:1.6900294569546617,358[&type="I",time=36.39831745874871]:18.366682113090945)[&type="I",time=18.03163534565776]:0.07090700093803548,870[&type="I",time=26.768124301929433]:8.807395957209707)[&type="I",time=17.960728344719726]:2.2618582115130437)[&type="I",time=15.698870133206682]:1.0852518556868773,(((((236[&type="I",time=40.15630734917151]:12.670124975884576,698[&type="I",time=29.88508216458301]:2.398899791296074)[&type="I",time=27.48618237328694]:3.96220721758543,945[&type="I",time=25.097218034017992]:1.5732428783164778)[&type="I",time=23.52397515570151]:6.658255173285227,(382[&type="I",time=35.63713815076845]:17.7858428162738,723[&type="I",time=29.534952738931345]:11.683657404436694)[&type="I",time=17.85129533449465]:0.9855753520783708)[&type="I",time=16.865719982416284]:0.2854505345754461,1037[&type="I",time=22.762037394295756]:6.181767946454926)[&type="I",time=16.580269447840838]:0.37016644756057815,((730[&type="I",time=29.438521108820282]:8.12074293387326,1065[&type="I",time=22.107081069716404]:0.7893028947693779)[&type="I",time=21.31777817494702]:4.385824548824459,985[&type="I",time=24.138006758549913]:7.206053132427343)[&type="I",time=16.931953626122564]:0.7218506258423076)[&type="I",time=16.210103000280263]:1.5964847227604508)[&type="I",time=14.613618277519809]:0.13854960785884884,((((36[&type="I",time=55.46390988824153]:29.77801780898568,132[&type="I",time=45.77225455281425]:20.086362473558403)[&type="I",time=25.685892079255844]:3.808096454215729,568[&type="I",time=32.06671833420203]:10.188922709161908)[&type="I",time=21.877795625040118]:3.160083951024376,((((221[&type="I",time=40.66839281092092]:10.796049477832582,603[&type="I",time=31.59793546356331]:1.725592130474972)[&type="I",time=29.872343333088335]:7.707293850147636,445[&type="I",time=34.07707743833439]:11.91202795539369)[&type="I",time=22.165049482940702]:1.6995592261607868,(265[&type="I",time=39.001575312390045]:18.102374963911643,837[&type="I",time=27.583407922526302]:6.684207574047903)[&type="I",time=20.899200348478402]:0.4337100916984866)[&type="I",time=20.465490256779916]:1.4058523355706427,1122[&type="I",time=19.56406921407478]:0.5044312928655046)[&type="I",time=19.059637921209276]:0.34192624719352693)[&type="I",time=18.71771167401574]:3.3882222258508676,(((((447[&type="I",time=34.05330776043336]:4.730611006963898,623[&type="I",time=31.152530603323285]:1.82983384985382)[&type="I",time=29.322696753469465]:5.3318069796982925,886[&type="I",time=26.357645881255962]:2.3667561074847896)[&type="I",time=23.990889773771176]:2.305045056154455,1058[&type="I",time=22.256680213447684]:0.5708354958309627)[&type="I",time=21.68584471761672]:0.763782066453075,636[&type="I",time=30.98551863924462]:10.063455988080975)[&type="I",time=20.922062651163635]:0.545141563505382,1100[&type="I",time=20.716931936839085]:0.34001084918082825)[&type="I",time=20.376921087658264]:5.047431639493382)[&type="I",time=15.329489448164873]:0.854420778503922)[&type="I",time=14.475068669660963]:2.3502763795156625,((((230[&type="I",time=40.265531201682535]:17.789334937277758,(315[&type="I",time=37.49381698417456]:10.632031578007854,822[&type="I",time=27.8315405857206]:0.9697551795538999)[&type="I",time=26.861785406166696]:4.385589141761926)[&type="I",time=22.47619626440477]:0.8164207495563858,((239[&type="I",time=39.983321058577694]:15.247401740002978,607[&type="I",time=31.539791569470303]:6.803872250895587)[&type="I",time=24.735919318574723]:1.763902262240677,(276[&type="I",time=38.61541562572357]:14.557393783835437,874[&type="I",time=26.684357814051236]:2.6263359721631048)[&type="I",time=24.058021841888138]:1.0860047855540955)[&type="I",time=22.972017056334042]:1.3122415414856476)[&type="I",time=21.65977551484839]:5.253734558903574,1170[&type="I",time=16.69236943050687]:0.2863284745620547)[&type="I",time=16.40604095594481]:2.9228943076581544,1053[&type="I",time=22.3830636247415]:8.899916976454833)[&type="I",time=13.483146648286661]:1.3583543581413693)[&type="I",time=12.12479229014529]:0.03241867634081075)[&type="I",time=12.092373613804485]:0.21135002545165094,(895[&type="I",time=26.13460888317315]:2.1948583896848675,966[&type="I",time=24.581486787094942]:0.6417362936066553)[&type="I",time=23.939750493488287]:12.058726905135458)[&type="I",time=11.881023588352837]:3.3996623932943635,(((((59[&type="I",time=51.06078930207215]:29.30500247244818,(((213[&type="I",time=40.91485690376826]:12.827269207529518,684[&type="I",time=30.216552911669016]:2.12896521543027)[&type="I",time=28.087587696238735]:3.526168164697623,633[&type="I",time=31.051955953731543]:6.490536422190424)[&type="I",time=24.561419531541127]:0.5226731811169003,671[&type="I",time=30.349022171463762]:6.310275821039539)[&type="I",time=24.038746350424223]:2.2829595208002473)[&type="I",time=21.75578682962398]:4.762286307217437,872[&type="I",time=26.748975111871683]:9.755474589465152)[&type="I",time=16.993500522406528]:1.3638546941407839,((((142[&type="I",time=45.11002892459947]:19.943130397185207,788[&type="I",time=28.450640051205582]:3.2837415237913206)[&type="I",time=25.16689852741427]:4.768310370837952,(496[&type="I",time=33.075354702754964]:9.760317369978793,736[&type="I",time=29.33758244878259]:6.02254511600642)[&type="I",time=23.31503733277617]:2.916449176199862)[&type="I",time=20.398588156576313]:0.11021916659714748,((557[&type="I",time=32.20943365834316]:8.060982078503756,844[&type="I",time=27.43312550067838]:3.2846739208389693)[&type="I",time=24.148451579839396]:2.467704495795104,993[&type="I",time=23.958453136846636]:2.277706052802344)[&type="I",time=21.680747084044302]:1.392378094065137)[&type="I",time=20.288368989979165]:1.835723813495136,909[&type="I",time=25.81688333754668]:7.364238161062659)[&type="I",time=18.452645176484022]:2.822999348218275)[&type="I",time=15.629645828265753]:1.2783977910197564,(((61[&type="I",time=50.88234037138368]:20.195559704399017,451[&type="I",time=34.01708682667326]:3.330306159688597)[&type="I",time=30.686780666984664]:10.228900812117104,969[&type="I",time=24.545365794983496]:4.08748594011594)[&type="I",time=20.457879854867564]:2.9186191861265627,(157[&type="I",time=43.53839434505944]:21.38804002080564,((160[&type="I",time=43.32101371875538]:10.933027774676411,240[&type="I",time=39.939347722874004]:7.551361778795034)[&type="I",time=32.38798594407897]:5.187567311438649,305[&type="I",time=37.83257674129696]:10.63215810865664)[&type="I",time=27.20041863264032]:5.050064308386524)[&type="I",time=22.150354324253794]:4.6110936555128035)[&type="I",time=17.539260668740997]:3.188012631494999)[&type="I",time=14.35124803724599]:0.034764422177730125,1021[&type="I",time=23.237158961587372]:8.920675346519104)[&type="I",time=14.31648361506827]:5.835122420009796)[&type="I",time=8.481361195058472]:1.7063152798417178,(((((((((((((84[&type="I",time=48.833096751362014]:12.385929817166293,268[&type="I",time=38.95970884863667]:2.512541914440952)[&type="I",time=36.44716693419572]:2.0807018246838567,125[&type="I",time=45.99400389722872]:11.627538787716858)[&type="I",time=34.366465109511864]:2.6201797054434834,214[&type="I",time=40.89246119798186]:9.146175793913478)[&type="I",time=31.74628540406838]:3.575419588105369,322[&type="I",time=37.298633676975896]:9.127767861012885)[&type="I",time=28.170865815963005]:3.5537762240402913,893[&type="I",time=26.174627153843097]:1.557537561920384)[&type="I",time=24.617089591922724]:3.5636268683364847,(((446[&type="I",time=34.06149212113358]:2.2465132046803546,491[&type="I",time=33.21479094377881]:1.3998120273255807)[&type="I",time=31.814978916453224]:4.730593572242995,630[&type="I",time=31.08952616338495]:4.005140819174713)[&type="I",time=27.084385344210233]:2.581798635934902,449[&type="I",time=34.02628026739768]:9.52369355912235)[&type="I",time=24.50258670827533]:3.449123984689095)[&type="I",time=21.05346272358623]:4.207830444589348,((((211[&type="I",time=40.98289964051579]:12.356640767466047,729[&type="I",time=29.44219742042973]:0.8159385473799858)[&type="I",time=28.626258873049743]:8.448254621788031,920[&type="I",time=25.51015771736432]:5.332153466102611)[&type="I",time=20.178004251261715]:0.4930647730396487,(904[&type="I",time=25.895406987238193]:2.857133554351762,917[&type="I",time=25.621255539069246]:2.5829821061828255)[&type="I",time=23.038273432886424]:3.3533339546643646)[&type="I",time=19.68493947822206]:1.61610179989826,(613[&type="I",time=31.39446543766108]:8.12653069077183,849[&type="I",time=27.350471503595625]:4.082536756706375)[&type="I",time=23.26793474688925]:5.19909706856545)[&type="I",time=18.068837678323803]:1.2232053993269147)[&type="I",time=16.84563227899689]:0.9652161257140506,((((183[&type="I",time=42.05896669187328]:16.18346374544494,312[&type="I",time=37.527664422123316]:11.652161475694975)[&type="I",time=25.875502946428348]:6.715608770265419,1116[&type="I",time=20.167713230988504]:1.0078190548255748)[&type="I",time=19.15989417616292]:2.659788927940241,307[&type="I",time=37.80117356066272]:21.301068312440037)[&type="I",time=16.500105248222678]:0.17637983047438865,1064[&type="I",time=22.130950706043574]:5.807225288295285)[&type="I",time=16.32372541774829]:0.44330926446545504)[&type="I",time=15.880416153282832]:0.7582325319949916,((169[&type="I",time=42.96308670818391]:11.461963553704209,551[&type="I",time=32.311326169706376]:0.8102030152266764)[&type="I",time=31.501123154479703]:9.829921349594727,(320[&type="I",time=37.338085218150965]:14.240441293912767,(500[&type="I",time=33.03145402207695]:9.356711156842913,560[&type="I",time=32.13707539809149]:8.462332532857452)[&type="I",time=23.674742865234034]:0.5770989409958389)[&type="I",time=23.097643924238206]:1.4264421193532257)[&type="I",time=21.67120180488498]:6.549018183597127)[&type="I",time=15.122183621287839]:1.6153735557400069,(((((246[&type="I",time=39.76862018643526]:20.16759376936602,(((((406[&type="I",time=35.10210144455654]:9.455858170696018,443[&type="I",time=34.14167325047379]:8.495429976613266)[&type="I",time=25.646243273860517]:3.019968830801375,973[&type="I",time=24.438919481436443]:1.8126450383772976)[&type="I",time=22.626274443059142]:1.4650997468939693,796[&type="I",time=28.211744619962218]:7.050569923797042)[&type="I",time=21.161174696165173]:1.1449034983909314,928[&type="I",time=25.3772861413255]:5.361014943551254)[&type="I",time=20.01627119777425]:0.1905228298545012,902[&type="I",time=25.929946165981015]:6.104197798061264)[&type="I",time=19.825748367919747]:0.22472195085050828)[&type="I",time=19.601026417069228]:0.7017021064386171,433[&type="I",time=34.42867249027159]:15.52934817964097)[&type="I",time=18.899324310630618]:0.7942738606160304,(1089[&type="I",time=21.335756084952454]:2.2379893405998246,1128[&type="I",time=19.196423863731482]:0.09865711937885635)[&type="I",time=19.097766744352626]:0.9927162943380381)[&type="I",time=18.105050450014595]:3.240794290979423,(282[&type="I",time=38.449742575850266]:16.567753336161758,559[&type="I",time=32.158764149519065]:10.276774909830557)[&type="I",time=21.8819892396885]:7.017733080653343)[&type="I",time=14.86425615903517]:0.10269262320345263,(((325[&type="I",time=37.14484934607753]:16.685976559059718,(829[&type="I",time=27.68254102729815]:6.791194749608053,947[&type="I",time=25.094991132760377]:4.20364485507028)[&type="I",time=20.891346277690083]:0.4324734906722796)[&type="I",time=20.45887278701781]:1.003773157773594,1044[&type="I",time=22.67889903282547]:3.2237994035812534)[&type="I",time=19.455099629244216]:2.9106627180896254,(327[&type="I",time=37.07714557189835]:8.57782332835631,702[&type="I",time=29.843170746632737]:1.3438485030906975)[&type="I",time=28.49932224354204]:11.954885332387448)[&type="I",time=16.54443691115459]:1.782873375322879)[&type="I",time=14.76156353583172]:1.2547534702838732)[&type="I",time=13.506810065547837]:1.1366817132445561,1161[&type="I",time=17.639978840190455]:5.269850487887169)[&type="I",time=12.370128352303281]:2.8195784402303588,(507[&type="I",time=32.92857440778632]:8.693863736594771,(521[&type="I",time=32.67050783515473]:2.455851657064464,665[&type="I",time=30.444003046927136]:0.2293468688368705)[&type="I",time=30.214656178090266]:5.979945506898716)[&type="I",time=24.23471067119155]:14.684160759118626)[&type="I",time=9.550549912072928]:1.1832961542558138,((570[&type="I",time=32.022670245930634]:4.237926958287396,814[&type="I",time=27.964106604976255]:0.17936331733301358)[&type="I",time=27.784743287643234]:2.7842926267496892,699[&type="I",time=29.876243129722337]:4.8757924688287915)[&type="I",time=25.000450660893556]:16.63319690307644)[&type="I",time=8.367253757817107]:1.5922078426003594)[&type="I",time=6.7750459152167455]:0.26597662260959964,(((((((((((8[&type="I",time=65.11841751970388]:24.475297964571844,199[&type="I",time=41.35634068082033]:0.7132211256882925)[&type="I",time=40.64311955513204]:14.547769070726567,((88[&type="I",time=48.425892249542464]:19.980170715150642,534[&type="I",time=32.49734354121956]:4.051622006827735)[&type="I",time=28.445721534391822]:1.4288525632259592,845[&type="I",time=27.398001450628968]:0.3811324794631048)[&type="I",time=27.01686897116586]:0.9215184867603909)[&type="I",time=26.095350484405465]:4.452128187955935,826[&type="I",time=27.712024703979946]:6.068802407530413)[&type="I",time=21.643222296449537]:0.3215339154104413,483[&type="I",time=33.46071659450628]:12.139028213467185)[&type="I",time=21.3216883810391]:0.1681320547024825,((92[&type="I",time=48.03530779257302]:22.257583718618775,765[&type="I",time=28.918191800209968]:3.1404677262557215)[&type="I",time=25.777724073954243]:0.3425578400229341,681[&type="I",time=30.25455183528832]:4.819385601357013)[&type="I",time=25.435166233931312]:4.281609907594699)[&type="I",time=21.15355632633661]:4.019923614787814,(((((33[&type="I",time=55.9585393123924]:24.132440008472976,563[&type="I",time=32.10572907092031]:0.27962976700088404)[&type="I",time=31.826099303919428]:6.588567707911032,114[&type="I",time=47.12049919232443]:21.882967596316035)[&type="I",time=25.237531596008395]:4.292756324318219,63[&type="I",time=50.82545423558531]:29.880678963895136)[&type="I",time=20.944775271690173]:2.7602508325963555,((988[&type="I",time=24.053714308840444]:2.9992721580460824,1071[&type="I",time=21.986553485795618]:0.9321113350012666)[&type="I",time=21.054442150794355]:0.5365160392872355,1096[&type="I",time=21.04161780044246]:0.5236916889353438)[&type="I",time=20.517926111507126]:2.333401672413302)[&type="I",time=18.18452443909382]:0.4044136062400838,1156[&type="I",time=17.849777466566422]:0.06966663371268567)[&type="I",time=17.78011083285373]:0.6464781213049378)[&type="I",time=17.133632711548803]:0.6355681490110214,((((167[&type="I",time=43.09324921238064]:17.94343445032827,242[&type="I",time=39.92212139157913]:14.77230662952676)[&type="I",time=25.14981476205237]:3.445041687744691,196[&type="I",time=41.412370104116995]:19.707597029809314)[&type="I",time=21.70477307430768]:1.1167195584293808,1033[&type="I",time=22.86965585851992]:2.2816023426416194)[&type="I",time=20.588053515878304]:0.17894241684241763,1002[&type="I",time=23.59534074303986]:3.186229644003973)[&type="I",time=20.409111099035883]:3.9110465364981053)[&type="I",time=16.49806456253778]:2.72406064180592,((((379[&type="I",time=35.76908018744906]:19.711572812603677,((438[&type="I",time=34.244441738910815]:15.746020532093162,650[&type="I",time=30.654733840449502]:12.156312633631849)[&type="I",time=18.498421206817653]:1.46071677974885,1131[&type="I",time=19.036258589639814]:1.9985541625710113)[&type="I",time=17.037704427068803]:0.9801970522234171)[&type="I",time=16.057507374845386]:0.5013097105367592,(960[&type="I",time=24.696666306416102]:6.392987322171763,1109[&type="I",time=20.483903401151107]:2.1802244169067677)[&type="I",time=18.303678984244335]:2.7474813199357158)[&type="I",time=15.556197664308627]:1.6894356640563188,(490[&type="I",time=33.21708151851145]:11.037743802266036,979[&type="I",time=24.28601215401571]:2.1066744377702946)[&type="I",time=22.179337716245417]:8.312575715993106)[&type="I",time=13.8667620002523]:0.027338310001965738,(1104[&type="I",time=20.597426413301154]:5.67498331369346,1177[&type="I",time=15.012455910142176]:0.09001281053448906)[&type="I",time=14.92244309960769]:1.0830194093573482)[&type="I",time=13.839423690250339]:0.06541976951848483)[&type="I",time=13.774003920731856]:3.7898364167141665,((((((((((10[&type="I",time=63.01941624567549]:36.17678159389186,466[&type="I",time=33.70908230232018]:6.866447650536557)[&type="I",time=26.84263465178362]:1.9568270588136443,434[&type="I",time=34.38923105577396]:9.50342346280398)[&type="I",time=24.88580759296998]:1.6355677103170478,(589[&type="I",time=31.722085912237162]:6.081260533950001,876[&type="I",time=26.61944521761056]:0.9786198393234002)[&type="I",time=25.64082537828716]:2.3905854956342267)[&type="I",time=23.25023988265294]:0.9422063916585586,134[&type="I",time=45.71029216619063]:23.40225867519625)[&type="I",time=22.30803349099438]:0.4957007854720956,869[&type="I",time=26.79041066924413]:4.978077963721859)[&type="I",time=21.812332705522284]:4.628648278802089,(51[&type="I",time=52.414513870015945]:31.841809569381816,((529[&type="I",time=32.58018844179375]:7.000221198127562,832[&type="I",time=27.63474735535269]:2.0547801116864974)[&type="I",time=25.579967243666193]:3.4768384293944905,731[&type="I",time=29.42946629605564]:7.326337481783938)[&type="I",time=22.103128814271695]:1.5304245136375698)[&type="I",time=20.572704300634125]:3.389019873913938)[&type="I",time=17.18368442672019]:1.6774052188625745,1164[&type="I",time=17.52755740289878]:2.0212781950411625)[&type="I",time=15.506279207857617]:2.9617473233825535,((((((32[&type="I",time=56.008308234322705]:25.79390665182772,102[&type="I",time=47.65627587360928]:17.441874291114296)[&type="I",time=30.214401582494986]:3.3309095850954975,(261[&type="I",time=39.235257140297584]:7.976267471400426,517[&type="I",time=32.715553609022976]:1.4565639401258181)[&type="I",time=31.25898966889716]:4.375497671497669)[&type="I",time=26.883491997399492]:4.879109372148022,680[&type="I",time=30.2590954222929]:8.254712797041435)[&type="I",time=22.004382625251466]:1.8712813521388227,(((86[&type="I",time=48.69449576534444]:23.909246847626378,(640[&type="I",time=30.84240978971357]:4.08967597284807,673[&type="I",time=30.32718643651896]:3.5744526196534565)[&type="I",time=26.7527338168655]:1.9674848991474363)[&type="I",time=24.78524891771806]:1.3614730578562586,975[&type="I",time=24.374381197799273]:0.9506053379374748)[&type="I",time=23.4237758598618]:2.83544433937773,(418[&type="I",time=34.70595351129297]:12.575722133151878,873[&type="I",time=26.72857387049551]:4.598342492354419)[&type="I",time=22.130231378141083]:1.5418998576570146)[&type="I",time=20.588331520484072]:0.45523024737143203)[&type="I",time=20.133101273112644]:2.7094473925353384,611[&type="I",time=31.46938559628346]:14.045731715706154)[&type="I",time=17.423653880577298]:1.1456474201383458,(562[&type="I",time=32.10665642699709]:8.860569043854625,745[&type="I",time=29.185986382638703]:5.939898999496236)[&type="I",time=23.24608738314247]:6.968080922703507)[&type="I",time=16.27800646043896]:3.7334745759638963)[&type="I",time=12.544531884475058]:0.6642132057289984,(((126[&type="I",time=45.98281649343501]:25.210356174005256,(292[&type="I",time=38.15303138198247]:16.464347162757207,((329[&type="I",time=37.05744137475577]:10.303078098518597,800[&type="I",time=28.1126734882225]:1.3583102119853265)[&type="I",time=26.754363276237168]:1.3315035472687242,854[&type="I",time=27.23306418876424]:1.8102044597957843)[&type="I",time=25.422859728968447]:3.7341755097431815)[&type="I",time=21.688684219225273]:0.9162238997955114)[&type="I",time=20.77246031942976]:1.936279361250655,(631[&type="I",time=31.067194004821282]:4.5125043852027815,652[&type="I",time=30.62969219469508]:4.0750025750765815)[&type="I",time=26.5546896196185]:7.718508661439401)[&type="I",time=18.8361809581791]:3.4733198330128374,843[&type="I",time=27.464576388284687]:12.101715263118422)[&type="I",time=15.36286112516626]:3.4825424464201973)[&type="I",time=11.88031867874607]:0.04790915707884835,(((244[&type="I",time=39.82663355590503]:7.637544201850972,478[&type="I",time=33.53770069655552]:1.3486113425014565)[&type="I",time=32.18908935405406]:6.884568864505809,708[&type="I",time=29.70594795223581]:4.401427462687558)[&type="I",time=25.304520489548256]:5.277458423724099,(581[&type="I",time=31.793488537056586]:7.944190757613271,717[&type="I",time=29.616253575393614]:5.766955795950295)[&type="I",time=23.84929777944331]:3.8222357136191647)[&type="I",time=20.02706206582416]:8.194652544156938)[&type="I",time=11.83240952166722]:1.8482420176495253)[&type="I",time=9.984167504017687]:0.5872181804456318,((((((((((18[&type="I",time=59.2511146396238]:33.551882018377434,219[&type="I",time=40.699185158779045]:14.999952537532678)[&type="I",time=25.69923262124636]:3.9037844834203668,949[&type="I",time=25.071750428168638]:3.2763022903426418)[&type="I",time=21.795448137826007]:2.9109350941321708,(((35[&type="I",time=55.494520400338374]:28.054695760366656,355[&type="I",time=36.45683186723622]:9.0170072272645)[&type="I",time=27.439824639971715]:2.9142476058483737,687[&type="I",time=30.125428422691066]:5.599851388567721)[&type="I",time=24.525577034123348]:1.606687924195512,(525[&type="I",time=32.62634996668144]:5.549324112634075,851[&type="I",time=27.29316816599694]:0.216142311949568)[&type="I",time=27.077025854047356]:4.158136744119531)[&type="I",time=22.918889109927836]:4.034376066234003)[&type="I",time=18.884513043693833]:0.12648136658809506,(159[&type="I",time=43.41286536094814]:14.810242786623547,302[&type="I",time=37.96270792909125]:9.36008535476666)[&type="I",time=28.60262257432459]:9.844590897218858)[&type="I",time=18.758031677105738]:0.30808397863266634,728[&type="I",time=29.448702231785045]:10.998754533311981)[&type="I",time=18.449947698473068]:1.9411582166859915,1166[&type="I",time=17.281544412607364]:0.7727549308202839)[&type="I",time=16.50878948178707]:2.2646031042651913,139[&type="I",time=45.20134946984953]:30.957163092327647)[&type="I",time=14.24418637752189]:0.11805813608903293,((((((((26[&type="I",time=56.54303690652241]:32.626992195483105,57[&type="I",time=51.19576492643077]:27.279720215391464)[&type="I",time=23.916044711039305]:0.4765819190242553,371[&type="I",time=35.99552331298264]:12.556060520967591)[&type="I",time=23.439462792015057]:0.6115339758029563,(98[&type="I",time=47.72409501869759]:18.86352524023784,692[&type="I",time=30.031791921038092]:1.171222142578344)[&type="I",time=28.86056977845975]:6.032640962247655)[&type="I",time=22.827928816212086]:3.780639858535338,((111[&type="I",time=47.369272777795366]:25.79732188671779,989[&type="I",time=24.032427901286702]:2.4604770102091322)[&type="I",time=21.571950891077577]:2.0003360819868874,(267[&type="I",time=38.97783200834589]:10.400934156200343,775[&type="I",time=28.776153316634673]:0.19925546448912712)[&type="I",time=28.576897852145553]:9.00528304305486)[&type="I",time=19.57161480909069]:0.5243258514139342)[&type="I",time=19.047288957676756]:0.1492307798687591,1009[&type="I",time=23.47171773850295]:4.573659560694949)[&type="I",time=18.898058177807993]:2.527051083973447,(828[&type="I",time=27.685529220558987]:11.171204655861658,(868[&type="I",time=26.897986120488884]:8.434998431658457,(936[&type="I",time=25.249365580453436]:6.4381911282173405,1027[&type="I",time=23.040320736058675]:4.229146283822573)[&type="I",time=18.8111744522361]:0.34818676340567833)[&type="I",time=18.46298768883042]:1.9486631241330912)[&type="I",time=16.514324564697333]:0.14331747086278313)[&type="I",time=16.371007093834553]:1.329015509261822,(((((30[&type="I",time=56.191752786103535]:28.7224422447825,769[&type="I",time=28.88116319352723]:1.4118526522061927)[&type="I",time=27.46931054132103]:1.1074170178873715,577[&type="I",time=31.8939116144704]:5.532018091036733)[&type="I",time=26.361893523433658]:4.068625521237152,((527[&type="I",time=32.600425135468456]:8.878399165743389,976[&type="I",time=24.33304367195218]:0.6110177022271159)[&type="I",time=23.722025969725067]:0.896985547726942,996[&type="I",time=23.85330772645175]:1.028267304453621)[&type="I",time=22.825040421998125]:0.5317724198016123)[&type="I",time=22.29326800219652]:3.535833963842549,(368[&type="I",time=36.10885572131761]:11.172638726347799,453[&type="I",time=33.972668640987834]:9.036451646018023)[&type="I",time=24.936216994969815]:6.178782956615848)[&type="I",time=18.75743403835396]:3.234325855395838,(((40[&type="I",time=54.22215820934349]:27.8988941442162,721[&type="I",time=29.55066330967014]:3.227399244542852)[&type="I",time=26.32326406512729]:7.558496101100147,((254[&type="I",time=39.553276324504566]:18.492948367472692,(283[&type="I",time=38.43651068703451]:2.8844949963938546,288[&type="I",time=38.274631085841676]:2.722615395201018)[&type="I",time=35.55201569064066]:14.491687733608785)[&type="I",time=21.060327957031866]:0.13031132531550327,1061[&type="I",time=22.211003056505515]:1.2809864247891483)[&type="I",time=20.93001663171637]:2.1652486676892266)[&type="I",time=18.764767964027143]:0.2945924971043894,((391[&type="I",time=35.369055825426045]:8.074878335720896,779[&type="I",time=28.673402862727706]:1.3792253730225568)[&type="I",time=27.294177489705145]:6.7599787896934345,1046[&type="I",time=22.66404557957725]:2.129846879565534)[&type="I",time=20.53419870001172]:2.0640232330889603)[&type="I",time=18.470175466922747]:2.9470672839646284)[&type="I",time=15.523108182958122]:0.4811165983853982)[&type="I",time=15.041991584572722]:0.19620423058971426,((((205[&type="I",time=41.17131783444555]:12.744263510868045,761[&type="I",time=29.002299864356527]:0.5752455407790222)[&type="I",time=28.427054323577504]:2.4733082851537915,229[&type="I",time=40.28696718331885]:14.333221144895134)[&type="I",time=25.95374603842371]:3.8795970679975795,1054[&type="I",time=22.29101116269114]:0.2168621922649976)[&type="I",time=22.07414897042614]:5.147914254673381,951[&type="I",time=25.029298598262965]:8.103063882510213)[&type="I",time=16.92623471575276]:2.0804473617697425)[&type="I",time=14.845787353983011]:0.7196591125501612)[&type="I",time=14.126128241432848]:1.5781528382063925,((225[&type="I",time=40.49880714173229]:17.974341150191243,(340[&type="I",time=36.86301168448943]:11.920814227508806,499[&type="I",time=33.05886847421248]:8.116671017231859)[&type="I",time=24.942197456980626]:2.417731465439573)[&type="I",time=22.52446599154105]:3.7709871430665487,1072[&type="I",time=21.959634743952204]:3.206155895477707)[&type="I",time=18.753478848474508]:6.205503445248041)[&type="I",time=12.547975403226467]:1.5319541588033445,(((((66[&type="I",time=50.711592891716776]:19.285209374073858,600[&type="I",time=31.633368043073347]:0.20698452543042833)[&type="I",time=31.426383517642915]:9.984632471958633,((331[&type="I",time=37.04468728410038]:6.343331918588561,444[&type="I",time=34.098590228053204]:3.3972348625413886)[&type="I",time=30.701355365511812]:2.866971645208878,678[&type="I",time=30.290780356685342]:2.456396636382408)[&type="I",time=27.83438372030294]:6.392632674618653)[&type="I",time=21.441751045684285]:5.817890252531782,522[&type="I",time=32.64650863842999]:17.02264784527749)[&type="I",time=15.623860793152506]:1.3962752646170031,(((((76[&type="I",time=49.7911477851702]:11.429607150376242,190[&type="I",time=41.6727148734154]:3.3111742386214402)[&type="I",time=38.36154063479396]:12.7820788418369,683[&type="I",time=30.226671609572062]:4.647209816615003)[&type="I",time=25.57946179295706]:1.5170027652667386,(121[&type="I",time=46.15186501769929]:17.3721845950663,509[&type="I",time=32.899395193341945]:4.119714770708953)[&type="I",time=28.779680422632993]:4.717221394942669)[&type="I",time=24.06245902769032]:9.308045284108701,((270[&type="I",time=38.77889334618704]:13.23432527235078,883[&type="I",time=26.4869703905696]:0.942402316733336)[&type="I",time=25.54456807383626]:6.460739020552722,(301[&type="I",time=37.98824316804382]:17.77957223770393,(857[&type="I",time=27.155313539216632]:5.8176081833955635,891[&type="I",time=26.23241289348435]:4.89470753766328)[&type="I",time=21.337705355821075]:1.12903442548118)[&type="I",time=20.208670930339885]:1.1248418770563546)[&type="I",time=19.083829053283534]:4.329415309701915)[&type="I",time=14.754413743581619]:0.07503096413998378,((218[&type="I",time=40.72445686905694]:23.09284946611271,(((760[&type="I",time=29.025026315638218]:4.717676894696552,940[&type="I",time=25.21112578028037]:0.9037763593387069)[&type="I",time=24.307349420941662]:1.6822330050078733,768[&type="I",time=28.888627055122416]:6.263510639188624)[&type="I",time=22.625116415933782]:2.052216509076999,1066[&type="I",time=22.09310604099737]:1.5202061341405795)[&type="I",time=20.572899906856794]:2.941292503912564)[&type="I",time=17.631607402944226]:0.2985363256736093,((378[&type="I",time=35.818649316955074]:15.318961112118572,523[&type="I",time=32.64282507086203]:12.143136866025529)[&type="I",time=20.4996882048365]:1.1852622694973007,((428[&type="I",time=34.513176884860115]:9.477943047339167,743[&type="I",time=29.20509855745499]:4.16986471993404)[&type="I",time=25.03523383752095]:1.1258861476250956,783[&type="I",time=28.5663641479999]:4.657016458104046)[&type="I",time=23.909347689895856]:4.594921754556651)[&type="I",time=19.314425935339205]:1.9813548580685847)[&type="I",time=17.333071077270624]:2.653688297828978)[&type="I",time=14.679382779441633]:0.4517972509061394)[&type="I",time=14.227585528535496]:2.1176395048522494,((((138[&type="I",time=45.26067086609976]:20.645736321160086,694[&type="I",time=29.99659423137849]:5.381659686438823)[&type="I",time=24.614934544939672]:0.7922310395214822,249[&type="I",time=39.69026135836578]:15.867557852947591)[&type="I",time=23.82270350541819]:2.5366652470123228,202[&type="I",time=41.281973511723294]:19.995935253317427)[&type="I",time=21.28603825840587]:7.334076758143993,727[&type="I",time=29.456732285001838]:15.50477078473996)[&type="I",time=13.951961500261868]:1.8420154765786236)[&type="I",time=12.109946023683246]:1.093924779260135)[&type="I",time=11.016021244423117]:1.6190719208510558)[&type="I",time=9.396949323572057]:1.5371814060400908,(((((((15[&type="I",time=59.49516810410235]:36.25062533375694,554[&type="I",time=32.231739221296365]:8.987196450950961)[&type="I",time=23.244542770345408]:0.4120783445924303,(492[&type="I",time=33.20055454653789]:8.471772365682924,569[&type="I",time=32.05716006150597]:7.328377880651004)[&type="I",time=24.728782180854957]:1.8963177551019896)[&type="I",time=22.832464425752974]:2.223100929439994,(((65[&type="I",time=50.74972626473189]:5.549036913434946,82[&type="I",time=49.12730397089782]:3.926614619600876)[&type="I",time=45.200689351296944]:8.56699879418737,181[&type="I",time=42.12347185727709]:5.489781300167515)[&type="I",time=36.633690557109574]:12.972052476196879,((291[&type="I",time=38.16017159788082]:6.030295954137685,389[&type="I",time=35.45040697949567]:3.320531335752534)[&type="I",time=32.129875643743134]:4.180951571358065,(351[&type="I",time=36.627402838691]:7.178038385606243,399[&type="I",time=35.18877332548599]:5.739408872401235)[&type="I",time=29.44936445308475]:1.5004403806996862)[&type="I",time=27.94892407238507]:4.287285991472373)[&type="I",time=23.66163808091269]:3.052274584599715)[&type="I",time=20.609363496312987]:5.369170546193899,(321[&type="I",time=37.3351556905511]:10.807680940277741,(414[&type="I",time=34.915252833719094]:6.041954969453343,663[&type="I",time=30.480904561412398]:1.6076066971466503)[&type="I",time=28.87329786426575]:2.3458231139923953)[&type="I",time=26.52747475027336]:11.287281800154275)[&type="I",time=15.24019295011908]:3.8187348644553936,(((((((69[&type="I",time=50.50209814849492]:18.436152507938978,537[&type="I",time=32.46384530038044]:0.39789965982449615)[&type="I",time=32.065945640555945]:7.34154303987507,762[&type="I",time=28.99648077869065]:4.272078178009778)[&type="I",time=24.724402600680882]:1.2922178296076794,469[&type="I",time=33.67280736409426]:10.240622593021065)[&type="I",time=23.432184771073196]:2.592422726527289,(((((112[&type="I",time=47.300273169838995]:17.80854768054825,304[&type="I",time=37.87741573384902]:8.385690244558276)[&type="I",time=29.49172548929074]:2.853548083450832,330[&type="I",time=37.053066188351025]:10.414888782511113)[&type="I",time=26.638177405839915]:0.2300360653135698,578[&type="I",time=31.83236032687073]:5.4242189863443855)[&type="I",time=26.408141340526342]:3.6371030043828227,(122[&type="I",time=46.023586814142554]:17.97727971551651,439[&type="I",time=34.22817906904128]:6.181871970415237)[&type="I",time=28.04630709862605]:5.275268762482526)[&type="I",time=22.771038336143516]:1.7400458216748262,915[&type="I",time=25.652909189832457]:4.621916675363764)[&type="I",time=21.030992514468696]:0.19123046992278603)[&type="I",time=20.839762044545914]:1.5169618064272328,(((((182[&type="I",time=42.09435451697741]:15.881561147771798,543[&type="I",time=32.40533352673463]:6.192540157529017)[&type="I",time=26.21279336920562]:3.7208149876861683,(430[&type="I",time=34.501876124720575]:9.111761966376726,755[&type="I",time=29.069355440298796]:3.679241281954944)[&type="I",time=25.390114158343852]:2.898135776824404)[&type="I",time=22.491978381519438]:1.2635279177559653,(526[&type="I",time=32.60912065177609]:8.334390279478548,582[&type="I",time=31.78282552541993]:7.50809515312239)[&type="I",time=24.274730372297544]:3.0462799085340606)[&type="I",time=21.228450463763476]:1.347226196314054,((286[&type="I",time=38.36737757850595]:15.162747128452509,540[&type="I",time=32.43531610649765]:9.230685656444209)[&type="I",time=23.204630450053447]:1.4215112434587098,1040[&type="I",time=22.715297873141854]:0.9321786665471166)[&type="I",time=21.783119206594737]:1.9018949391453077)[&type="I",time=19.88122426744943]:0.06654421392336474,362[&type="I",time=36.24795097955491]:16.433270926028847)[&type="I",time=19.814680053526065]:0.4918798154073869)[&type="I",time=19.322800238118678]:2.918181475338983,503[&type="I",time=32.97396506186529]:16.569346299085602)[&type="I",time=16.404618762779688]:1.8292310740632303,((140[&type="I",time=45.17366302063404]:12.912553419953483,421[&type="I",time=34.678924233701345]:2.4178146330207895)[&type="I",time=32.261109600680555]:16.18215808317933,(200[&type="I",time=41.33836595660597]:18.81401250391491,369[&type="I",time=36.07092416102776]:13.546570708336702)[&type="I",time=22.52435345269106]:6.445401935189835)[&type="I",time=16.078951517501224]:1.5035638287847632)[&type="I",time=14.575387688716463]:3.1539296030527737)[&type="I",time=11.421458085663682]:0.06632613448262248,((644[&type="I",time=30.765435830825254]:9.566988246185616,(712[&type="I",time=29.68497155787357]:6.857920989091298,753[&type="I",time=29.08656995684736]:6.259519388065087)[&type="I",time=22.827050568782262]:1.6286029841426313)[&type="I",time=21.198447584639634]:4.639835621801964,1142[&type="I",time=18.69612870453192]:2.1375167416942418)[&type="I",time=16.55861196283768]:5.203480011656609)[&type="I",time=11.355131951181063]:1.1684228555793936,(((295[&type="I",time=38.06390586129559]:13.7541680247977,(696[&type="I",time=29.909510981769188]:2.6782976006734884,770[&type="I",time=28.87697309470323]:1.6457597136075321)[&type="I",time=27.231213381095696]:2.9214755445978113)[&type="I",time=24.309737836497895]:10.472937229021412,(1121[&type="I",time=19.641636118192743]:4.655272600327322,1162[&type="I",time=17.628040884115]:2.641677366249567)[&type="I",time=14.986363517865431]:1.1495629103889513)[&type="I",time=13.836800607476475]:0.6869660633861798,(714[&type="I",time=29.64155064266625]:13.725293873077732,750[&type="I",time=29.115652210254865]:13.19939544066635)[&type="I",time=15.916256769588516]:2.766422225498218)[&type="I",time=13.149834544090298]:2.9631254484886256)[&type="I",time=10.186709095601664]:2.3269411780697027)[&type="I",time=7.859767917531974]:1.3506986249248172)[&type="I",time=6.5090692926071565]:0.12421726675270861,(175[&type="I",time=42.437195551242404]:26.330633726336735,1105[&type="I",time=20.56997755421261]:4.463415729306945)[&type="I",time=16.106561824905672]:9.721709799051226)[&type="I",time=6.384852025854447]:0.2207782616373919,((360[&type="I",time=36.30902795140432]:16.61655959072911,(697[&type="I",time=29.902080191708382]:9.006195970973806,887[&type="I",time=26.308291677222506]:5.4124074564879265)[&type="I",time=20.895884220734573]:1.2034158600593656)[&type="I",time=19.69246836067521]:4.339533835462973,((1073[&type="I",time=21.922092795040594]:5.634802818009362,1163[&type="I",time=17.57894493698436]:1.2916549599531209)[&type="I",time=16.28728997703124]:0.930056123993424,1117[&type="I",time=20.02276324074767]:4.665529387709853)[&type="I",time=15.357233853037819]:0.004299327825577848)[&type="I",time=15.352934525212236]:9.188860760995183)[&type="I",time=6.164073764217046]:3.5951534655907977)[&type="I",time=2.568920298626249]:0.9004423403539903,(((((2[&type="I",time=78.72915131918197]:54.53070582051832,53[&type="I",time=52.160784591378246]:27.9623390927146)[&type="I",time=24.198445498663652]:8.175137602429913,(394[&type="I",time=35.281736354491215]:15.554081872440776,889[&type="I",time=26.28870058433051]:6.5610461022800735)[&type="I",time=19.727654482050443]:3.704346585816708)[&type="I",time=16.02330789623373]:5.697739701216534,((((((58[&type="I",time=51.11081056133532]:27.028195680737674,(((94[&type="I",time=47.935177449148505]:7.472737112188334,143[&type="I",time=44.98684231809815]:4.524401981137977)[&type="I",time=40.46244033696017]:8.105309291914502,412[&type="I",time=34.96346090097349]:2.606329855927818)[&type="I",time=32.35713104504567]:3.9881466663888645,688[&type="I",time=30.1180230337595]:1.7490386551026944)[&type="I",time=28.368984378656805]:4.286369498059159)[&type="I",time=24.082614880597646]:8.168755700854959,((((319[&type="I",time=37.340610424685416]:3.8012615339157634,452[&type="I",time=34.00711862896783]:0.4677697381981787)[&type="I",time=33.53934889076965]:5.495650072999929,746[&type="I",time=29.185368677115513]:1.1416698593457895)[&type="I",time=28.043698817769723]:3.0059130456082386,(479[&type="I",time=33.48746992745477]:7.3819352636455875,649[&type="I",time=30.65801041316468]:4.552475749355494)[&type="I",time=26.10553466380918]:1.067748891647696)[&type="I",time=25.037785772161477]:2.1570486486448317,885[&type="I",time=26.44763086049117]:3.566893736974521)[&type="I",time=22.880737123516653]:6.966877943773966)[&type="I",time=15.91385917974268]:0.1156652212649476,(((144[&type="I",time=44.72501620178315]:21.287468048013977,505[&type="I",time=32.94316611377985]:9.505617960010682)[&type="I",time=23.437548153769168]:5.477316868087655,((174[&type="I",time=42.53287390455915]:15.961646111306592,820[&type="I",time=27.878923600248708]:1.3076958069961506)[&type="I",time=26.571227793252554]:7.413811596032701,((436[&type="I",time=34.299391150437344]:14.69508950318503,616[&type="I",time=31.33977910227134]:11.735477455019023)[&type="I",time=19.604301647252314]:0.1114053787083975,987[&type="I",time=24.105199003291272]:4.6123027347473595)[&type="I",time=19.492896268543916]:0.33548007132405644)[&type="I",time=19.157416197219852]:1.1971849115383435)[&type="I",time=17.960231285681516]:0.38566527377763293,1139[&type="I",time=18.768581498622567]:1.1940154867186834)[&type="I",time=17.574566011903876]:1.7763720534261438)[&type="I",time=15.798193958477743]:1.2620996806164726,((((((((335[&type="I",time=37.011988120407345]:10.184508298837962,827[&type="I",time=27.693889707683173]:0.8664098861137859)[&type="I",time=26.827479821569376]:0.6789014518306828,818[&type="I",time=27.90976514502295]:1.7611867752842443)[&type="I",time=26.148578369738694]:4.51107330586774,(802[&type="I",time=28.082932908482363]:6.033477905102728,1056[&type="I",time=22.278794539865416]:0.22933953648578154)[&type="I",time=22.049455003379638]:0.4119499395086734)[&type="I",time=21.637505063870968]:1.1267752452567663,1011[&type="I",time=23.44568807469677]:2.934958256082581)[&type="I",time=20.5107298186142]:1.3114926210782016,((513[&type="I",time=32.87187895814359]:3.753334582744081,695[&type="I",time=29.943567421809497]:0.8250230464099886)[&type="I",time=29.118544375399512]:6.211102803836866,997[&type="I",time=23.69031019802144]:0.782868626458793)[&type="I",time=22.90744157156264]:3.70820437402665)[&type="I",time=19.199237197535997]:1.7575222980715637,707[&type="I",time=29.758742121000612]:12.31702722153618)[&type="I",time=17.44171489946443]:0.6001975461112181,354[&type="I",time=36.505831463626926]:19.664314110273715)[&type="I",time=16.841517353353215]:1.5159202960644649,(((353[&type="I",time=36.57471342329989]:11.84057393539242,((585[&type="I",time=31.746670489164345]:3.457515589213841,677[&type="I",time=30.293708376958612]:2.004553477008109)[&type="I",time=28.289154899950507]:2.2993616486613178,606[&type="I",time=31.565122813664864]:5.5753295623756784)[&type="I",time=25.989793251289182]:1.2556537633817157)[&type="I",time=24.734139487907466]:2.9291912335511654,899[&type="I",time=26.074811316675028]:4.26986306231872)[&type="I",time=21.8049482543563]:5.790147271028928,(584[&type="I",time=31.779605141382284]:11.135767426875951,655[&type="I",time=30.617032491047087]:9.973194776540751)[&type="I",time=20.64383771450633]:4.629036731178957)[&type="I",time=16.014800983327373]:0.6892039260386298)[&type="I",time=15.325597057288746]:0.7895027794274796)[&type="I",time=14.536094277861261]:0.8270457578421571,(258[&type="I",time=39.340143017355665]:21.90633518397116,1144[&type="I",time=18.675736467648132]:1.2419286342636298)[&type="I",time=17.4338078333845]:3.7247593133653965)[&type="I",time=13.709048520019108]:2.1994385062921396,(504[&type="I",time=32.973291298254765]:16.029822017789854,892[&type="I",time=26.217183351287293]:9.273714070822379)[&type="I",time=16.943469280464907]:5.43385926673794)[&type="I",time=11.509610013726967]:1.1840418187097725)[&type="I",time=10.325568195017201]:1.2548154480336677,((((((((((64[&type="I",time=50.81813461052006]:19.285961710346356,564[&type="I",time=32.094798973117385]:0.5626260729436794)[&type="I",time=31.532172900173705]:7.307548549946262,390[&type="I",time=35.41377351052604]:11.189149160298598)[&type="I",time=24.22462435022744]:1.1212621354620183,(((146[&type="I",time=44.55831971428832]:10.091135180560045,172[&type="I",time=42.69772739600777]:8.2305428622795)[&type="I",time=34.46718453372827]:0.687862494564186,326[&type="I",time=37.140566370247996]:3.3612443310839097)[&type="I",time=33.779322039164086]:7.528466026354664,465[&type="I",time=33.75857302223407]:7.5077170094246455)[&type="I",time=26.25085601280943]:3.147493798043996)[&type="I",time=23.10336221476543]:2.125837949081955,1079[&type="I",time=21.714458220593457]:0.7369339549099863)[&type="I",time=20.977524265683467]:1.0934552931918518,942[&type="I",time=25.164577551461637]:5.280508578970014)[&type="I",time=19.884068972491615]:1.7378647271742835,(((((376[&type="I",time=35.84998519788309]:7.837165647752862,431[&type="I",time=34.45641673537333]:6.4435971852430995)[&type="I",time=28.012819550130235]:2.996965873413501,614[&type="I",time=31.3888390074792]:6.372985330762468)[&type="I",time=25.01585367671673]:2.4438902440193715,472[&type="I",time=33.64014134154782]:11.068177908850458)[&type="I",time=22.571963432697366]:3.335420370017431,1093[&type="I",time=21.17100488279665]:1.9344618201167236)[&type="I",time=19.236543062679928]:0.4055902325881391,(757[&type="I",time=29.058169308881904]:9.82884267478444,1102[&type="I",time=20.6520274350286]:1.422700800931139)[&type="I",time=19.22932663409746]:0.3983738040056721)[&type="I",time=18.830952830091796]:0.6847485847744537)[&type="I",time=18.14620424531734]:2.143757838253663,(535[&type="I",time=32.48356758062838]:15.020972019054192,1007[&type="I",time=23.498260454039972]:6.035664892465775)[&type="I",time=17.46259556157419]:1.4601491545105176)[&type="I",time=16.002446407063676]:2.5892923608688534,1010[&type="I",time=23.452850334825424]:10.039696288630608)[&type="I",time=13.41315404619482]:0.7449631552333784,((((73[&type="I",time=50.110434678374816]:28.674983390415193,((285[&type="I",time=38.40484574399578]:15.897228211784267,850[&type="I",time=27.322188982861395]:4.814571450649879)[&type="I",time=22.507617532211512]:0.46360198899044747,1059[&type="I",time=22.23066389173941]:0.18664834851834655)[&type="I",time=22.04401554322106]:0.6085642552614416)[&type="I",time=21.43545128795962]:3.7879355125548386,972[&type="I",time=24.442074534773987]:6.79455875936921)[&type="I",time=17.647515775404777]:0.9045286822678236,((553[&type="I",time=32.28225764537786]:9.941490226236489,853[&type="I",time=27.259282799095843]:4.918515379954471)[&type="I",time=22.34076741914137]:2.328041174448927,863[&type="I",time=27.061104928791377]:7.048378684098935)[&type="I",time=20.01272624469244]:3.269739151555484)[&type="I",time=16.742987093136954]:1.189780431397736,1160[&type="I",time=17.64664595706664]:2.093439295327414)[&type="I",time=15.553206661739228]:2.885015770777784)[&type="I",time=12.668190890961434]:1.990492158925008,((((((158[&type="I",time=43.43395446475727]:16.060301579814656,400[&type="I",time=35.18081331341252]:7.807160428469906)[&type="I",time=27.37365288494262]:2.7731783107728774,919[&type="I",time=25.520400404447958]:0.919925830278217)[&type="I",time=24.600474574169734]:1.9574319445063821,((((215[&type="I",time=40.84960789860769]:5.018375202695481,372[&type="I",time=35.93051442271034]:0.0992817267981323)[&type="I",time=35.831232695912206]:10.181574400067873,(497[&type="I",time=33.065929407119846]:5.79403488816758,704[&type="I",time=29.77057383357103]:2.4986793146187694)[&type="I",time=27.27189451895226]:1.622236223107933)[&type="I",time=25.64965829584433]:1.5954223649064403,751[&type="I",time=29.09361836211882]:5.039382431180925)[&type="I",time=24.054235930937892]:0.12099717904528973,897[&type="I",time=26.110393055912972]:2.1771543040203767)[&type="I",time=23.933238751892603]:1.290196122229247)[&type="I",time=22.643042629663363]:3.852136863778128,293[&type="I",time=38.15031651149341]:19.35941074560818)[&type="I",time=18.790905765885235]:4.55994099215286,((929[&type="I",time=25.37535464098548]:4.916015330170026,978[&type="I",time=24.289092735613732]:3.829753424798284)[&type="I",time=20.459339310815444]:4.211941334869991,1077[&type="I",time=21.769360537585836]:5.521962561640379)[&type="I",time=16.247397975945464]:2.0164332022130935)[&type="I",time=14.230964773732369]:0.8034301715326677,((((226[&type="I",time=40.455664704938]:11.710578003774046,279[&type="I",time=38.57696909539129]:9.831882394227335)[&type="I",time=28.74508670116396]:9.847753168629637,((856[&type="I",time=27.168925222402812]:0.2387306023306195,867[&type="I",time=26.950998380163256]:0.02080376009105578)[&type="I",time=26.9301946200722]:5.3545146789473534,1076[&type="I",time=21.81971202613433]:0.24403208500947926)[&type="I",time=21.575679941124854]:2.678346408590528)[&type="I",time=18.897333532534322]:4.877247489261194,(612[&type="I",time=31.463134338465213]:10.004945231419427,983[&type="I",time=24.20253374765441]:2.744344640608631)[&type="I",time=21.458189107045783]:7.438103063772658)[&type="I",time=14.02008604327313]:0.36216642634369123,(386[&type="I",time=35.472306071933076]:17.03688203358054,533[&type="I",time=32.52973439567356]:14.09431035732102)[&type="I",time=18.43542403835254]:4.777504421423103)[&type="I",time=13.65791961692943]:0.23038501472973394)[&type="I",time=13.427534602199701]:2.749835870163267)[&type="I",time=10.67769873203644]:1.6069459850529029)[&type="I",time=9.070752746983537]:0.5372524711118416,1181[&type="I",time=13.734176932579608]:5.200676656707927)[&type="I",time=8.533500275871694]:6.865022317599426)[&type="I",time=1.6684779582722558]:0.0;
+End;

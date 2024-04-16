@@ -1,0 +1,26 @@
+ 
+<beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
+    <run spec="Simulator" nSims="1">
+        <simulate spec="SimulatedTree" id="SIRTree">
+            <trajectory spec="StochasticTrajectory" id="SIRTrajectory" mustHave="sample&gt;100" maxTime="200">
+                <population spec="RealParameter" id="S" value="9999"/>
+                <population spec="RealParameter" id="I" value="1"/>
+                <population spec="RealParameter" id="R" value="0"/>
+                <samplePopulation spec="RealParameter" id="sample" value="0"/>
+
+                <reaction spec="Reaction" rate="3.832e-05 5.405e-05 3.741e-05 5.613e-05 4.264e-05 4.905e-05 6.825e-05 4.526e-05 3.816e-05 5.103e-05 5.331e-05 6.433e-05 5.696e-05 3.889e-05 4.743e-05 4.847e-05 4.483e-05 3.307e-05 2.616e-05 5.017e-05 4.831e-05 5.185e-05 3.281e-05 4.496e-05 3.446e-05 4.493e-05 4.475e-05 3.153e-05 5.031e-05 3.179e-05 4.928e-05 4.671e-05 5.05e-05 4.647e-05 3.366e-05 5.104e-05 5.211e-05 3.945e-05 3.012e-05 4.777e-05 6.474e-05 4.767e-05 3.715e-05 2.533e-05 2.652e-05 5.378e-05 4.746e-05 3.545e-05 5.468e-05 5.627e-05 5.248e-05 4.92e-05 3.85e-05 3.687e-05 3.315e-05 5.67e-05 5.678e-05 5.313e-05 3.469e-05 4.069e-05 4.11e-05 3.573e-05 4.752e-05 4.748e-05 3.756e-05 3.668e-05 4.15e-05 4.65e-05 2.927e-05" changeTimes = "2 4 6 11 13 14 17 20 23 24 28 30 33 36 38 40 43 47 49 54 57 61 63 65 67 72 76 78 83 86 92 93 94 95 97 100 105 107 110 112 114 117 122 125 129 131 136 138 142 146 149 151 153 161 165 168 169 171 174 177 181 183 187 188 191 193 194 199"> I + S -> I + I </reaction>
+                <reaction spec="Reaction" rate="0.143"> I -> R </reaction>
+                <reaction spec="Reaction" rate="0.03"> R -> S </reaction>
+                <reaction spec="Reaction" rate="0.02"> I -> sample + R </reaction>
+            </trajectory>
+        </simulate>
+
+        <logger spec="Logger" fileName="$(filebase).traj">
+            <log idref="SIRTrajectory"/>
+        </logger>
+
+        <logger spec="Logger" mode="tree" fileName="$(filebase).trees">
+            <log spec="TypedTreeLogger" tree="@SIRTree" removeSingletonNodes = "true"/>
+        </logger>
+    </run>
+</beast>

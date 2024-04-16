@@ -1,0 +1,848 @@
+---
+title: "Outbreak Data Simulation"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+set.seed(100)
+library(ape)
+library(truncnorm)
+library(xml2)
+library(stringr)
+library(castor)
+library(magrittr)
+library(tidyverse)
+library(dplyr)
+library(TreeTools)
+library(EpiFusionUtilities)
+library(HDInterval)
+```
+
+## Simulating Data {.tabset}
+
+To test EpiFusion we simulated a range of outbreak scenarios using the program ReMASTER. The parameters for the simulations are included in the supplementary information of the manuscript, and the code for post-processing the ReMASTER output into 'EpiFusion ready data' (and any preprocessing, if applicable) is here. The trees and incidence data generated from this script are what is in the EpiFusion XMLs in the `Scenario_Testing/EpiFusion_XMLs` folder of this repository.
+
+---
+
+For the ReMASTER simulations, the first step of parsing the output is a set of terminal commands that tidy the `.trees` file and the `.traj` file into R friendly files. These are:
+
+`sed -e "s/\[\&type=\"I\",time=/_/g" (filebase).trees > (filebase).tree `
+
+and 
+
+`sed -e "s/;/\n/g" -e "s/t=//g" -e "s/:R=/,/g" -e "s/:S=/,/g" -e "s/:sample=/,/g" -e "s/:E=/,/g" -e "s/:I=/,/g" (filebase).traj > (filebase).txt`
+
+This creates two cleaned files with the extensions `tree` and `txt` that we will process in R into EpiFusion output. We also manually convert the tree file from nexus to newick format, as it helps to load the labels correctly, and manually add column headers (t,R,S,I,sample) to the `txt` file. Next we need to create `weekly case incidence` counts and a `tree` compatible with EpiFusion. We write functions for each of these below (and will reuse these frequently):
+
+```{r runremasterandparse}
+run_remaster <- function(remasterfile) {
+  filestem <- str_remove(remasterfile, ".xml")
+  system2("/Applications/BEAST\ 2.7.3/bin/beast", args = c( "-working", '-overwrite', remasterfile))
+  system(paste0('sed -e "s/\\[\\&type=\\"I\\",time=/_/g" ',filestem,'.trees > ',filestem,'.tree'))
+  system(paste0('sed -e "s/;/\\n/g" -e "s/t=//g" -e "s/:R=/,/g" -e "s/:S=/,/g" -e "s/:sample=/,/g" -e "s/:E=/,/g" -e "s/:I=/,/g" ',filestem,'.traj > ',filestem,'placeholder.txt'))
+  system(paste0("sed -e '1d' -e '2s/^0\\t//' ",filestem,"placeholder.txt > ",filestem,".txt"))
+  txtfile <- read.csv(paste0(filestem, ".txt"), header = F)
+  colnames(txtfile) <- c("t", "R", "S", "I", "sample")
+  write.csv(txtfile, paste0(filestem, ".txt"), row.names = F)
+}
+
+```
+
+
+
+```{r parse_incidence}
+get_incidence <- function(txtfile) {
+  table <- read.csv(txtfile, header = T)
+  table <- table %>%
+    select(t, sample) %>%
+    distinct(sample, .keep_all = T) %>%
+    filter(sample != 0) %>%
+    transmute(t = floor(t)) %>%
+    group_by(t) %>%
+    mutate(Incidence = n()) %>%
+    distinct()
+  return(table)
+}
+
+get_weekly_incidence <- function(incidence) {
+  incidence$t <- as.integer(as.character(incidence$t))
+  incidence$Incidence[1] <- 0
+  weekly_incidence <- c()
+  for (t in seq(0, max(incidence$t+7), 7)) {
+    dates <- seq(t,t+6)
+    inc <- incidence[which(incidence$t %in% dates),2]
+    weekly_incidence <- append(weekly_incidence, sum(inc))
+  }
+  plot(weekly_incidence, main = "Weekly Incidence", pch = 13, xlab = "Week", ylab = "Case Incidence")
+  return(weekly_incidence)
+}
+
+```
+
+```{r parse_tree}
+get_tree <- function(treestring, downsamplefactor) {
+  tree <- read_tree(treestring)
+  ntips <- length(tree$tip.label)
+  labels <- tree$tip.label
+  for ( i in 1:length(labels)) {
+    tmp <- unlist(str_split(str_remove(labels[i], "]"), "_"))
+    labels[i] <- paste0("leaf_", tmp[1], "[", tmp[2], "]")
+  }
+  tree$tip.label <- labels
+  
+  nodelabels <- tree$node.label
+  for (i in 1:length(nodelabels)) {
+    tmp <- str_remove(str_remove(nodelabels[i], "_"), "]")
+    nodelabels[i] <- paste0("node_", i, "[", tmp, "]")
+  }
+  tree$node.label <- nodelabels
+  
+  numsamples <- round(ntips*downsamplefactor)
+  
+  #Downsample the tree
+  sampled_tips <- sample(tree$tip.label, numsamples, replace = F)
+  downsampled_tree <- keep.tip(tree, sampled_tips)
+  
+  return(downsampled_tree)
+}
+
+
+
+```
+
+``` {r gettruert}
+betaovertime <- function(xml_file) {
+  xml_doc <- read_xml(xml_file)
+  reactions <- xml_find_all(xml_doc, "//reaction")
+  reaction <- reactions[[1]]
+  rate <- xml_attr(reaction, "rate")
+  changeTimes <- xml_attr(reaction, "changeTimes")
+  if (is.na(changeTimes)) {
+    return(as.numeric(rate))
+  } else {
+    changeTimes <- as.numeric(unlist(str_split(changeTimes, " ")))
+    rate <- as.numeric(unlist(str_split(rate, " ")))
+    return(list(rate = rate, changeTimes = changeTimes))
+  }
+}
+
+getgamma <- function(xml_file, length) {
+  xml_doc <- read_xml(xml_file)
+  reactions <- xml_find_all(xml_doc, "//reaction")
+  reaction <- reactions[[2]]
+  rate <- xml_attr(reaction, "rate")
+  changeTimes <- xml_attr(reaction, "changeTimes")
+  return(rep(as.numeric(rate), length))
+}
+
+
+gettruert <- function(truetable, remasterxml) {
+  truth <- read.csv(truetable)
+  beta <- betaovertime(remasterxml)
+  gamma <- getgamma(remasterxml, nrow(truth))
+  
+  if (length(beta) != 1) {
+    time <- 0
+    betavec <- c()
+    for (i in 1:length(beta$changeTimes)) {
+      betavec <- append(betavec, rep(beta$rate[i], length(truth$t[truth$t > time & truth$t <= beta$changeTimes[i]])))
+      time <- beta$changeTimes[i]
+    }
+    l <- length(betavec)
+    betavec <- append(betavec, rep(beta$rate[i+1], (nrow(truth)-l)))
+  } else {
+    betavec <- rep(beta, nrow(truth))
+  }
+  
+  truth <- truth %>%
+    mutate(Gamma = gamma, Beta = betavec) %>%
+    mutate(Rt = (Beta*(S*I))/(Gamma*I))
+  
+  return(truth)
+  
+}
+
+```
+
+
+---
+
+As a reminder, here is an index of the datasets generated:
+
+| Dataset Identifier | Section | Description |
+| :--- | :--- | ----------- |
+| baseline | main_scenarios | Simple intro of pathogen to immune naive population |
+| sampling | main_scenarios | Introduction of pathogen to immune naive population with low sampling initially |
+| transmission | main_scenarios | Increase in transmissibility of an endemic pathogen |
+| low-transmission-noise | transmission_noise | SIRS scenario with slight transmission noise |
+| medium-transmission-noise | transmission_noise | SIRS scenario with medium transmission noise |
+| high-transmission-noise | transmission_noise | SIRS scenario with high transmission noise |
+| low-observation-noise | observation_noise | SIRS scenario with slight observation noise |
+| medium-observation-noise | observation_noise | SIRS scenario with medium observation noise |
+| high-observation-noise | observation_noise | SIRS scenario with high observation noise |
+
+
+---
+
+### Main Scenarios {.tabset}
+The three main scenarios examined in detail in the paper are a baseline scenario, a step-change in sampling scenario, and a step-change in transmission scenario. These are described in detail in the paper. The ReMASTER XMLs to generate these three scenarios are in the `Main_Scenarios` folder, as well as the raw remaster output (the traj file of each remaster output has ungergone one manual step to separate simulated events onto separate lines).
+
+
+#### Baseline
+```{r runremasterbaseline, echo = F, results = 'hide', eval = FALSE}
+invisible(run_remaster('Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/baseline.xml'))
+```
+
+
+##### Load txt file and plot simulation
+``` {r load_nnb_simulation}
+baseline <- read.csv('Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/baseline.txt', header = T)
+plot(baseline$t, baseline$S, type = "l", col = "red", main = 'baseline', ylim = c(0, 10000))
+  lines(baseline$t, baseline$I, col = "green")
+  lines(baseline$t, baseline$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r nnb_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+baseline_incidence <- get_weekly_incidence(get_incidence('Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/baseline.txt'))
+paste0(baseline_incidence, collapse = " ")
+write.table(baseline_incidence, 'Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/baseline_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+
+treefile <- readLines('Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/baseline.tree', warn = FALSE)
+treestring <- str_replace(treefile[length(treefile)-1], "tree STATE_0 = ", "")
+baseline_tree <- get_tree(treestring, 0.05)
+plot(baseline_tree)
+write.tree(baseline_tree, 'Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/baseline_downsampledtree.tree')
+
+  
+baseline_tree$root.edge <- min(as.numeric(gsub("\\[|\\]", "", str_extract(baseline_tree$node.label, "\\[([^\\]]+)\\]"))))
+baseline_tree$tip.label <- seq(1, length(baseline_tree$tip.label))
+baseline_tree$node.label <- ""
+write.tree(baseline_tree,  'Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/baseline_beastcompatibletree.tree')
+```
+
+```{r makebaselinexml}
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/baseline_combined.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/baseline_combined"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(baseline_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/baseline_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/baseline_combined_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/baseline_epi.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/baseline_epi"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(baseline_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/baseline_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/baseline_epi_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/baseline_phylo.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/baseline_phylo"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(baseline_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/baseline_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/baseline_phylo_spare.xml")
+
+```
+
+```{r getbaselinert}
+truth <- gettruert("Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/baseline.txt", "Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/baseline.xml")
+write.csv(truth, "Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/baseline_truth.csv", row.names = F)
+```
+
+
+---
+
+#### Sampling
+```{r runremastersampling, echo = F, results = 'hide', eval = FALSE}
+#invisible(run_remaster('Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/sampling.xml'))
+```
+
+##### Load txt file and plot simulation
+``` {r load_sampling_simulation}
+sampling <- read.csv('Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/sampling.txt', header = T)
+plot(sampling$t, sampling$S, type = "l", col = "red", main = 'Sampling', ylim = c(0, 10000))
+  lines(sampling$t, sampling$I, col = "green")
+  lines(sampling$t, sampling$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r sampling_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+sampling_incidence <- get_weekly_incidence(get_incidence('Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/sampling.txt'))
+paste0(sampling_incidence, collapse = " ")
+write.table(sampling_incidence, "Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/sampling_weeklyincidence.txt", row.names = F, quote = F, col.names = F)
+
+treefile <- readLines('Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/sampling.tree', warn = FALSE)
+treestring <- str_replace(treefile[length(treefile)-1], "tree STATE_0 = ", "")
+sampling_tree <- get_tree(treestring, 0.05)
+plot(sampling_tree)
+write.tree(sampling_tree, 'Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/sampling_downsampledtree.tree')
+
+
+sampling_tree$root.edge <- min(as.numeric(gsub("\\[|\\]", "", str_extract(sampling_tree$node.label, "\\[([^\\]]+)\\]"))))
+sampling_tree$tip.label <- seq(1, length(sampling_tree$tip.label))
+sampling_tree$node.label <- ""
+write.tree(sampling_tree,  'Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/sampling_beastcompatibletree.tree')
+```
+
+```{r makesamplingxml}
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/sampling_combined.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/sampling_combined"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(sampling_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/sampling_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/sampling_combined_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/sampling_epi.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/sampling_epi"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(sampling_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/sampling_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/sampling_epi_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/sampling_phylo.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/sampling_phylo"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(sampling_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/sampling_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/sampling_phylo_spare.xml")
+
+```
+
+```{r getsamplingrt}
+truth <- gettruert("Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/sampling.txt", "Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/sampling.xml")
+write.csv(truth, "Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/sampling_truth.csv", row.names = F)
+```
+
+
+---
+
+#### Transmission
+```{r runremastertransmission, echo = F, results = 'hide', eval = FALSE}
+#invisible(run_remaster('Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission.xml'))
+```
+
+##### Load txt file and plot simulation
+``` {r load_transmission_simulation}
+transmission <- read.csv('Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission.txt', header = T)
+plot(transmission$t, transmission$S, type = "l", col = "red", main = 'Transmission', ylim = c(0, 10000))
+  lines(transmission$t, transmission$I, col = "green")
+  lines(transmission$t, transmission$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r transmission_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+transmission_incidence <- get_weekly_incidence(get_incidence('Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission.txt'))
+paste0(transmission_incidence, collapse = " ")
+write.table(transmission_incidence, "Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission_weeklyincidence.txt", row.names = F, quote = F, col.names = F)
+
+treefile <- readLines('Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission.tree', warn = FALSE)
+treestring <- str_replace(treefile[length(treefile)-1], "tree STATE_0 = ", "")
+transmission_tree <- get_tree(treestring, 0.05)
+plot(transmission_tree)
+write.tree(transmission_tree, 'Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission_downsampledtree.tree')
+
+write.tree(transmission_tree, 'Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission_downsampledtree.tree') 
+
+transmission_tree$root.edge <- min(as.numeric(gsub("\\[|\\]", "", str_extract(transmission_tree$node.label, "\\[([^\\]]+)\\]"))))
+transmission_tree$tip.label <- seq(1, length(transmission_tree$tip.label))
+transmission_tree$node.label <- ""
+write.tree(transmission_tree,  'Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission_beastcompatibletree.tree')
+```
+
+```{r maketransmissionxml}
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/transmission_combined.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/transmission_combined"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(transmission_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/transmission_combined_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/transmission_epi.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/transmission_epi"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(transmission_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/transmission_epi_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/transmission_phylo.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/transmission_phylo"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(transmission_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/transmission_phylo_spare.xml")
+
+```
+
+```{r gettransmissionrt}
+truth <- gettruert("Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission.txt", "Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission.xml")
+write.csv(truth, "Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/transmission_truth.csv", row.names = F)
+```
+
+
+### Transmission Noise {.tabset}
+##### Preprocessing step - generating noise
+For an SIRS epidemic scenario, we repeated simulations with increasing Transmission noise. To achieve this, we draw sampled intervals of days from a poisson distribution, and drew transmission rates for each interval from normal distributions of increasing standard deviations. These rates and changetimes were used in the ReMASTER simulation.
+
+``` {r draw_transmission_rates}
+intervals <- rpois(100, 3)
+intervals <- intervals[intervals!= 0]
+changetimes <- cumsum(intervals)
+changetimes <- changetimes[changetimes<200]
+paste0(changetimes, collapse = " ")
+
+low_noise <- round(rnorm(length(changetimes)+1, mean = 0.000045, sd = 0.000008),8)
+paste0(low_noise, collapse = " ")
+
+medium_noise <- round(rnorm(length(changetimes)+1, mean = 0.000045, sd = 0.000015), 8)
+paste0(medium_noise, collapse = " ")
+
+large_noise <- abs(round(rnorm(length(changetimes)+1, mean = 0.000045, sd = 0.000045), 8))
+paste0(large_noise, collapse = " ")
+
+
+```
+
+By pasting these rates into the ReMASTER XML's it introduces Transmission noise to both the case incidence and the tree, and this graph shows how the sampling rate changes over time:
+
+``` {r transmissionnoise, echo = F}
+plot(changetimes, large_noise[1:(length(large_noise)-1)], type = 's', col = "green", ylab = "Transmission Rate", xlab = "Time")
+lines(changetimes, low_noise[1:(length(large_noise)-1)], col = "blue", type = "s")
+lines(changetimes, medium_noise[1:(length(large_noise)-1)], col = "yellow", type = "s")
+lines(c(0, max(changetimes)), rep(0.000045, 2), col = "red")
+
+```
+
+---
+
+#### low-noise
+```{r runremaster_low-transmission-noise, echo = F, results = 'hide', eval = FALSE}
+#invisible(run_remaster('Scenario_Testing/Data_Simulation/Transmission_Noise/low-noise/low-noise.xml'))
+```
+
+##### Load txt file and plot simulation
+``` {r load_lnt_simulation}
+low_noise <- read.csv('Scenario_Testing/Data_Simulation/Transmission_Noise/low-noise/low-noise.txt', header = T)
+plot(low_noise$t, low_noise$S, type = "l", col = "red", main = 'low_noise', ylim = c(0, 10000))
+  lines(low_noise$t, low_noise$I, col = "green")
+  lines(low_noise$t, low_noise$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r lnt_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+low_noise_incidence <- get_weekly_incidence(get_incidence('Scenario_Testing/Data_Simulation/Transmission_Noise/low-noise/low-noise.txt'))
+paste0(low_noise_incidence, collapse = " ")
+write.table(low_noise_incidence, 'Scenario_Testing/Data_Simulation/Transmission_Noise/low-noise/low-noise_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+treefile <- readLines('Scenario_Testing/Data_Simulation/Transmission_Noise/low-noise/low-noise.tree', warn = FALSE)
+treestring <- str_replace(treefile[length(treefile)-1], "tree STATE_0 = ", "")
+transmission_tree <- get_tree(treestring, 0.05)
+plot(transmission_tree)
+write.tree(transmission_tree, 'Scenario_Testing/Data_Simulation/Transmission_Noise/low-noise/low-noise_downsampledtree.tree')
+```
+
+```{r makelow-transmission-noisexml}
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/low-transmission-noise_combined.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/low-transmission-noise_combined"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(low_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Transmission_Noise/low-noise/low-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/low-transmission-noise_combined_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/low-transmission-noise_epi.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/low-transmission-noise_epi"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(low_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Transmission_Noise/low-noise/low-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/low-transmission-noise_epi_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/low-transmission-noise_phylo.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/low-transmission-noise_phylo"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(low_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Transmission_Noise/low-noise/low-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/low-transmission-noise_phylo_spare.xml")
+
+```
+
+```{r getlow-noise-transmissionrt}
+truth <- gettruert("Scenario_Testing/Data_Simulation/Transmission_Noise/low-noise/low-noise.txt", "Scenario_Testing/Data_Simulation/Transmission_Noise/low-noise/low-noise.xml")
+write.csv(truth, "Scenario_Testing/Data_Simulation/Transmission_Noise/low-noise/low-noise_truth.csv", row.names = F)
+```
+
+
+#### medium-noise
+```{r runremaster_medium-transmission-noise, echo = F, results = 'hide', eval = FALSE}
+#invisible(run_remaster('Scenario_Testing/Data_Simulation/Transmission_Noise/medium-noise/medium-noise.xml'))
+```
+
+##### Load txt file and plot simulation
+``` {r load_mnt_simulation}
+medium_noise <- read.csv('Scenario_Testing/Data_Simulation/Transmission_Noise/medium-noise/medium-noise.txt', header = T)
+plot(medium_noise$t, medium_noise$S, type = "l", col = "red", main = 'medium_noise', ylim = c(0, 10000))
+  lines(medium_noise$t, medium_noise$I, col = "green")
+  lines(medium_noise$t, medium_noise$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r mnt_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+medium_noise_incidence <- get_weekly_incidence(get_incidence('Scenario_Testing/Data_Simulation/Transmission_Noise/medium-noise/medium-noise.txt'))
+paste0(medium_noise_incidence, collapse = " ")
+write.table(medium_noise_incidence, 'Scenario_Testing/Data_Simulation/Transmission_Noise/medium-noise/medium-noise_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+treefile <- readLines('Scenario_Testing/Data_Simulation/Transmission_Noise/medium-noise/medium-noise.tree', warn = FALSE)
+treestring <- str_replace(treefile[length(treefile)-1], "tree STATE_0 = ", "")
+transmission_tree <- get_tree(treestring, 0.05)
+plot(transmission_tree)
+write.tree(transmission_tree, 'Scenario_Testing/Data_Simulation/Transmission_Noise/medium-noise/medium-noise_downsampledtree.tree')
+```
+
+```{r makemedium-transmission-noisexml}
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/medium-transmission-noise_combined.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/medium-transmission-noise_combined"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(medium_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Transmission_Noise/medium-noise/medium-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/medium-transmission-noise_combined_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/medium-transmission-noise_epi.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/medium-transmission-noise_epi"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(medium_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Transmission_Noise/medium-noise/medium-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/medium-transmission-noise_epi_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/medium-transmission-noise_phylo.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/medium-transmission-noise_phylo"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(medium_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Transmission_Noise/medium-noise/medium-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/medium-transmission-noise_phylo_spare.xml")
+
+```
+
+```{r getmedium-noise-transmissionrt}
+truth <- gettruert("Scenario_Testing/Data_Simulation/Transmission_Noise/medium-noise/medium-noise.txt", "Scenario_Testing/Data_Simulation/Transmission_Noise/medium-noise/medium-noise.xml")
+write.csv(truth, "Scenario_Testing/Data_Simulation/Transmission_Noise/medium-noise/medium-noise_truth.csv", row.names = F)
+```
+
+#### high-noise
+```{r runremaster_high-transmission-noise, echo = F, results = 'hide', eval = FALSE}
+#invisible(run_remaster('Scenario_Testing/Data_Simulation/Transmission_Noise/high-noise/high-noise.xml'))
+```
+
+##### Load txt file and plot simulation
+``` {r load_hnt_simulation}
+high_noise <- read.csv('Scenario_Testing/Data_Simulation/Transmission_Noise/high-noise/high-noise.txt', header = T)
+plot(high_noise$t, high_noise$S, type = "l", col = "red", main = 'high_noise', ylim = c(0, 10000))
+  lines(high_noise$t, high_noise$I, col = "green")
+  lines(high_noise$t, high_noise$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r hnt_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+high_noise_incidence <- get_weekly_incidence(get_incidence('Scenario_Testing/Data_Simulation/Transmission_Noise/high-noise/high-noise.txt'))
+paste0(high_noise_incidence, collapse = " ")
+write.table(high_noise_incidence, 'Scenario_Testing/Data_Simulation/Transmission_Noise/high-noise/high-noise_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+treefile <- readLines('Scenario_Testing/Data_Simulation/Transmission_Noise/high-noise/high-noise.tree', warn = FALSE)
+treestring <- str_replace(treefile[length(treefile)-1], "tree STATE_0 = ", "")
+transmission_tree <- get_tree(treestring, 0.05)
+plot(transmission_tree)
+write.tree(transmission_tree, 'Scenario_Testing/Data_Simulation/Transmission_Noise/high-noise/high-noise_downsampledtree.tree')
+```
+
+
+```{r makehigh-transmission-noisexml}
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/high-transmission-noise_combined.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/high-transmission-noise_combined"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(high_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Transmission_Noise/high-noise/high-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/high-transmission-noise_combined_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/high-transmission-noise_epi.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/high-transmission-noise_epi"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(high_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Transmission_Noise/high-noise/high-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/high-transmission-noise_epi_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/high-transmission-noise_phylo.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/high-transmission-noise_phylo"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(high_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/Transmission_Noise/high-noise/high-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/high-transmission-noise_phylo_spare.xml")
+
+```
+
+```{r gethigh-noise-transmissionrt}
+truth <- gettruert("Scenario_Testing/Data_Simulation/Transmission_Noise/high-noise/high-noise.txt", "Scenario_Testing/Data_Simulation/Transmission_Noise/high-noise/high-noise.xml")
+write.csv(truth, "Scenario_Testing/Data_Simulation/Transmission_Noise/high-noise/high-noise_truth.csv", row.names = F)
+```
+
+### Observation Noise {.tabset}
+##### Preprocessing step - generating noise
+For the baseline and step-change in transmission scenario, we repeated simulations with increasing observation noise. To achieve this, we changed the rate of case sampling every 7 days in the ReMASTER simulation, drawing the rate normal distributions with increasing standard deviations.
+
+``` {r draw_sampling_rates}
+low_noise <- round(rnorm(29, mean = 0.02, sd = 0.001),4)
+paste0(low_noise, collapse = " ")
+
+medium_noise <- round(rnorm(29, mean = 0.02, sd = 0.005), 4)
+paste0(medium_noise, collapse = " ")
+
+large_noise <- abs(round(rnorm(29, mean = 0.02, sd = 0.01), 4))
+paste0(large_noise, collapse = " ")
+
+changetimes <- seq(7, 200, 7)
+paste0(changetimes, collapse = " ")
+```
+
+By pasting these rates into the ReMASTER XML's it introduces observation noise to both the case incidence and the tree, and this graph shows how the sampling rate changes over time:
+
+``` {r samplingnoise, echo = F}
+plot(large_noise, type = 'l', col = "green", ylab = "Sampling Rate", xlab = "Time")
+lines(low_noise, col = "blue")
+lines(medium_noise, col = "yellow")
+lines(rep(0.02, 22), col = "red")
+
+```
+
+---
+
+#### low-noise
+```{r runremaster_low-Observation-noise, echo = F, results = 'hide', eval = FALSE}
+#invisible(run_remaster('Scenario_Testing/Data_Simulation/Observation_Noise/low-noise/low-noise.xml'))
+```
+
+##### Load txt file and plot simulation
+``` {r load_low-Observation-noise_simulation}
+low_noise <- read.csv('Scenario_Testing/Data_Simulation/Observation_Noise/low-noise/low-noise.txt', header = T)
+plot(low_noise$t, low_noise$S, type = "l", col = "red", main = 'low_noise', ylim = c(0, 10000))
+  lines(low_noise$t, low_noise$I, col = "green")
+  lines(low_noise$t, low_noise$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r lnt_low-Observation-noise-incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+low_noise_incidence <- get_weekly_incidence(get_incidence('Scenario_Testing/Data_Simulation/Observation_Noise/low-noise/low-noise.txt'))
+paste0(low_noise_incidence, collapse = " ")
+write.table(low_noise_incidence, 'Scenario_Testing/Data_Simulation/Observation_Noise/low-noise/low-noise_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+treefile <- readLines('Scenario_Testing/Data_Simulation/Observation_Noise/low-noise/low-noise.tree', warn = FALSE)
+treestring <- str_replace(treefile[length(treefile)-1], "tree STATE_0 = ", "")
+Observation_tree <- get_tree(treestring, 0.05)
+plot(Observation_tree)
+write.tree(Observation_tree, 'Scenario_Testing/Data_Simulation/Observation_Noise/low-noise/low-noise_downsampledtree.tree')
+```
+
+```{r makelow-observation-noisexml}
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/low-observation-noise_combined.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/low-observation-noise_combined"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(low_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/observation_Noise/low-noise/low-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/low-observation-noise_combined_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/low-observation-noise_epi.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/low-observation-noise_epi"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(low_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/observation_Noise/low-noise/low-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/low-observation-noise_epi_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/low-observation-noise_phylo.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/low-observation-noise_phylo"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(low_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/observation_Noise/low-noise/low-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/low-observation-noise_phylo_spare.xml")
+
+```
+
+```{r getlow-noise-observationrt}
+truth <- gettruert("Scenario_Testing/Data_Simulation/observation_Noise/low-noise/low-noise.txt", "Scenario_Testing/Data_Simulation/observation_Noise/low-noise/low-noise.xml")
+write.csv(truth, "Scenario_Testing/Data_Simulation/observation_Noise/low-noise/low-noise_truth.csv", row.names = F)
+```
+
+
+#### medium-noise
+```{r runremaster_medium-Observation-noise, echo = F, results = 'hide', eval = FALSE}
+#invisible(run_remaster('Scenario_Testing/Data_Simulation/Observation_Noise/medium-noise/medium-noise.xml'))
+```
+
+##### Load txt file and plot simulation
+``` {r load_medium-Observation-noise_simulation}
+medium_noise <- read.csv('Scenario_Testing/Data_Simulation/Observation_Noise/medium-noise/medium-noise.txt', header = T)
+plot(medium_noise$t, medium_noise$S, type = "l", col = "red", main = 'medium_noise', ylim = c(0, 10000))
+  lines(medium_noise$t, medium_noise$I, col = "green")
+  lines(medium_noise$t, medium_noise$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r medium-Observation-noise_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+medium_noise_incidence <- get_weekly_incidence(get_incidence('Scenario_Testing/Data_Simulation/Observation_Noise/medium-noise/medium-noise.txt'))
+paste0(medium_noise_incidence, collapse = " ")
+write.table(medium_noise_incidence, 'Scenario_Testing/Data_Simulation/Observation_Noise/medium-noise/medium-noise_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+treefile <- readLines('Scenario_Testing/Data_Simulation/Observation_Noise/medium-noise/medium-noise.tree', warn = FALSE)
+treestring <- str_replace(treefile[length(treefile)-1], "tree STATE_0 = ", "")
+transmission_tree <- get_tree(treestring, 0.05)
+plot(transmission_tree)
+write.tree(transmission_tree, 'Scenario_Testing/Data_Simulation/Observation_Noise/medium-noise/medium-noise_downsampledtree.tree')
+```
+
+```{r makemedium-observation-noisexml}
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/medium-observation-noise_combined.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/medium-observation-noise_combined"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(medium_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/observation_Noise/medium-noise/medium-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/medium-observation-noise_combined_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/medium-observation-noise_epi.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/medium-observation-noise_epi"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(medium_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/observation_Noise/medium-noise/medium-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/medium-observation-noise_epi_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/medium-observation-noise_phylo.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/medium-observation-noise_phylo"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(medium_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/observation_Noise/medium-noise/medium-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/medium-observation-noise_phylo_spare.xml")
+
+```
+
+```{r getmedium-noise-observationrt}
+truth <- gettruert("Scenario_Testing/Data_Simulation/observation_Noise/medium-noise/medium-noise.txt", "Scenario_Testing/Data_Simulation/observation_Noise/medium-noise/medium-noise.xml")
+write.csv(truth, "Scenario_Testing/Data_Simulation/observation_Noise/medium-noise/medium-noise_truth.csv", row.names = F)
+```
+
+
+#### high-noise
+```{r runremaster_high-Observation-noise, echo = F, results = 'hide', eval = FALSE}
+#invisible(run_remaster('Scenario_Testing/Data_Simulation/Observation_Noise/high-noise/high-noise.xml'))
+```
+
+##### Load txt file and plot simulation
+``` {r load_high-Observation-noise_simulation}
+high_noise <- read.csv('Scenario_Testing/Data_Simulation/Observation_Noise/high-noise/high-noise.txt', header = T)
+plot(high_noise$t, high_noise$S, type = "l", col = "red", main = 'high_noise', ylim = c(0, 10000))
+  lines(high_noise$t, high_noise$I, col = "green")
+  lines(high_noise$t, high_noise$R, col = "blue")
+  legend(0, 10000, c("S", "I", "R"), fill = c("red", "green", "blue"))
+```
+
+##### Get incidence and tree
+``` {r high-Observation-noise_incidence_and_tree, fig.show = 'hold', out.width = "50%"}
+high_noise_incidence <- get_weekly_incidence(get_incidence('Scenario_Testing/Data_Simulation/Observation_Noise/high-noise/high-noise.txt'))
+paste0(high_noise_incidence, collapse = " ")
+write.table(high_noise_incidence, 'Scenario_Testing/Data_Simulation/Observation_Noise/high-noise/high-noise_weeklyincidence.txt', row.names = F, quote = F, col.names = F)
+
+treefile <- readLines('Scenario_Testing/Data_Simulation/Observation_Noise/high-noise/high-noise.tree', warn = FALSE)
+treestring <- str_replace(treefile[length(treefile)-1], "tree STATE_0 = ", "")
+transmission_tree <- get_tree(treestring, 0.05)
+plot(transmission_tree)
+write.tree(transmission_tree, 'Scenario_Testing/Data_Simulation/Observation_Noise/high-noise/high-noise_downsampledtree.tree')
+```
+
+
+```{r makehigh-observation-noisexml}
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/high-observation-noise_combined.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/high-observation-noise_combined"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(high_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/observation_Noise/high-noise/high-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/high-observation-noise_combined_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/high-observation-noise_epi.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/high-observation-noise_epi"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(high_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/observation_Noise/high-noise/high-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/high-observation-noise_epi_spare.xml")
+
+xml_content <- read_xml("Scenario_Testing/EpiFusion_XMLs/high-observation-noise_phylo.xml")
+reaction_node <- xml_find_all(xml_content, "//fileBase")
+xml_text(reaction_node) <- "Scenario_Testing/Results2/high-observation-noise_phylo"
+reaction_node2 <- xml_find_all(xml_content, "//incidenceVals")
+xml_text(reaction_node2) <- paste0(high_noise_incidence, collapse = " ")
+reaction_node3 <- xml_find_all(xml_content, "//tree")
+xml_text(reaction_node3) <- readLines('Scenario_Testing/Data_Simulation/observation_Noise/high-noise/high-noise_downsampledtree.tree')[1]
+write_xml(xml_content, "Scenario_Testing/EpiFusion_XMLs/high-observation-noise_phylo_spare.xml")
+
+```
+
+```{r gethigh-noise-observationrt}
+truth <- gettruert("Scenario_Testing/Data_Simulation/observation_Noise/high-noise/high-noise.txt", "Scenario_Testing/Data_Simulation/observation_Noise/high-noise/high-noise.xml")
+write.csv(truth, "Scenario_Testing/Data_Simulation/observation_Noise/high-noise/high-noise_truth.csv", row.names = F)
+```
+
