@@ -11,7 +11,8 @@ Results/*
 Data/*
 
 Simulation_Based_Calibration/rep*
-Scenario_Testing/*
-
+Scenario_Testing/Results/*
+Scenario_Testing/Results2/*
+Diamond_Princess/*
 Likelihood_Comparison/*/*
 

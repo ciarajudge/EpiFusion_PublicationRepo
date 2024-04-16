@@ -71,7 +71,7 @@ for (i in 1:numreplicates) {
   simulationsummarytable[i, 10] <- sum(read.table(caseincidence, header = F)[,1])
   #Tree size
   simulationsummarytable[i, 11] <- length(read.tree(treefile)$tip.label)
-  
+
   epifusionoutput <- extract_posterior_epifusion(load_raw_epifusion(epifusionoutputfolder), 0.1)
   #% traj in hpd
   truth <- read.csv(truthtrajectories, header = F)
@@ -84,26 +84,26 @@ for (i in 1:numreplicates) {
     distinct() %>%
     left_join(data.frame(Time = seq(1, nrow(truth))))
   l <- min(nrow(truth), length(epifusionoutput$infection_trajectories$mean_infection_trajectory))
-  simulationsummarytable[i, 12] <- sum(truth > epifusionoutput$infection_trajectories$infection_trajectory_hpdintervals$HPD0.95$Lower & 
+  simulationsummarytable[i, 12] <- sum(truth > epifusionoutput$infection_trajectories$infection_trajectory_hpdintervals$HPD0.95$Lower &
         truth < epifusionoutput$infection_trajectories$infection_trajectory_hpdintervals$HPD0.95$Upper)/l
-  
+
   #gamma mean 
-  simulationsummarytable[i, 13] <- mean(epifusionoutput$parameters$gamma)
-  confints <- hdi(mean(epifusionoutput$parameters$gamma), 0.95)
+  simulationsummarytable[i, 13] <- mean(epifusionoutput$parameters$gamma$samples)
+  confints <- hdi(epifusionoutput$parameters$gamma$samples, 0.95)
   #gamma lower 95
   simulationsummarytable[i, 14] <- confints[1]
   #gamma upper 95
   simulationsummarytable[i, 15] <- confints[2]
   #phi mean 
-  simulationsummarytable[i, 16] <- mean(epifusionoutput$parameters$phi)
-  confints <- hdi(mean(epifusionoutput$parameters$phi), 0.95)
+  simulationsummarytable[i, 16] <- mean(epifusionoutput$parameters$phi$samples)
+  confints <- hdi(epifusionoutput$parameters$phi$samples, 0.95)
   #phi lower 95
   simulationsummarytable[i, 17] <- confints[1]
   #phi upper 95
   simulationsummarytable[i, 18] <- confints[2]
   #psi mean 
-  simulationsummarytable[i, 19] <- mean(epifusionoutput$parameters$psi)
-  confints <- hdi(mean(epifusionoutput$parameters$psi), 0.95)
+  simulationsummarytable[i, 19] <- mean(epifusionoutput$parameters$psi$samples)
+  confints <- hdi(epifusionoutput$parameters$psi$samples, 0.95)
   #psi lower 95
   simulationsummarytable[i, 20] <- confints[1]
   #psi upper 95
@@ -111,33 +111,33 @@ for (i in 1:numreplicates) {
   
   
   for (j in 1:19) {
-    gammahpd <- hdi(epifusionoutput$parameters$gamma, alpha[j])
+    gammahpd <- hdi(epifusionoutput$parameters$gamma$samples, alpha[j])
     if (draws$gamma[i] >= gammahpd[1] & draws$gamma[i] <= gammahpd[2]) {
       gammacalibrationtable1[i,j] <- 1
     }
-    phihpd <- hdi(epifusionoutput$parameters$phi, alpha[j])
+    phihpd <- hdi(epifusionoutput$parameters$phi$samples, alpha[j])
     if (draws$phi[i] >= phihpd[1] & draws$phi[i] <= phihpd[2]) {
       phicalibrationtable1[i,j] <- 1
     }
-    psihpd <- hdi(epifusionoutput$parameters$psi, alpha[j])
+    psihpd <- hdi(epifusionoutput$parameters$psi$samples, alpha[j])
     if (draws$psi[i] >= psihpd[1] & draws$psi[i] <= psihpd[2]) {
       psicalibrationtable1[i,j] <- 1
     }
   }
   
   for (j in 1:19) {
-    gammaupper <- mean(epifusionoutput$parameters$gamma) + (z[j]*sd(epifusionoutput$parameters$gamma))
-    gammalower <- mean(epifusionoutput$parameters$gamma) - (z[j]*sd(epifusionoutput$parameters$gamma))
+    gammaupper <- mean(epifusionoutput$parameters$gamma$samples) + (z[j]*sd(epifusionoutput$parameters$gamma$samples))
+    gammalower <- mean(epifusionoutput$parameters$gamma$samples) - (z[j]*sd(epifusionoutput$parameters$gamma$samples))
     if (draws$gamma[i] >= gammalower & draws$gamma[i] <= gammaupper) {
       gammacalibrationtable2[i,j] <- 1
     }
-    phiupper <- mean(epifusionoutput$parameters$phi) + (z[j]*sd(epifusionoutput$parameters$phi))
-    philower <- mean(epifusionoutput$parameters$phi) - (z[j]*sd(epifusionoutput$parameters$phi))
+    phiupper <- mean(epifusionoutput$parameters$phi$samples) + (z[j]*sd(epifusionoutput$parameters$phi$samples))
+    philower <- mean(epifusionoutput$parameters$phi$samples) - (z[j]*sd(epifusionoutput$parameters$phi$samples))
     if (draws$phi[i] >= philower & draws$phi[i] <= phiupper) {
       phicalibrationtable2[i,j] <- 1
     }
-    psiupper <- mean(epifusionoutput$parameters$psi) + (z[j]*sd(epifusionoutput$parameters$psi))
-    psilower <- mean(epifusionoutput$parameters$psi) - (z[j]*sd(epifusionoutput$parameters$psi))
+    psiupper <- mean(epifusionoutput$parameters$psi$samples) + (z[j]*sd(epifusionoutput$parameters$psi$samples))
+    psilower <- mean(epifusionoutput$parameters$psi$samples) - (z[j]*sd(epifusionoutput$parameters$psi$samples))
     if (draws$psi[i] >= psilower & draws$psi[i] <= psiupper) {
       psicalibrationtable2[i,j] <- 1
     }
