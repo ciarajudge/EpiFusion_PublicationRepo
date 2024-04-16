@@ -1,0 +1,339 @@
+---
+title: "Complete Model Results"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(EpiFusionUtilities)
+```
+
+```{r results, echo = FALSE}
+# Main Scenarios
+baseline_epi <- load_raw_epifusion("Scenario_Testing/Results2/baseline_epi/")
+baseline_phylo <- load_raw_epifusion("Scenario_Testing/Results2/baseline_phylo/")
+baseline_combined <- load_raw_epifusion("Scenario_Testing/Results2/baseline_combined/")
+sampling_epi <- load_raw_epifusion("Scenario_Testing/Results2/sampling_epi/")
+# sampling_phylo <- load_raw_epifusion("Scenario_Testing/Results/sampling-epi/")
+# sampling_combined <- load_raw_epifusion("Scenario_Testing/Results/sampling-epi/")
+transmission_epi <- load_raw_epifusion("Scenario_Testing/Results2/transmission_epi/")
+transmission_phylo <- load_raw_epifusion("Scenario_Testing/Results2/transmission_phylo/")
+transmission_combined <- load_raw_epifusion("Scenario_Testing/Results2/transmission_combined/")
+
+# Transmission Noise
+low_transmission_noise_epi <- load_raw_epifusion("Scenario_Testing/Results2/low-transmission-noise_epi/")
+low_transmission_noise_phylo <- load_raw_epifusion("Scenario_Testing/Results2/low-transmission-noise_phylo/")
+low_transmission_noise_combined <- load_raw_epifusion("Scenario_Testing/Results2/low-transmission-noise_combined/")
+medium_transmission_noise_epi <- load_raw_epifusion("Scenario_Testing/Results2/medium-transmission-noise_epi/")
+medium_transmission_noise_phylo <- load_raw_epifusion("Scenario_Testing/Results2/medium-transmission-noise_phylo/")
+medium_transmission_noise_combined <- load_raw_epifusion("Scenario_Testing/Results2/medium-transmission-noise_combined/")
+high_transmission_noise_epi <- load_raw_epifusion("Scenario_Testing/Results/high-transmission-noise_epi/")
+high_transmission_noise_phylo <- load_raw_epifusion("Scenario_Testing/Results2/high-transmission-noise_phylo/")
+high_transmission_noise_combined <- load_raw_epifusion("Scenario_Testing/Results2/high-transmission-noise_combined/")
+
+# Observation Noise
+low_observation_noise_epi <- load_raw_epifusion("Scenario_Testing/Results2/low-observation-noise_epi/")
+low_observation_noise_phylo <- load_raw_epifusion("Scenario_Testing/Results2/low-observation-noise_phylo/")
+low_observation_noise_combined <- load_raw_epifusion("Scenario_Testing/Results2/low-observation-noise_combined/")
+medium_observation_noise_epi <- load_raw_epifusion("Scenario_Testing/Results2/medium-observation-noise_epi/")
+medium_observation_noise_phylo <- load_raw_epifusion("Scenario_Testing/Results2/medium-observation-noise_phylo/")
+medium_observation_noise_combined <- load_raw_epifusion("Scenario_Testing/Results2/medium-observation-noise_combined/")
+high_observation_noise_epi <- load_raw_epifusion("Scenario_Testing/Results2/high-observation-noise_epi/")
+#high_observation_noise_phylo <- load_raw_epifusion("Results/high-noise-transmission_phylo/")
+#high_observation_noise_combined <- load_raw_epifusion("Results/high-noise-transmission_combined/")
+# 
+# 
+
+```
+
+```{r truth, echo = FALSE}
+# Main Scenarios
+baseline <- read.csv("Scenario_Testing/Data_Simulation_Spare/Main_Scenarios/baseline/baseline.txt", header = T)
+sampling <- read.csv("Scenario_Testing/Data_Simulation_Spare/Main_Scenarios/sampling/sampling.txt", header = T)
+transmission <- read.csv("Scenario_Testing/Data_Simulation_Spare/Main_Scenarios/transmission/transmission.txt", header = T)
+
+# Transmission Noise
+low_transmission_noise <- read.csv("Scenario_Testing/Data_Simulation_Spare/Transmission_Noise/low-noise/low-noise.txt")
+medium_transmission_noise <- read.csv("Scenario_Testing/Data_Simulation_Spare/Transmission_Noise/medium-noise/medium-noise.txt")
+high_transmission_noise <- read.csv("Scenario_Testing/Data_Simulation_Spare/Transmission_Noise/high-noise/high-noise.txt")
+
+# Observation Noise
+low_observation_noise <- read.csv("Scenario_Testing/Data_Simulation_Spare/Observation_Noise/low-noise/low-noise.txt")
+medium_observation_noise <- read.csv("Scenario_Testing/Data_Simulation_Spare/Observation_Noise/medium-noise/medium-noise.txt")
+high_observation_noise <- read.csv("Scenario_Testing/Data_Simulation_Spare/Observation_Noise/high-noise/high-noise.txt")
+
+
+
+```
+
+```{r helpful_functions, echo = FALSE}
+add_polygon <- function(epifusion_object, colour) {
+  xs <- c(seq(1, length(epifusion_object$infection_trajectories$mean_infection_trajectory)), seq(length(epifusion_object$infection_trajectories$mean_infection_trajectory), 1))
+  ys95 <- c(epifusion_object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.95$Lower,
+            rev(epifusion_object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.95$Upper))
+  ys88 <- c(epifusion_object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.88$Lower,
+            rev(epifusion_object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.88$Upper))
+  ys66 <- c(epifusion_object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.66$Lower,
+            rev(epifusion_object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.66$Upper))
+  polygon(xs, ys95, col = adjustcolor(colour, alpha.f = 0.2), border = NA)
+  polygon(xs, ys88, col = adjustcolor(colour, alpha.f = 0.2), border = NA)
+  polygon(xs, ys66, col = adjustcolor(colour, alpha.f = 0.2), border = NA)
+}
+
+```
+
+# Model Results {.tabset}
+
+## Main Scenarios {.tabset}
+
+### Baseline
+```{r baseline_loadlikelihoodtrace, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot_likelihood_trace(baseline_epi)
+plot_likelihood_trace(baseline_phylo)
+plot_likelihood_trace(baseline_combined)
+```
+
+```{r baseline_extract}
+baseline_epi <- extract_posterior_epifusion(baseline_epi, 0.1)
+baseline_phylo <- extract_posterior_epifusion(baseline_phylo, 0.1)
+baseline_combined <- extract_posterior_epifusion(baseline_combined, 0.1)
+```
+
+```{r baseline_plottrajectories, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot(baseline$t, baseline$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(baseline_epi, 'orange')
+lines(baseline_epi$infection_trajectories$mean_infection_trajectory, col = 'darkorange')
+
+plot(baseline$t, baseline$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(baseline_phylo, 'slateblue')
+lines(baseline_phylo$infection_trajectories$mean_infection_trajectory, col = 'slateblue')
+
+plot(baseline$t, baseline$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(baseline_combined, 'darkolivegreen3')
+lines(baseline_combined$infection_trajectories$mean_infection_trajectory, col = 'darkolivegreen')
+```
+
+### Sampling
+```{r sampling_loadlikelihoodtrace, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot_likelihood_trace(sampling_epi)
+#plot_likelihood_trace(sampling_phylo)
+#plot_likelihood_trace(sampling_combined)
+```
+
+```{r sampling_extract}
+sampling_epi <- extract_posterior_epifusion(sampling_epi, 0.1)
+#sampling_phylo <- extract_posterior_epifusion(sampling_phylo, 0.1)
+#sampling_combined <- extract_posterior_epifusion(sampling_combined, 0.1)
+```
+
+```{r sampling_plottrajectories, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot(sampling$t, sampling$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(sampling_epi, 'orange')
+lines(sampling_epi$infection_trajectories$mean_infection_trajectory, col = 'darkorange')
+
+# plot(sampling$t, sampling$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+# add_polygon(sampling_phylo, 'slateblue')
+# lines(sampling_phylo$infection_trajectories$mean_infection_trajectory, col = 'slateblue')
+# 
+# plot(sampling$t, sampling$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+# add_polygon(sampling_combined, 'darkolivegreen3')
+# lines(sampling_combined$infection_trajectories$mean_infection_trajectory, col = 'darkolivegreen')
+
+```
+
+### Transmission
+```{r transmission_loadlikelihoodtrace, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot_likelihood_trace(transmission_epi)
+plot_likelihood_trace(transmission_phylo)
+plot_likelihood_trace(transmission_combined)
+```
+
+```{r transmission_extract}
+transmission_epi <- extract_posterior_epifusion(transmission_epi, 0.1)
+transmission_phylo <- extract_posterior_epifusion(transmission_phylo, 0.1)
+transmission_combined <- extract_posterior_epifusion(transmission_combined, 0.1)
+```
+
+```{r transmission_plottrajectories, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot(transmission$t, transmission$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(transmission_epi, 'orange')
+lines(transmission_epi$infection_trajectories$mean_infection_trajectory, col = 'darkorange')
+
+plot(transmission$t, transmission$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(transmission_phylo, 'slateblue')
+lines(transmission_phylo$infection_trajectories$mean_infection_trajectory, col = 'slateblue')
+
+plot(transmission$t, transmission$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(transmission_combined, 'darkolivegreen3')
+lines(transmission_combined$infection_trajectories$mean_infection_trajectory, col = 'darkolivegreen')
+
+```
+
+## Transmission Noise {.tabset}
+
+### Low Noise
+```{r low_transmission_noise_loadlikelihoodtrace, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot_likelihood_trace(low_transmission_noise_epi)
+plot_likelihood_trace(low_transmission_noise_phylo)
+plot_likelihood_trace(low_transmission_noise_combined)
+```
+
+```{r low_transmission_noise_extract}
+low_transmission_noise_epi <- extract_posterior_epifusion(low_transmission_noise_epi, 0.1)
+low_transmission_noise_phylo <- extract_posterior_epifusion(low_transmission_noise_phylo, 0.1)
+low_transmission_noise_combined <- extract_posterior_epifusion(low_transmission_noise_combined, 0.1)
+```
+
+```{r low_transmission_noise_plottrajectories, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot(low_transmission_noise$t, low_transmission_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(low_transmission_noise_epi, 'orange')
+lines(low_transmission_noise_epi$infection_trajectories$mean_infection_trajectory, col = 'darkorange')
+
+plot(low_transmission_noise$t, low_transmission_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(low_transmission_noise_phylo, 'slateblue')
+lines(low_transmission_noise_phylo$infection_trajectories$mean_infection_trajectory, col = 'slateblue')
+
+plot(low_transmission_noise$t, low_transmission_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(low_transmission_noise_combined, 'darkolivegreen3')
+lines(low_transmission_noise_combined$infection_trajectories$mean_infection_trajectory, col = 'darkolivegreen')
+```
+
+#### Medium Noise
+```{r medium_transmission_noise_loadlikelihoodtrace, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot_likelihood_trace(medium_transmission_noise_epi)
+plot_likelihood_trace(medium_transmission_noise_phylo)
+plot_likelihood_trace(medium_transmission_noise_combined)
+```
+
+```{r medium_transmission_noise_extract}
+medium_transmission_noise_epi <- extract_posterior_epifusion(medium_transmission_noise_epi, 0.1)
+medium_transmission_noise_phylo <- extract_posterior_epifusion(medium_transmission_noise_phylo, 0.1)
+medium_transmission_noise_combined <- extract_posterior_epifusion(medium_transmission_noise_combined, 0.1)
+```
+
+```{r medium_transmission_noise_plottrajectories, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot(medium_transmission_noise$t, medium_transmission_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(medium_transmission_noise_epi, 'orange')
+lines(medium_transmission_noise_epi$infection_trajectories$mean_infection_trajectory, col = 'darkorange')
+
+plot(medium_transmission_noise$t, medium_transmission_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(medium_transmission_noise_phylo, 'slateblue')
+lines(medium_transmission_noise_phylo$infection_trajectories$mean_infection_trajectory, col = 'slateblue')
+
+plot(medium_transmission_noise$t, medium_transmission_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(medium_transmission_noise_combined, 'darkolivegreen3')
+lines(medium_transmission_noise_combined$infection_trajectories$mean_infection_trajectory, col = 'darkolivegreen')
+```
+
+#### High Noise
+```{r high_transmission_noise_loadlikelihoodtrace, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot_likelihood_trace(high_transmission_noise_epi)
+plot_likelihood_trace(high_transmission_noise_phylo)
+plot_likelihood_trace(high_transmission_noise_combined)
+```
+
+```{r high_transmission_noise_extract}
+high_transmission_noise_epi <- extract_posterior_epifusion(high_transmission_noise_epi, 0.1)
+high_transmission_noise_phylo <- extract_posterior_epifusion(high_transmission_noise_phylo, 0.1)
+high_transmission_noise_combined <- extract_posterior_epifusion(high_transmission_noise_combined, 0.1)
+```
+
+```{r high_transmission_noise_plottrajectories, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot(high_transmission_noise$t, high_transmission_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(high_transmission_noise_epi, 'orange')
+lines(high_transmission_noise_epi$infection_trajectories$mean_infection_trajectory, col = 'darkorange')
+
+plot(high_transmission_noise$t, high_transmission_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(high_transmission_noise_phylo, 'slateblue')
+lines(high_transmission_noise_phylo$infection_trajectories$mean_infection_trajectory, col = 'slateblue')
+
+plot(high_transmission_noise$t, high_transmission_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(high_transmission_noise_combined, 'darkolivegreen3')
+lines(high_transmission_noise_combined$infection_trajectories$mean_infection_trajectory, col = 'darkolivegreen')
+```
+
+## Observation Noise {.tabset}
+
+### Low Noise
+```{r low_observation_noise_loadlikelihoodtrace, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot_likelihood_trace(low_observation_noise_epi)
+plot_likelihood_trace(low_observation_noise_phylo)
+plot_likelihood_trace(low_observation_noise_combined)
+```
+
+```{r low_observation_noise_extract}
+low_observation_noise_epi <- extract_posterior_epifusion(low_observation_noise_epi, 0.1)
+low_observation_noise_phylo <- extract_posterior_epifusion(low_observation_noise_phylo, 0.1)
+low_observation_noise_combined <- extract_posterior_epifusion(low_observation_noise_combined, 0.1)
+```
+
+```{r low_observation_noise_plottrajectories, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot(low_observation_noise$t, low_observation_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(low_observation_noise_epi, 'orange')
+lines(low_observation_noise_epi$infection_trajectories$mean_infection_trajectory, col = 'darkorange')
+
+plot(low_observation_noise$t, low_observation_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(low_observation_noise_phylo, 'slateblue')
+lines(low_observation_noise_phylo$infection_trajectories$mean_infection_trajectory, col = 'slateblue')
+
+plot(low_observation_noise$t, low_observation_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(low_observation_noise_combined, 'darkolivegreen3')
+lines(low_observation_noise_combined$infection_trajectories$mean_infection_trajectory, col = 'darkolivegreen')
+```
+
+#### Medium Noise
+```{r medium_observation_noise_loadlikelihoodtrace, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot_likelihood_trace(medium_observation_noise_epi)
+plot_likelihood_trace(medium_observation_noise_phylo)
+plot_likelihood_trace(medium_observation_noise_combined)
+```
+
+```{r medium_observation_noise_extract}
+medium_observation_noise_epi <- extract_posterior_epifusion(medium_observation_noise_epi, 0.1)
+medium_observation_noise_phylo <- extract_posterior_epifusion(medium_observation_noise_phylo, 0.1)
+medium_observation_noise_combined <- extract_posterior_epifusion(medium_observation_noise_combined, 0.1)
+```
+
+```{r medium_observation_noise_plottrajectories, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot(medium_observation_noise$t, medium_observation_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(medium_observation_noise_epi, 'orange')
+lines(medium_observation_noise_epi$infection_trajectories$mean_infection_trajectory, col = 'darkorange')
+
+plot(medium_observation_noise$t, medium_observation_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(medium_observation_noise_phylo, 'slateblue')
+lines(medium_observation_noise_phylo$infection_trajectories$mean_infection_trajectory, col = 'slateblue')
+
+plot(medium_observation_noise$t, medium_observation_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(medium_observation_noise_combined, 'darkolivegreen3')
+lines(medium_observation_noise_combined$infection_trajectories$mean_infection_trajectory, col = 'darkolivegreen')
+```
+
+#### High Noise
+```{r high_observation_noise_loadlikelihoodtrace, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot_likelihood_trace(high_observation_noise_epi)
+plot_likelihood_trace(high_observation_noise_phylo)
+plot_likelihood_trace(high_observation_noise_combined)
+```
+
+```{r high_observation_noise_extract}
+high_observation_noise_epi <- extract_posterior_epifusion(high_observation_noise_epi, 0.1)
+#high_observation_noise_phylo <- extract_posterior_epifusion(high_observation_noise_phylo, 0.1)
+#high_observation_noise_combined <- extract_posterior_epifusion(high_observation_noise_combined, 0.1)
+```
+
+```{r high_observation_noise_plottrajectories, echo = FALSE, out.width = "33%", fig.show = "hold"}
+plot(high_observation_noise$t, high_observation_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+add_polygon(high_observation_noise_epi, 'orange')
+lines(high_observation_noise_epi$infection_trajectories$mean_infection_trajectory, col = 'darkorange')
+
+# plot(high_observation_noise$t, high_observation_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+# add_polygon(high_observation_noise_phylo, 'slateblue')
+# lines(high_observation_noise_phylo$infection_trajectories$mean_infection_trajectory, col = 'slateblue')
+# 
+# plot(high_observation_noise$t, high_observation_noise$I, type = 'l', ylab = 'Infections', xlab = 'Time')
+# add_polygon(high_observation_noise_combined, 'darkolivegreen3')
+# lines(high_observation_noise_combined$infection_trajectories$mean_infection_trajectory, col = 'darkolivegreen')
+```
+
+
