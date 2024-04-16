@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><beast beautitemplate='Standard' beautistatus='' namespace="beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.base.evolution.alignment:beast.pkgmgmt:beast.base.core:beast.base.inference:beast.base.evolution.tree.coalescent:beast.pkgmgmt:beast.base.core:beast.base.inference.util:beast.evolution.nuc:beast.base.evolution.operator:beast.base.inference.operator:beast.base.evolution.sitemodel:beast.base.evolution.substitutionmodel:beast.base.evolution.likelihood:beast.base.evolution.tree" required="BEAST.base v2.7.6:timtam v0.4.0" version="2.7">
+
+   <tree spec='TreeParser' id='Tree.t:baseline' IsLabelledNewick="true" adjustTipHeights="false" newick="(((1:10.05812796,2:14.86265359):3.553266042,3:32.02002866):9.009220774,(((((4:17.34678626,5:21.9886442):1.093924779,6:36.70807377):1.619071921,(7:28.16886388,(8:21.99507627,9:33.34649527):3.789836417):0.5872181804):2.887880031,((10:23.63803928,(11:10.50483922,12:31.98746447):3.338822213):6.73176415,(13:42.40097918,((14:27.85852877,(15:11.49809764,16:21.31472094):3.604936698):0.03241867634,((17:3.184733229,(18:31.71801503,19:17.9284072):1.737351272):2.769140248,(20:26.46521811,(21:11.03143995,22:50.10711353):1.678879441):5.146247364):0.6403793437):3.611012419):1.70631528):0.2659766226):3.940148994,((((23:9.407594087,24:20.04093804):4.704191934,(25:24.09271105,(26:15.07962543,((27:17.45884999,28:10.92256288):0.7560140768,(29:5.441696948,(30:12.56680028,31:43.63306879):10.9605104):2.399061921):0.9261976231):0.5919858445):1.781107247):2.454832378,(32:10.50047606,(33:23.00811016,(34:18.44969043,35:18.76670817):2.672104054):0.08982456175):5.613185566):1.361422598,((((36:29.3720582,37:33.30416568):12.74713448,(((38:0.1499912116,39:4.35870001):6.74451163,40:21.18609917):14.09368446,(((41:2.400210226,42:19.24066337):7.334497826,((43:1.141893623,44:9.235965412):1.785448972,45:28.03146395):4.240984749):5.426694104,46:22.76904514):1.031798493):1.261992934):0.3109974672,(47:14.02846037,((48:18.29220437,(49:4.746997532,(50:12.93911957,(51:14.60168119,(52:6.25136319,53:12.14512975):0.2809345091):1.780782158):2.447569941):1.592016658):2.816547688,54:13.21836627):1.92905977):0.5900236866):2.936346776,(55:56.29610808,((56:24.86354942,57:22.1261666):3.459163323,(58:38.25619549,59:3.270172027):6.837512472):2.633818457):1.549314134):0.7375491204):0.8417615721):0.9004423404):1.668477958;"/>
+
+    <map name="Uniform" >beast.base.inference.distribution.Uniform</map>
+    <map name="Exponential" >beast.base.inference.distribution.Exponential</map>
+    <map name="LogNormal" >beast.base.inference.distribution.LogNormalDistributionModel</map>
+    <map name="Normal" >beast.base.inference.distribution.Normal</map>
+    <map name="Beta" >beast.base.inference.distribution.Beta</map>
+    <map name="Gamma" >beast.base.inference.distribution.Gamma</map>
+    <map name="LaplaceDistribution" >beast.base.inference.distribution.LaplaceDistribution</map>
+    <map name="prior" >beast.base.inference.distribution.Prior</map>
+    <map name="InverseGamma" >beast.base.inference.distribution.InverseGamma</map>
+    <map name="OneOnX" >beast.base.inference.distribution.OneOnX</map>
+
+    <run id="mcmc" spec="MCMC" chainLength="10000000">
+
+        <state id="state" spec="State" storeEvery="5000">
+            <parameter id="TTR0.t:baseline" spec="parameter.RealParameter" dimension = "8"  lower="0.0" name="stateNode">1.85</parameter>
+            <parameter id="TTPropPsi.t:baseline" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="1.0">0.1</parameter>
+            <parameter id="TTPropTS.t:baseline" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="1.0">0.4</parameter>
+            <stateNode id="TTHistorySizes.t:baseline" spec="parameter.IntegerParameter" dimension="14" lower="0">70 69 68 67 66 65 64 60 55 50 45 40 35 30 25 20 15 10 5</stateNode>
+
+            
+        </state>
+        
+        <distribution id="posterior" spec="CompoundDistribution">
+            <distribution id="prior" spec="CompoundDistribution">
+                <distribution id="TimTamTimeSeries.t:baseline" spec="timtam.TimTam" parameterisation="timeSeriesR0" historySizes="@TTHistorySizes.t:baseline" propPsi="@TTPropPsi.t:baseline" propTimeSeries="@TTPropTS.t:baseline" r0="@TTR0.t:baseline" tree="@Tree.t:baseline" conditionOnObservation="false">
+                    <parameter id="TTNetRemovalRate.t:baseline" spec="parameter.RealParameter" estimate="false" lower="0.0" name="sigma">0.14</parameter>
+                    <parameter id="TTOriginTime.t:baseline" spec="parameter.RealParameter" estimate="false" name="originTime">71.0</parameter>
+                    <parameter id="TTDisasterTimes.t:baseline" spec="parameter.RealParameter" dimension="10" estimate="false" name="disasterTimes">70 63 56 49 42 35 28 21 14 7</parameter>
+                    <!--<disasterSizes id="TTDisasterSizes.t:baseline" spec="parameter.IntegerParameter" dimension="11" estimate="false">6 22 50 102 226 401 285 83 6 0 0</disasterSizes>-->
+                    <disasterSizes id="TTDisasterSizes.t:baseline" spec="parameter.IntegerParameter" dimension="10" estimate="false">0 0 6 83 285 401 226 102 50 22</disasterSizes>
+                    <parameter spec="parameter.RealParameter" estimate="false" name="r0ChangeTimes">65 55 45 35 25 15 5</parameter>
+                    <parameter id="TTHistoryTimes.t:baseline" spec="parameter.RealParameter" estimate="false" name="historyTimes">70 69 68 67 66 65 64 60 55 50 45 40 35 30 25 20 15 10 5</parameter>
+
+                </distribution>
+                
+                <prior id="TTPropPsiPrior.t:baseline" name="distribution" x="@TTPropPsi.t:baseline">
+                    <Beta id="Beta.0" name="distr">
+                        <parameter id="RealParameter.5" spec="parameter.RealParameter" estimate="false" name="alpha">3.0</parameter>
+                        <parameter id="RealParameter.6" spec="parameter.RealParameter" estimate="false" name="beta">5.0</parameter>
+                    </Beta>
+                </prior>
+                <prior id="TTPropTimeSeriesPrior.t:baseline" name="distribution" x="@TTPropTS.t:baseline">
+                    <Beta id="Beta.1" name="distr">
+                        <parameter id="RealParameter.7" spec="parameter.RealParameter" estimate="false" name="alpha">3.0</parameter>
+                        <parameter id="RealParameter.8" spec="parameter.RealParameter" estimate="false" name="beta">5.0</parameter>
+                    </Beta>
+                </prior>
+                <prior id="TTR0Prior.t:baseline" name="distribution" x="@TTR0.t:baseline">
+                    <Normal id="Normal.0" name="distr">
+                        <parameter id="RealParameter.1" spec="parameter.RealParameter" estimate="false" name="mean">2.0</parameter>
+                        <parameter id="RealParameter.2" spec="parameter.RealParameter" estimate="false" name="sigma">2.0</parameter>
+                    </Normal>
+                </prior>
+            </distribution>
+            <distribution id="likelihood" spec="CompoundDistribution" useThreads="true">
+
+            </distribution>
+        </distribution>
+
+        <operator id="TTR0Scaler.t:baseline" spec="ScaleOperator" parameter="@TTR0.t:baseline" scaleFactor="0.9" weight="1.0"/>
+        <operator id="TTR0Walk.t:baseline" spec="operator.RealRandomWalkOperator" parameter="@TTR0.t:baseline" weight="1.0" windowSize="0.01"/>
+        <operator id="TTPropPsiScaler.t:baseline" spec="ScaleOperator" parameter="@TTPropPsi.t:baseline" scaleFactor="0.9" weight="1.0"/>
+        <operator id="TTPropPsiWalk.t:baseline" spec="operator.RealRandomWalkOperator" parameter="@TTPropPsi.t:baseline" weight="1.0" windowSize="0.01"/>
+        <operator id="TTPropTimeSeriesWalk.t:baseline" spec="operator.RealRandomWalkOperator" parameter="@TTPropTS.t:baseline" weight="1.0" windowSize="0.01"/>
+        <operator id="TTHistorySizesWalk.t:baseline" spec="IntRandomWalkOperator" parameter="@TTHistorySizes.t:baseline" weight="3.0" windowSize="20"/>
+
+        <logger id="tracelog" spec="Logger" fileName="$(filebase).log" logEvery="1000" model="@posterior" sanitiseHeaders="true" sort="smart">
+            <log idref="posterior"/>
+            <log idref="likelihood"/>
+            <log idref="prior"/>
+            <log id="TreeHeight.t:baseline" spec="beast.base.evolution.tree.TreeStatLogger" tree="@Tree.t:baseline"/>
+            <log idref="TTR0.t:baseline"/>
+            <log idref="TTPropPsi.t:baseline"/>
+            <log idref="TTPropTS.t:baseline"/>
+            <log idref="TTHistorySizes.t:baseline"/>
+
+        </logger>
+        <logger id="screenlog" spec="Logger" logEvery="1000">
+            <log idref="posterior"/>
+            <log idref="likelihood"/>
+            <log idref="prior"/>
+        </logger>
+        <logger id="treelog.t:baseline" spec="Logger" fileName="$(filebase)-$(tree).trees" logEvery="1000" mode="tree">
+            <log id="TreeWithMetaDataLogger.t:baseline" spec="beast.base.evolution.TreeWithMetaDataLogger" tree="@Tree.t:baseline"/>
+        </logger>
+        <operatorschedule id="OperatorSchedule" spec="OperatorSchedule"/>
+    </run>
+
+</beast>

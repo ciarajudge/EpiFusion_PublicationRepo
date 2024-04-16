@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><beast beautitemplate='Standard' beautistatus='' namespace="beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.base.evolution.alignment:beast.pkgmgmt:beast.base.core:beast.base.inference:beast.base.evolution.tree.coalescent:beast.pkgmgmt:beast.base.core:beast.base.inference.util:beast.evolution.nuc:beast.base.evolution.operator:beast.base.inference.operator:beast.base.evolution.sitemodel:beast.base.evolution.substitutionmodel:beast.base.evolution.likelihood:beast.base.evolution.tree" required="BEAST.base v2.7.5:BDSKY v1.5.0" version="2.7">
+
+    <tree spec='TreeParser' id='Tree.t:AAAFT' IsLabelledNewick="true" adjustTipHeights="false" newick="(((1:7.050613458,(2:21.09117275,3:31.22393944):2.806503467):0.8134965153,((4:6.696880396,(5:7.788710641,((6:6.019579097,7:5.917272756):3.068471914,8:15.54495936):3.292613892):0.6854241135):0.5507791242,((9:30.39543394,(10:19.40677545,11:30.91100874):1.428918316):2.6999743,(12:61.00669488,13:33.83614518):43.88397635):72.55975277):7.309530694):6.138884156,(14:32.37199155,(((15:2.89557073,(16:6.09054322,17:2.810086502):10.76288224):4.081382316,(18:20.36339875,(19:19.38596058,20:87.21554059):0.7678592896):7.575058408):5.925431757,(21:28.33593794,((22:48.33127211,((23:12.09449045,(24:14.44269105,25:15.83444288):3.321330803):3.75493948,(26:18.89829376,((27:21.83780742,((28:11.18877472,29:33.24132385):3.316526667,30:71.72533593):1.007802621):2.908312561,((31:14.29850605,32:14.33162143):0.7494290369,(33:10.73513986,(34:1.23156611,((35:5.73389539,36:4.310977621):1.948891069,(37:28.4028838,(38:91.9056168,39:69.42610413):76.73770689):5.470096823):2.311911855):3.570525115):1.852501541):2.106828322):0.120589295):0.9589361365):3.991290629):0.6623727572,(((40:15.64884397,((41:4.425712843,42:6.145910907):17.23013019,(43:14.12629482,((44:16.06428087,45:18.85352211):11.11829805,46:80.75184025):1.610638829):4.629034166):3.745748313):8.175553305,((47:17.99831546,48:82.026297):0.4138920671,((49:19.49309345,(50:22.12106955,(((51:9.5497685,52:33.66848243):4.035706983,(53:9.76091824,54:9.710839354):1.642055478):3.619340071,((55:19.771175,(((56:22.30080773,57:24.74441529):6.205371121,(58:18.1400106,59:54.00085738):0.7838328841):24.90996633,(60:6.02224961,61:19.13296678):23.31560562):59.18854828):0.6860005945,(62:3.212569237,(63:21.84388675,((64:33.67374506,(65:6.121845825,66:18.05549207):7.82531009):0.991847967,(67:23.73282556,(68:9.655377577,69:18.98023468):1.993755118):3.852255108):75.85586271):1.129010584):4.174290188):1.171951443):1.391445791):0.5186933298):0.434936794,(70:66.57649486,(71:15.46737007,((72:3.376256326,73:6.103118993):5.265778404,(74:40.30797417,(75:45.0273804,76:86.78898698):6.355836781):5.267664001):76.72046174):5.407665275):0.6218706354):0.2825586005):2.807597742):1.016294306,((77:33.62508966,(((78:8.947408802,79:50.4979137):9.47451891,80:21.6307332):0.06189125694,((81:28.9093159,82:38.28473855):8.801731237,((83:20.36120849,84:14.18669438):3.661124145,((85:27.87733023,(((86:10.11881152,(87:24.33147793,88:82.31692331):2.185300047):6.726423576,(89:0.1279067551,90:18.21055782):8.957441153):3.551746585,((91:23.88193708,92:72.21578603):0.442870784,(93:17.93679857,(94:14.22452709,((95:12.12743342,96:77.76435799):0.8007823088,97:92.94532718):5.907536548):1.224660749):4.85585326):1.615547544):1.974318551):4.088782976,(98:17.40484248,(99:20.67248342,(100:15.67483602,101:7.414916533):11.84680562):1.211711664):4.854947823):66.2106054):0.5328577393):1.188088386):0.7407209681):3.966692203,((((102:10.95439184,103:5.758491029):2.530962194,104:33.94154747):3.645270844,(105:5.391820889,(106:21.98007676,107:16.19472669):118.5231473):11.14732011):1.520688905,((108:0.3312473623,(109:24.54634312,(110:45.29423667,(111:19.80443893,112:98.2616046):7.075363733):0.1350259557):0.1968483313):0.0476734009,((113:8.641181072,114:80.12631169):87.87758766,(115:22.14025946,(116:11.76665126,(117:8.74828784,(118:2.036414213,(((119:17.82289387,120:21.18564152):2.613224121,(121:4.467138319,122:47.60426326):4.87098694):11.02859436,((123:44.3908867,124:90.25361328):8.336359715,(125:12.51095894,126:33.75747681):73.16392305):2.078876815):17.1551444):42.64395742):7.978015848):0.2367776058):3.25892405):2.354939729):1.59083873):2.36808105):1.924002417):2.058528942):0.3533336696):0.829972141):1.048085488):1.4711153):2.646875539;"/>
+
+    <map name="Uniform" >beast.base.inference.distribution.Uniform</map>
+    <map name="Exponential" >beast.base.inference.distribution.Exponential</map>
+    <map name="LogNormal" >beast.base.inference.distribution.LogNormalDistributionModel</map>
+    <map name="Normal" >beast.base.inference.distribution.Normal</map>
+    <map name="Beta" >beast.base.inference.distribution.Beta</map>
+    <map name="Gamma" >beast.base.inference.distribution.Gamma</map>
+    <map name="LaplaceDistribution" >beast.base.inference.distribution.LaplaceDistribution</map>
+    <map name="prior" >beast.base.inference.distribution.Prior</map>
+    <map name="InverseGamma" >beast.base.inference.distribution.InverseGamma</map>
+    <map name="OneOnX" >beast.base.inference.distribution.OneOnX</map>
+
+    <run id="mcmc" spec="MCMC" chainLength="100000000">
+
+        <state id="state" spec="State" storeEvery="5000">
+            <parameter id="origin_BDSKY_Serial.t:AAAFT" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="Infinity">500.0</parameter>
+            <parameter id="becomeUninfectiousRate_BDSKY_Serial.t:AAAFT" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="Infinity">50.0</parameter>
+            <parameter id="reproductiveNumber_BDSKY_Serial.t:AAAFT" spec="parameter.RealParameter" dimension="19" lower="0.0" name="stateNode" upper="Infinity">2.0</parameter>
+            <parameter id="samplingProportion_BDSKY_Serial.t:AAAFT" spec="parameter.RealParameter" lower="0.0" name="stateNode" upper="1.0">0.008</parameter>
+        </state>
+
+        <distribution id="posterior" spec="CompoundDistribution">
+            <distribution id="prior" spec="CompoundDistribution">
+                <prior id="becomeUninfectiousRatePrior_BDSKY_Serial.t:AAAFT" name="distribution" x="@becomeUninfectiousRate_BDSKY_Serial.t:AAAFT">
+                    <Normal id="Normal.2" name="distr">
+                        <parameter id="RealParameter.97" spec="parameter.RealParameter" estimate="false" name="mean">50.0</parameter>
+                        <parameter id="RealParameter.98" spec="parameter.RealParameter" estimate="false" name="sigma">5.0</parameter>
+                    </Normal>
+                </prior>
+                <prior id="originPrior_BDSKY_Serial.t:AAAFT" name="distribution" x="@origin_BDSKY_Serial.t:AAAFT">
+                    <Uniform id="Uniform.3" name="distr" upper="Infinity"/>
+                </prior>
+                <prior id="reproductiveNumberPrior_BDSKY_Serial.t:AAAFT" name="distribution" x="@reproductiveNumber_BDSKY_Serial.t:AAAFT">
+                    <Uniform id="Uniform.19" name="distr" upper="10.0"/>
+                </prior>
+                <prior id="samplingProportionPrior_BDSKY_Serial.t:AAAFT" name="distribution" x="@samplingProportion_BDSKY_Serial.t:AAAFT">
+                    <Normal id="Normal.3" name="distr">
+                        <parameter id="RealParameter.99" spec="parameter.RealParameter" estimate="false" name="mean">0.01</parameter>
+                        <parameter id="RealParameter.100" spec="parameter.RealParameter" estimate="false" name="sigma">0.01</parameter>
+                    </Normal>
+                </prior>
+            </distribution>
+            <distribution id="likelihood" spec="CompoundDistribution">
+                <distribution id="BDSKY_Serial.t:AAAFT" spec="bdsky.evolution.speciation.BirthDeathSkylineModel" becomeUninfectiousRate="@becomeUninfectiousRate_BDSKY_Serial.t:AAAFT" origin="@origin_BDSKY_Serial.t:AAAFT" reproductiveNumber="@reproductiveNumber_BDSKY_Serial.t:AAAFT" samplingProportion="@samplingProportion_BDSKY_Serial.t:AAAFT" tree="@Tree.t:AAAFT">
+                    <parameter id="intervalTimes.t:AAAFT" spec="parameter.RealParameter" dimension="19" name="intervalTimes">180 170 160 150 140 130 120 110 100 90 80 70 60 50 40 30 20 10 0</parameter>
+                    <reverseTimeArrays id="reverseTimeArrays" spec="parameter.BooleanParameter" dimension="4">true true true true</reverseTimeArrays>
+                </distribution>
+            </distribution>
+        </distribution>
+
+
+
+        <operator id="becomeUninfectiousRateScaler_BDSKY_Serial.t:AAAFT" spec="ScaleOperator" parameter="@becomeUninfectiousRate_BDSKY_Serial.t:AAAFT" weight="2.0"/>
+        <operator id="reproductiveNumberScaler_BDSKY_Serial.t:AAAFT" spec="ScaleOperator" parameter="@reproductiveNumber_BDSKY_Serial.t:AAAFT" weight="10.0"/>
+        <operator id="samplingProportionScaler_BDSKY_Serial.t:AAAFT" spec="ScaleOperator" parameter="@samplingProportion_BDSKY_Serial.t:AAAFT" weight="10.0"/>
+        <operator id="updownBD_BDSKY_Serial.t:AAAFT" spec="operator.UpDownOperator" scaleFactor="0.75" weight="2.0">
+            <up idref="reproductiveNumber_BDSKY_Serial.t:AAAFT"/>
+            <down idref="becomeUninfectiousRate_BDSKY_Serial.t:AAAFT"/>
+        </operator>
+        <operator id="origScaler_BDSKY_Serial.t:AAAFT" spec="ScaleOperator" parameter="@origin_BDSKY_Serial.t:AAAFT" weight="1.0"/>
+
+        <logger id="tracelog" spec="Logger" fileName="$(filebase).log" logEvery="1000" model="@posterior" sanitiseHeaders="true" sort="smart">
+            <log idref="posterior"/>
+            <log idref="likelihood"/>
+            <log idref="prior"/>
+            <log id="TreeHeight.t:AAAFT" spec="beast.base.evolution.tree.TreeStatLogger" tree="@Tree.t:AAAFT"/>
+            <log idref="BDSKY_Serial.t:AAAFT"/>
+            <log idref="origin_BDSKY_Serial.t:AAAFT"/>
+            <log idref="becomeUninfectiousRate_BDSKY_Serial.t:AAAFT"/>
+            <log idref="reproductiveNumber_BDSKY_Serial.t:AAAFT"/>
+            <log idref="samplingProportion_BDSKY_Serial.t:AAAFT"/>
+        </logger>
+        <logger id="screenlog" spec="Logger" logEvery="1000">
+            <log idref="posterior"/>
+            <log idref="likelihood"/>
+            <log idref="prior"/>
+        </logger>
+        <logger id="treelog.t:AAAFT" spec="Logger" fileName="$(filebase)-$(tree).trees" logEvery="1000" mode="tree">
+            <log id="TreeWithMetaDataLogger.t:AAAFT" spec="beast.base.evolution.TreeWithMetaDataLogger" tree="@Tree.t:AAAFT"/>
+        </logger>
+        <operatorschedule id="OperatorSchedule" spec="OperatorSchedule"/>
+    </run>
+
+</beast>
