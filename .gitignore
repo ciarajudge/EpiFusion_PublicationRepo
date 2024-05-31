@@ -7,11 +7,19 @@
 *.docx
 *.html
 
-Results/*
-Data/*
+Likelihood_Comparison/*/*
 
 Simulation_Based_Calibration/rep*
+
 Scenario_Testing/Results2/*
-Diamond_Princess/*
-Likelihood_Comparison/*/*
+
+Noise_Testing/Results/observation*
+Noise_Testing/Results/transmission*
+
+Benchmarking/BDSky/*.log
+Benchmarking/TimTam/*.log
+Benchmarking/BDSky/*.state
+Benchmarking/TimTam/*.state
+Benchmarking/BDSky/*.tab
+Benchmarking/TimTam/*.tab
 

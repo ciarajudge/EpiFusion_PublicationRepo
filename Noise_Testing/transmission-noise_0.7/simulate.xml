@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beast version="2.0" namespace="beast.base.inference.parameter:beast.base.inference:remaster">
+  <run spec="Simulator" nSims="1">
+    <simulate spec="SimulatedTree" id="SIRTree">
+      <trajectory spec="StochasticTrajectory" id="SIRTrajectory" mustHave="sample&gt;100" maxTime="200">
+        <population spec="RealParameter" id="S" value="9999"/>
+        <population spec="RealParameter" id="I" value="1"/>
+        <population spec="RealParameter" id="R" value="0"/>
+        <samplePopulation spec="RealParameter" id="sample" value="0"/>
+        <reaction spec="Reaction" rate="6.195e-05 1.002e-05 2.431e-05 1.33e-05 2.769e-05 9.089e-05 1.469e-05 2.423e-05 2.139e-05 5.11e-05 6.331e-05 7.196e-05 2.79e-06 2.859e-05 2.855e-05 6.735e-05 0.00013719 6.21e-06 6.653e-05 9.38e-06 1.129e-05 1.755e-05 5.676e-05 5.041e-05 5.827e-05 3.453e-05 0.00010579 9.199e-05 8.84e-06 3.506e-05 6.013e-05 6.64e-05 9.077e-05 1.826e-05" changeTimes="3 9 17 20 28 33 41 45 55 60 67 78 84 85 92 102 113 121 125 129 136 142 145 149 153 160 161 167 173 177 185 191 195"> I + S -&gt; I + I </reaction>
+        <reaction spec="Reaction" rate="0.143"> I -&gt; R </reaction>
+        <reaction spec="Reaction" rate="0.03"> R -&gt; S </reaction>
+        <reaction spec="Reaction" rate="0.02"> I -&gt; sample + R </reaction>
+      </trajectory>
+    </simulate>
+    <logger spec="Logger" fileName="$(filebase).traj">
+      <log idref="SIRTrajectory"/>
+    </logger>
+    <logger spec="Logger" mode="tree" fileName="$(filebase).trees">
+      <log spec="TypedTreeLogger" tree="@SIRTree" removeSingletonNodes="true"/>
+    </logger>
+  </run>
+</beast>

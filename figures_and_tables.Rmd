@@ -20,14 +20,6 @@ resultsdir <- 'Results'
 baseline <- loadtruth("Scenario_Testing/Data_Simulation/Main_Scenarios/baseline/")
 sampling <- loadtruth("Scenario_Testing/Data_Simulation/Main_Scenarios/sampling/")
 transmission <- loadtruth("Scenario_Testing/Data_Simulation/Main_Scenarios/transmission/")
-
-#Noise Scenarios
-low_transmission_noise <- loadtruth("Scenario_Testing/Data_Simulation/Transmission_Noise/low-noise/")
-medium_transmission_noise <- loadtruth("Scenario_Testing/Data_Simulation/Transmission_Noise/medium-noise/")
-high_transmission_noise <- loadtruth("Scenario_Testing/Data_Simulation/Transmission_Noise/high-noise/")
-low_observation_noise <- loadtruth("Scenario_Testing/Data_Simulation/Observation_Noise/low-noise/")
-medium_observation_noise <- loadtruth("Scenario_Testing/Data_Simulation/Observation_Noise/medium-noise/")
-high_observation_noise <- loadtruth("Scenario_Testing/Data_Simulation/Observation_Noise/high-noise/")
 ```
 
 ```{r modelfiles}
@@ -41,29 +33,6 @@ sampling_combined_file <- paste0("Scenario_Testing/", resultsdir, "/sampling_com
 transmission_epi_file <- paste0("Scenario_Testing/", resultsdir, "/transmission_epi/")
 transmission_phylo_file <- paste0("Scenario_Testing/", resultsdir, "/transmission_phylo/")
 transmission_combined_file <- paste0("Scenario_Testing/", resultsdir, "/transmission_combined/")
-
-#Transmission Noise
-low_transmission_noise_epi_file <- paste0("Scenario_Testing/", resultsdir, "/low-transmission-noise_epi/")
-low_transmission_noise_phylo_file <- paste0("Scenario_Testing/", resultsdir, "/low-transmission-noise_phylo/")
-low_transmission_noise_combined_file <- paste0("Scenario_Testing/", resultsdir, "/low-transmission-noise_combined/")
-medium_transmission_noise_epi_file <- paste0("Scenario_Testing/", resultsdir, "/medium-transmission-noise_epi/")
-medium_transmission_noise_phylo_file <- paste0("Scenario_Testing/", resultsdir, "/medium-transmission-noise_phylo/")
-medium_transmission_noise_combined_file <- paste0("Scenario_Testing/", resultsdir, "/medium-transmission-noise_combined/")
-high_transmission_noise_epi_file <- paste0("Scenario_Testing/", resultsdir, "/high-transmission-noise_epi/")
-high_transmission_noise_phylo_file <- paste0("Scenario_Testing/", resultsdir, "/high-transmission-noise_phylo/")
-high_transmission_noise_combined_file <- paste0("Scenario_Testing/", resultsdir, "/high-transmission-noise_combined/")
-
-#Observation Noise
-low_observation_noise_epi_file <- paste0("Scenario_Testing/", resultsdir, "/low-observation-noise_epi/")
-low_observation_noise_phylo_file <- paste0("Scenario_Testing/", resultsdir, "/low-observation-noise_phylo/")
-low_observation_noise_combined_file <- paste0("Scenario_Testing/", resultsdir, "/low-observation-noise_combined/")
-medium_observation_noise_epi_file <- paste0("Scenario_Testing/", resultsdir, "/medium-observation-noise_epi/")
-medium_observation_noise_phylo_file <- paste0("Scenario_Testing/", resultsdir, "/medium-observation-noise_phylo/")
-medium_observation_noise_combined_file <- paste0("Scenario_Testing/", resultsdir, "/medium-observation-noise_combined/")
-high_observation_noise_epi_file <- paste0("Scenario_Testing/", "Results2", "/high-observation-noise_epi/")
-high_observation_noise_phylo_file <- paste0("Scenario_Testing/", resultsdir, "/high-observation-noise_phylo/")
-high_observation_noise_combined_file <- paste0("Scenario_Testing/", "Results2", "/high-observation-noise_combined/")
-
 ```
 
 ```{r models}
@@ -77,39 +46,18 @@ sampling_combined <- extract_posterior_epifusion(load_raw_epifusion(sampling_com
 transmission_epi <- extract_posterior_epifusion(load_raw_epifusion(transmission_epi_file), 0.1)
 transmission_phylo <- extract_posterior_epifusion(load_raw_epifusion(transmission_phylo_file), 0.1)
 transmission_combined <- extract_posterior_epifusion(load_raw_epifusion(transmission_combined_file), 0.1)
-
-#Transmission Noise
-low_transmission_noise_epi <- extract_posterior_epifusion(load_raw_epifusion(low_transmission_noise_epi_file), 0.1)
-low_transmission_noise_phylo <- extract_posterior_epifusion(load_raw_epifusion(low_transmission_noise_phylo_file), 0.1)
-low_transmission_noise_combined <- extract_posterior_epifusion(load_raw_epifusion(low_transmission_noise_combined_file), 0.1)
-medium_transmission_noise_epi <- extract_posterior_epifusion(load_raw_epifusion(medium_transmission_noise_epi_file), 0.1)
-medium_transmission_noise_phylo <- extract_posterior_epifusion(load_raw_epifusion(medium_transmission_noise_phylo_file), 0.1)
-medium_transmission_noise_combined <- extract_posterior_epifusion(load_raw_epifusion(medium_transmission_noise_combined_file), 0.1)
-high_transmission_noise_epi <- extract_posterior_epifusion(load_raw_epifusion(high_transmission_noise_epi_file), 0.1)
-high_transmission_noise_phylo <- extract_posterior_epifusion(load_raw_epifusion(high_transmission_noise_phylo_file), 0.1)
-high_transmission_noise_combined <- extract_posterior_epifusion(load_raw_epifusion(high_transmission_noise_combined_file), 0.1)
-
-#Observation Noise
-low_observation_noise_epi <- extract_posterior_epifusion(load_raw_epifusion(low_observation_noise_epi_file), 0.1)
-low_observation_noise_phylo <- extract_posterior_epifusion(load_raw_epifusion(low_observation_noise_phylo_file), 0.1)
-low_observation_noise_combined <- extract_posterior_epifusion(load_raw_epifusion(low_observation_noise_combined_file), 0.1)
-medium_observation_noise_epi <- extract_posterior_epifusion(load_raw_epifusion(medium_observation_noise_epi_file), 0.1)
-medium_observation_noise_phylo <- extract_posterior_epifusion(load_raw_epifusion(medium_observation_noise_phylo_file), 0.1)
-medium_observation_noise_combined <- extract_posterior_epifusion(load_raw_epifusion(medium_observation_noise_combined_file), 0.1)
-high_observation_noise_epi <- extract_posterior_epifusion(load_raw_epifusion(high_observation_noise_epi_file), 0.1)
-high_observation_noise_phylo <- extract_posterior_epifusion(load_raw_epifusion(high_observation_noise_phylo_file), 0.1)
-high_observation_noise_combined <- extract_posterior_epifusion(load_raw_epifusion(high_observation_noise_combined_file), 0.1)
-
-
 ```
 
 ```{r other}
 likelihood_comparison <- read.csv("Likelihood_Comparison/EpiFusionvsBDSky_Likelihoods.csv")
 calibration_summary_results <- read.csv("Simulation_Based_Calibration/simulationsummarytable_acceptanceandconvergencefilter.csv")
+beta_results <- read.csv("Simulation_Based_Calibration/betavstruth_acceptanceandconvergencefilter.csv")
+beta_calibration_results <- read.csv("Simulation_Based_Calibration/betacalibrationtable_acceptanceandconvergencefilter.csv")
 gamma_calibration_results <- read.csv("Simulation_Based_Calibration/gammacalibrationtable_acceptanceandconvergencefilter.csv")
 phi_calibration_results <- read.csv("Simulation_Based_Calibration/psicalibrationtable_acceptanceandconvergencefilter.csv")
 psi_calibration_results <- read.csv("Simulation_Based_Calibration/phicalibrationtable_acceptanceandconvergencefilter.csv")
 calibrationtrajectoryfits <- read.csv("Simulation_Based_Calibration/trajectoryfitsandrepdata_acceptanceandconvergencefilter.csv")
+noise_results <- read.csv("Noise_Testing/noisesummarytable.csv")
 ```
 
 ```{r benchmarkingmodels}
@@ -125,8 +73,10 @@ bdsky_transmission_samples <- read.csv("Benchmarking/BDSky/transmission_BDSky_sa
 timtam_baseline_samples <- read.csv("Benchmarking/timtam/baseline_timtam_samples.csv")
 timtam_sampling_samples <- read.csv("Benchmarking/timtam/sampling_timtam_samples.csv")
 timtam_transmission_samples <- read.csv("Benchmarking/timtam/transmission_timtam_samples.csv")
+```
 
-
+```{r ebolafit}
+ebola <- extract_posterior_epifusion(load_raw_epifusion("EBOV_SierraLeone/Model_Fit/"), 0.1)
 ```
 
 # {.tabset}
@@ -138,16 +88,34 @@ Schematic Diagram, made in powerpoint
 
 ### Figure 2
 ```{r figure2}
-pdf("figs/Figure2.pdf", width = 7.5, height = 5.5)
-layout(matrix(c(1,2,3,3), nrow = 2, ncol = 2))
-par(mar = c(0.5, 4, 0.1, 1))
-plot(baseline$truthcontinuous$t, baseline$truthcontinuous$I, type = "l", ylab = "True Number Infected", xaxt = "n", xlab = "", lwd = 1.5)
-par(mar = c(4, 4, 0.1, 1))
-plot(seq(7, 7*length(baseline$incidence), 7), baseline$incidence, pch = 10, col = "orangered3", ylab = "Weekly Case Incidence", xlab = "Time", cex = 1.5)
-par(mar = c(4, 0.1, 0.1, 1))
-plot(baseline$tree, root.edge = TRUE, edge.color = c("darkslateblue"), show.tip.label = F)
-axis(1)
-dev.off()
+fig2a <- ggplot(baseline$truthcontinuous, aes(x = t, y = I)) +
+  geom_line(colour = "#01454f") +
+  labs(y = "True Number Infected") +
+  coord_cartesian(xlim = c(0, 100))+
+  lshtm_theme() +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+
+incidence <- data.frame(t = seq(7, 7*length(baseline$incidence), 7), incidence = baseline$incidence)
+fig2b <- ggplot(incidence, aes(x = t, y = incidence)) +
+  geom_point(colour = "orangered3") +
+  labs(x = "Time (Days)", y = "Case Incidence") +
+  coord_cartesian(xlim = c(0, 100))+
+  lshtm_theme() 
+  
+
+fig2c <- ggtree(baseline$tree, color = "darkslateblue")+
+  geom_tippoint(col = "darkslateblue") +
+  xlim_tree(c(0, 100)) +
+  theme_tree2(axis.line.x = element_blank()) +
+  labs(x = "Time (Days)") +
+  lshtm_theme()
+
+fig2 <- ggarrange(ggarrange(fig2a, fig2b, nrow = 2, align = "v", labels = c("A", "B"), font.label = list(color = "#01454f", family = NULL)), fig2c, ncol = 2, labels = c("", "C"), hjust = 0.4, font.label = list(color = "#01454f", family = NULL))
+fig2
+ggsave("Figs/Figure2.pdf", fig2, width = 8, height = 6, units = "in")
+
 ```
 
 ### Figure 3
@@ -166,8 +134,11 @@ filtered_likelihood_comparison <- likelihood_comparison %>%
   pivot_longer(c(BDSkyDensity, AvgLikelihood), names_to = "Model", values_to = "Likelihood") %>%
   mutate(Model = ifelse(Model == 'BDSkyDensity', 'BDSky', 'EpiFusion'))
 
+filtered_likelihood_comparison <- filtered_likelihood_comparison %>%
+  mutate(VaryingParam = ifelse(VaryingParam == "Gamma", "\u03B3", ifelse(VaryingParam == "Beta", "\u03B2", "\u03C8")))
+
 fig3a <- ggplot(filtered_likelihood_comparison, aes(x = ParameterValue)) +
-  labs(x = "Model Parameter Value") +
+  labs(x = "Model Parameter Value", y = "Log Likelihood") +
   geom_vline(aes(xintercept = TrueValue), col = "steelblue") +
   geom_line(aes(y = Likelihood, col = Model), linetype = 2) +
   scale_color_manual(values = c("red", "darkolivegreen3")) +
@@ -180,15 +151,15 @@ fig3b <- ggplot(likelihood_comparison, aes(x = BDSkyDensity, y = AvgLikelihood))
   geom_smooth(method = "lm", col = "#fbb800", fill = "lightgrey") +
   geom_point(aes(col = VaryingParam), size = 0.5) +
   scale_color_manual(name = "", values = c("#2aac6d", "#00abce", "#e95b0d"))+
-  lshtm_theme()
+  lshtm_theme() 
 
 fig3b
 
 fig3 <- ggarrange(fig3a, fig3b, nrow = 1, widths = c(2.5,1), labels = c("A", "B"), font.label = list(color = "#01454f", family = NULL))
 
-fig3
+#fig3
 
-ggsave("Figs/Figure3.pdf", fig3, width = 10, height = 3, units = "in")
+ggsave("Figs/Figure3.pdf", fig3a, width = 8, height = 3, units = "in", device = cairo_pdf)
 
 ```
 
@@ -197,19 +168,22 @@ ggsave("Figs/Figure3.pdf", fig3, width = 10, height = 3, units = "in")
 gamma_calibration = colMeans(gamma_calibration_results)
 phi_calibration = colMeans(phi_calibration_results)
 psi_calibration = colMeans(psi_calibration_results)
+beta_calibration = colMeans(beta_calibration_results)
 
 parameter_calibration_table <- data.frame(Alpha = seq(0.05, 0.95, 0.05), Gamma = gamma_calibration,
-                                          Phi = phi_calibration, Psi = psi_calibration) %>%
-  pivot_longer(!Alpha, names_to = "Parameter", values_to = "Coverage")
+                                          Phi = phi_calibration, Psi = psi_calibration, Beta = beta_calibration) %>%
+  pivot_longer(!Alpha, names_to = "Parameter", values_to = "Coverage") %>%
+  mutate(Parameter = ifelse(Parameter == "Gamma", "\u03B3", ifelse(Parameter == "Beta", "\u03B2", ifelse(Parameter == "Psi", "\u03C8", "\u03C6"))))
 
 fig4a <- ggplot(parameter_calibration_table, aes(x = Alpha, y = Coverage)) +
   geom_abline(linewidth = 0.5, col = "grey", linetype = 2) +
   geom_line(aes(col = Parameter), show.legend = F) +
-  geom_point(aes(col = Parameter), show.legend = F) +
-  scale_color_manual(name = "", values = c("#00abce", "#fbb800", "#e95b0d")) +
+  geom_point(aes(col = Parameter)) +
+  scale_color_manual(name = "", values = c("#2aac6d", "#00abce", "#fbb800", "#e95b0d")) +
   ylim(c(0, 1))+
   xlim(c(0, 1))+
-  lshtm_theme()
+  lshtm_theme()+
+  theme(legend.text = element_text(family = "Arial"))
 
 parameter_value_table <- calibration_summary_results %>%
   dplyr::select(TrueGamma, TruePhi, TruePsi, GammaMean, GammaLower95, GappaUpper95, PhiMean, PhiLower95, PhiUpper95, PsiMean, PsiLower95, PsiUpper95) %>%
@@ -219,23 +193,39 @@ parameter_value_table <- calibration_summary_results %>%
   mutate(InferredParameter = str_remove(InferredParameter, 'Mean')) %>%
   filter(TrueParameter == InferredParameter) %>%
   mutate(Lower95 = ifelse(InferredParameter == "Gamma", GammaLower95, ifelse(InferredParameter == "Phi", PhiLower95, PsiLower95)),
-         Upper95 = ifelse(InferredParameter == "Gamma", GappaUpper95, ifelse(InferredParameter == "Phi", PhiUpper95, PsiUpper95)))
+         Upper95 = ifelse(InferredParameter == "Gamma", GappaUpper95, ifelse(InferredParameter == "Phi", PhiUpper95, PsiUpper95))) %>%
+  dplyr::select(TrueParameter, TrueParameterValue, ModelledParameterValue, Lower95, Upper95)
+
+beta_value_table <- beta_results %>%
+  transmute(TrueParameter = "Beta", TrueParameterValue = True_Beta, ModelledParameterValue = Mean_Beta,
+         Lower95 = Lower95_Beta, Upper95 = Upper95_Beta)
+
+beta_value_table <- beta_value_table[sample(1:nrow(beta_value_table), 1000),]
+
+parameter_value_table <- parameter_value_table %>%
+  full_join(beta_value_table) %>%
+  mutate(ylim = ifelse(TrueParameter == "Gamma", 0.4, ifelse(TrueParameter == "Beta", 0.8, ifelse(TrueParameter == "Psi", 0.005, 0.06)))) %>%
+  mutate(xlim = ifelse(TrueParameter == "Gamma", 0.4, ifelse(TrueParameter == "Beta", 0.8, ifelse(TrueParameter == "Psi", 0.005, 0.06)))) %>%
+  mutate(TrueParameter = ifelse(TrueParameter == "Gamma", "\u03B3", ifelse(TrueParameter == "Beta", "\u03B2", ifelse(TrueParameter == "Psi", "\u03C8", "\u03C6"))))
 
 fig4b <- ggplot(parameter_value_table, aes(x = TrueParameterValue, y = ModelledParameterValue)) +
   labs(y = "Inferred Parameter Value", x = "True Parameter Value") +
   geom_abline(linewidth = 0.5, col = "grey", linetype = 2) +
-  geom_point(aes(col= TrueParameter)) +
-  geom_errorbar(aes(ymin = Lower95, ymax = Upper95, col = TrueParameter), alpha = 0.1) +
-  scale_color_manual(name = "", values = c("#00abce", "#fbb800", "#e95b0d")) + 
+  geom_point(aes(col= TrueParameter), show.legend = F) +
+  geom_errorbar(aes(ymin = Lower95, ymax = Upper95, col = TrueParameter), alpha = 0.1, show.legend = F) +
+  scale_color_manual(name = "", values = c("#2aac6d", "#00abce", "#fbb800", "#e95b0d")) + 
+  geom_point(aes(x = xlim, y = ylim), col = "white", alpha = 0.0) +
   facet_wrap(~TrueParameter, scales = "free") +
-  lshtm_theme()
+  lshtm_theme() +
+  theme(legend.text = element_text(family = "Arial"),
+        strip.text = element_text(family = "Arial", margin = margin(t = 5, r = 5, b = 5, l = 5)),
+        axis.text = element_text(colour = "#01454f", size = 7))
 
-
-fig4 <- ggarrange(fig4a, fig4b, nrow = 1, widths = c(1, 2.5), labels = c("A", "B"), font.label = list(color = "#01454f", family = NULL))
+fig4 <- ggarrange(fig4a, fig4b, nrow = 1, widths = c(1, 1), labels = c("A", "B"), font.label = list(color = "#01454f", family = "Arial"))
 
 fig4
 
-ggsave("Figs/Figure4.pdf", fig4, width = 10, height = 3, units = "in")
+ggsave("Figs/Figure4.pdf", fig4, width = 8, height = 4.5, units = "in", device = cairo_pdf)
 
 ```
 
@@ -299,7 +289,7 @@ fig5 <- ggplot(fulltrajectories, aes(x = Time)) +
   geom_ribbon(aes(ymin = Lower66_Infected, ymax = Upper66_Infected, fill = Approach), alpha = 0.2, show.legend = F) +
   scale_color_manual(values = c("orangered3", "darkslateblue", "darkolivegreen4")) +
   scale_fill_manual(values = c("orange", "slateblue", "darkolivegreen3")) +
-  ggh4x::facet_grid2(Scenario ~ Approach, scales = "free", independent = "x") +
+  ggh4x::facet_grid2( Scenario ~ Approach, scales = "free", independent = "x") +
   lshtm_theme()
 
 fig5
@@ -334,60 +324,26 @@ ggsave("Figs/Figure6.pdf", fig6, width = 7, height = 7, units = "in")
 ### Figure 7
 Accuracy x Transmission Noise and Observation Noise
 ```{r figure7}
-low_transmission_noise_epi_crps <- mean(epifusion_rt_crps(low_transmission_noise_epi, low_transmission_noise$truthdiscrete))
-low_transmission_noise_phylo_crps <- mean(epifusion_rt_crps(low_transmission_noise_phylo, low_transmission_noise$truthdiscrete))
-low_transmission_noise_combined_crps <- mean(epifusion_rt_crps(low_transmission_noise_combined, low_transmission_noise$truthdiscrete))
-medium_transmission_noise_epi_crps <- mean(epifusion_rt_crps(medium_transmission_noise_epi, medium_transmission_noise$truthdiscrete))
-medium_transmission_noise_phylo_crps <- mean(epifusion_rt_crps(medium_transmission_noise_phylo, medium_transmission_noise$truthdiscrete))
-medium_transmission_noise_combined_crps <- mean(epifusion_rt_crps(medium_transmission_noise_combined, medium_transmission_noise$truthdiscrete))
-high_transmission_noise_epi_crps <- mean(epifusion_rt_crps(high_transmission_noise_epi, high_transmission_noise$truthdiscrete))
-high_transmission_noise_phylo_crps <- mean(epifusion_rt_crps(high_transmission_noise_phylo, high_transmission_noise$truthdiscrete))
-high_transmission_noise_combined_crps <- mean(epifusion_rt_crps(high_transmission_noise_combined, high_transmission_noise$truthdiscrete))
-
-low_observation_noise_epi_crps <- mean(epifusion_rt_crps(low_observation_noise_epi, low_observation_noise$truthdiscrete))
-low_observation_noise_phylo_crps <- mean(epifusion_rt_crps(low_observation_noise_phylo, low_observation_noise$truthdiscrete))
-low_observation_noise_combined_crps <- mean(epifusion_rt_crps(low_observation_noise_combined, low_observation_noise$truthdiscrete))
-medium_observation_noise_epi_crps <- mean(epifusion_rt_crps(medium_observation_noise_epi, medium_observation_noise$truthdiscrete))
-medium_observation_noise_phylo_crps <- mean(epifusion_rt_crps(medium_observation_noise_phylo, medium_observation_noise$truthdiscrete))
-medium_observation_noise_combined_crps <- mean(epifusion_rt_crps(medium_observation_noise_combined, medium_observation_noise$truthdiscrete))
-high_observation_noise_epi_crps <- mean(epifusion_rt_crps(high_observation_noise_epi, high_observation_noise$truthdiscrete))
-high_observation_noise_phylo_crps <- mean(epifusion_rt_crps(high_observation_noise_phylo, high_observation_noise$truthdiscrete))
-high_observation_noise_combined_crps <- mean(epifusion_rt_crps(high_observation_noise_combined, high_observation_noise$truthdiscrete))
-
-noise_results_dataframe <- data.frame(Noise_Type = c(rep("Transmission", 9), rep("Observation", 9)),
-                                      Noise_Level = c(rep(0.18, 3), rep(0.33, 3), rep(1, 3), rep(0.05, 3), rep(0.25, 3), rep(0.5, 3)),
-                                      Approach = rep(c("Epi", "Phylo", "Combined"), 6),
-                                      CRPS = c(low_transmission_noise_epi_crps,
-                                               low_transmission_noise_phylo_crps,
-                                               low_transmission_noise_combined_crps,
-                                               medium_transmission_noise_epi_crps,
-                                               medium_transmission_noise_phylo_crps,
-                                               medium_transmission_noise_combined_crps,
-                                               high_transmission_noise_epi_crps,
-                                               high_transmission_noise_phylo_crps,
-                                               high_transmission_noise_combined_crps,
-                                               low_observation_noise_epi_crps,
-                                               low_observation_noise_phylo_crps,
-                                               low_observation_noise_combined_crps,
-                                               medium_observation_noise_epi_crps,
-                                               medium_observation_noise_phylo_crps,
-                                               medium_observation_noise_combined_crps,
-                                               high_observation_noise_epi_crps,
-                                               high_observation_noise_phylo_crps,
-                                               high_observation_noise_combined_crps)) %>%
+noise_results_long <- noise_results %>%
+  dplyr::select(Noise.Type, Noise.Level, Approach, RT_RMSE, Rt_CRPS, Brier) %>%
+  pivot_longer(!c(Noise.Type, Noise.Level, Approach), names_to = "Performance_Metric", values_to = "Value") %>%
+  mutate(Performance_Metric = ifelse(Performance_Metric == "Brier", "Brier Score", ifelse(Performance_Metric == "RT_RMSE", "Rt RMSE", "Rt CRPS"))) %>%
+  mutate(Performance_Metric = factor(Performance_Metric, levels = c("Rt RMSE", "Rt CRPS", "Brier Score"))) %>%
   mutate(Approach = factor(Approach, levels = c("Epi", "Phylo", "Combined")))
+  
 
-fig7 <- ggplot(noise_results_dataframe, aes(x = Noise_Level, y = CRPS)) +
-  labs(x = "Noise Level (Std. Deviation / Mean)", y = "Continuous Ranked Probability Score") +
-  geom_line(aes(col = Approach)) +
+fig7 <- ggplot(noise_results_long, aes(x = `Noise.Level`, y = Value)) +
+  labs(x = "Noise Level (Std. Deviation / Mean)", y = "Score") +
   geom_point(aes(col = Approach)) +
-  facet_wrap(~ Noise_Type, scales = "free_x") +
   scale_color_manual(values = c("orange", "slateblue", "darkolivegreen3")) +
+  geom_smooth(aes(col = Approach), fill = "lightgrey", alpha = 0.2, method = 'lm', linewidth = 0.5) +
+  #scale_color_manual(values = c("orangered3", "darkslateblue", "darkolivegreen4")) +
+  facet_grid(Performance_Metric~Noise.Type, scales = "free")+
   lshtm_theme()
 
 fig7
 
-ggsave("Figs/Figure7.pdf", fig7, width = 7, height = 4, units = "in")
+ggsave("Figs/Figure7.pdf", fig7, width = 7, height = 8, units = "in")
 
 ```
 
@@ -498,7 +454,99 @@ write.csv(benchmarking_performance_metrics, "Figs/Table4.csv", row.names = F)
 ```
 
 ### Figure 9
-Diamond princess
+Ebola
+```{r fig9}
+adm1_levels <- c("Eastern", "Southern","Northern", "Western")
+ebola_tree <- read.tree("EBOV_SierraLeone/Clean_Data/SLE_tree.tree")
+ebola_tree_metadata <- read.csv("EBOV_SierraLeone/Clean_Data/SLE_tree_metadata.csv") %>%
+  mutate(ADM1 = factor(ADM1, levels = adm1_levels))
+
+ebola_cases <- read.csv("EBOV_SierraLeone/Clean_Data/tidy_regional_incidence.csv") %>%
+  group_by(Week, ADM1) %>%
+  mutate(Cases = sum(Cases)) %>%
+  dplyr::select(Week, ADM1, Cases) %>%
+  dplyr::distinct() %>%
+  mutate(ADM1 = factor(ADM1, levels = adm1_levels)) %>%
+  mutate(Date = as.Date("2014-03-20", format = "%Y-%m-%d") + (Week*7)) %>%
+  filter(Date < as.Date("2015-08-04", format = "%Y-%m-%d"))
+
+tree_plotlims <- lubridate::decimal_date(as.Date(c("2014-03-20","2015-08-04"), format = "%Y-%m-%d"))
+
+ebola_tree_plot <- ggtree(ebola_tree, mrsd = max(ebola_tree_metadata$Date), color = "darkgrey", linewidth = 0.35) %<+% ebola_tree_metadata +
+  xlim_tree(tree_plotlims) +
+  geom_tippoint(aes(color = ADM1), show.legend = F, size = 1) +
+  scale_color_brewer("Region", palette="Spectral") +
+  lshtm_theme()
+
+ebola_incidence_plot <- ggplot(ebola_cases, aes(x = Date)) +
+  geom_bar(aes(y = Cases, fill = ADM1), col = "white", linewidth = 0.1,  position = "stack", stat = "identity") +
+  coord_cartesian(xlim = as.Date(c("2014-03-20","2015-08-04"), format = "%Y-%m-%d"))+
+  #scale_color_brewer("Region", palette="Spectral") +
+  scale_fill_brewer("Region", palette="Spectral") +
+  lshtm_theme() +
+  theme(legend.key.size = unit(0.5, 'cm'), #change legend key size
+        legend.key.height = unit(0.5, 'cm'), #change legend key height
+        legend.key.width = unit(0.5, 'cm'), #change legend key width
+        legend.title = element_text(size=10), #change legend title font size
+        legend.text = element_text(size=9)) 
+ebola_incidence_plot
+  
+ebola_fit <- fittable(ebola, "Combined", "EBOV_Sierra") %>%
+  mutate(Date = as.Date("2014-03-20", format = "%Y-%m-%d") + Time) 
+
+key_epidemic_events <- as.Date(c("2014-08-06", "2014-09-19", "2014-10-01"))
+key_events_rt <- ebola_fit$Mean_Rt[match(key_epidemic_events, ebola_fit$Date)]
+
+national_emergency <- data.frame(x = rep(key_epidemic_events[1], 2), y = c(key_events_rt[1], 1.7))
+national_quarantine <- data.frame(x = rep(key_epidemic_events[2], 2), y = c(key_events_rt[2], 0.5))
+who_response <- data.frame(x = rep(key_epidemic_events[3], 2), y = c(key_events_rt[3], 1.5))
+
+ebola_rt <- ggplot(ebola_fit, aes(x = Date)) +
+  geom_hline(aes(yintercept = 1), linetype = 2, color = "darkgrey", linewidth = 0.5) +
+  labs(y = "Effective Reproduction Number") +
+  coord_cartesian(xlim = as.Date(c("2014-03-20","2015-08-04"), format = "%Y-%m-%d"))+
+  geom_line(aes(y = Mean_Rt), col = "#2aac6d") +
+  geom_ribbon(aes(ymin = Lower95_Rt, ymax = Upper95_Rt), fill = "#2aac6d", alpha = 0.2) +
+  geom_ribbon(aes(ymin = Lower88_Rt, ymax = Upper88_Rt), fill = "#2aac6d", alpha = 0.2) +
+  geom_ribbon(aes(ymin = Lower66_Rt, ymax = Upper66_Rt), fill = "#2aac6d", alpha = 0.2) +
+  lshtm_theme() +
+  geom_point(data = data.frame(key_epidemic_events, key_events_rt), aes(x = key_epidemic_events, y = key_events_rt), colour = "#01454f") +
+  geom_line(data = national_emergency, aes(x = x, y = y), col =  "#01454f") +
+  geom_line(data = national_quarantine, aes(x = x, y = y), col = "#01454f") +
+  geom_line(data = who_response, aes(x = x, y = y), col = "#01454f") +
+  geom_label(
+    label="National State of\nEmergency Declared", 
+    x=key_epidemic_events[1], y=1.7,
+    label.padding = unit(0.3, "lines"),
+    label.size = 0.3,
+    color = "white",
+    fill="#01454f",
+    size = 2.3
+  ) +
+    geom_label(
+    label="National Three Day\nQuarantine", 
+    x=key_epidemic_events[2], y=0.5,
+    label.padding = unit(0.3, "lines"),
+    label.size = 0.3,
+    color = "white",
+    fill="#01454f",
+    size = 2.3
+  ) +
+  geom_label(
+    label="UN Emergency\nResponse begins", 
+    x=key_epidemic_events[3], y=1.45,
+    label.padding = unit(0.3, "lines"),
+    label.size = 0.3,
+    color = "white",
+    fill="#01454f",
+    size = 2.3
+  )
+  
+
+
+fig9 <- ggarrange(ebola_tree_plot, ebola_incidence_plot, ebola_rt, ncol = 1, align = "v", heights = c(2.8,1.4,1.6), labels = c("A", "B", "C"), font.label = list(color = "#01454f", family = NULL))
+ggsave("Figs/Figure9.pdf", fig9, width = 8, height = 10.5, units = "in")
+```
 
 ## Supplementary Information
 
@@ -521,148 +569,258 @@ ggsave("Figs/FigureS1.pdf", figS1, width = 9, height = 12, units = "in")
 
 ```
 
-
-
-
 ### Figure S2
 Data Graphs
 ```{r figureS2}
-pdf("figs/FigureS2.pdf", width = 9, height = 12)
-layout(matrix(seq(1,4*8), nrow = 8, ncol = 4, byrow = T))
-par(mar = c(4, 4, 3, 1))
-plottruthrow(sampling, "Sampling")
-plottruthrow(transmission, "Transmission")
-plottruthrow(low_transmission_noise, "Low Transmission Noise")
-plottruthrow(medium_transmission_noise, "Medium Transmission Noise")
-plottruthrow(high_transmission_noise, "High Transmission Noise")
-plottruthrow(low_observation_noise, "Low Observation Noise")
-plottruthrow(medium_observation_noise, "Medium Observation Noise")
-plottruthrow(high_observation_noise, "High Observation Noise")
-dev.off()
+figS2a <- ggplot(sampling$truthcontinuous, aes(x = t, y = I)) +
+  geom_line(colour = "#01454f") +
+  labs(y = "True Number Infected") +
+  coord_cartesian(xlim = c(0, 80))+
+  lshtm_theme() +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+
+incidence <- data.frame(t = seq(7, 7*length(sampling$incidence), 7), incidence = sampling$incidence)
+figS2b <- ggplot(incidence, aes(x = t, y = incidence)) +
+  geom_point(colour = "orangered3") +
+  labs(x = "Time (Days)", y = "Case Incidence") +
+  coord_cartesian(xlim = c(0, 80))+
+  lshtm_theme() 
+  
+
+figS2c <- ggtree(sampling$tree, color = "darkslateblue")+
+  geom_tippoint(col = "darkslateblue") +
+  xlim_tree(c(0, 80)) +
+  theme_tree2(axis.line.x = element_blank()) +
+  labs(x = "Time (Days)") +
+  lshtm_theme()
+
+figS2abc <- ggarrange(ggarrange(figS2a, figS2b, nrow = 2, align = "v", labels = c("A", "B"), font.label = list(color = "#01454f", family = NULL)), figS2c, ncol = 2, labels = c("", "C"), hjust = 0.4, font.label = list(color = "#01454f", family = NULL))
+
+figS2d <- ggplot(transmission$truthcontinuous, aes(x = t, y = I)) +
+  geom_line(colour = "#01454f") +
+  labs(y = "True Number Infected") +
+  coord_cartesian(xlim = c(0, 200))+
+  lshtm_theme() +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+
+incidence <- data.frame(t = seq(7, 7*length(transmission$incidence), 7), incidence = transmission$incidence)
+figS2e <- ggplot(incidence, aes(x = t, y = incidence)) +
+  geom_point(colour = "orangered3") +
+  labs(x = "Time (Days)", y = "Case Incidence") +
+  coord_cartesian(xlim = c(0, 200))+
+  lshtm_theme() 
+  
+
+figS2f <- ggtree(transmission$tree, color = "darkslateblue")+
+  geom_tippoint(col = "darkslateblue") +
+  xlim_tree(c(0, 200)) +
+  theme_tree2(axis.line.x = element_blank()) +
+  labs(x = "Time (Days)") +
+  lshtm_theme()
+
+figS2def <- ggarrange(ggarrange(figS2d, figS2e, nrow = 2, align = "v", labels = c("D", "E"), font.label = list(color = "#01454f", family = NULL)), figS2f, ncol = 2, labels = c("", "F"), hjust = 0.4, font.label = list(color = "#01454f", family = NULL))
+
+figS2 <- ggarrange(figS2abc, figS2def, nrow = 2)
+
+ggsave("Figs/FigureS2.pdf", figS2, width = 8, height = 10, units = "in")
 ```
 
 ### Figure S3
+```{r figures3}
+transmission_noise_0 <- loadtruthnoise("Noise_Testing/transmission-noise_0/")
+transmission_noise_0.1 <- loadtruthnoise("Noise_Testing/transmission-noise_0.1/")
+transmission_noise_0.2 <- loadtruthnoise("Noise_Testing/transmission-noise_0.2/")
+transmission_noise_0.3 <- loadtruthnoise("Noise_Testing/transmission-noise_0.3/")
+transmission_noise_0.4 <- loadtruthnoise("Noise_Testing/transmission-noise_0.4/")
+transmission_noise_0.5 <- loadtruthnoise("Noise_Testing/transmission-noise_0.5/")
+transmission_noise_0.6 <- loadtruthnoise("Noise_Testing/transmission-noise_0.6/")
+transmission_noise_0.7 <- loadtruthnoise("Noise_Testing/transmission-noise_0.7/")
+transmission_noise_0.8 <- loadtruthnoise("Noise_Testing/transmission-noise_0.8/")
+transmission_noise_0.9 <- loadtruthnoise("Noise_Testing/transmission-noise_0.9/")
+transmission_noise_1 <- loadtruthnoise("Noise_Testing/transmission-noise_1/")
+
+figS3 <- ggarrange(
+plottruthrow(transmission_noise_0.1, "transmission_noise_0.1"),
+plottruthrow(transmission_noise_0.2, "transmission_noise_0.2"),
+plottruthrow(transmission_noise_0.3, "transmission_noise_0.3"),
+plottruthrow(transmission_noise_0.4, "transmission_noise_0.4"),
+plottruthrow(transmission_noise_0.5, "transmission_noise_0.5"),
+plottruthrow(transmission_noise_0.6, "transmission_noise_0.6"),
+plottruthrow(transmission_noise_0.7, "transmission_noise_0.7"),
+plottruthrow(transmission_noise_0.8, "transmission_noise_0.8"),
+plottruthrow(transmission_noise_0.9, "transmission_noise_0.9"),
+plottruthrow(transmission_noise_1, "transmission_noise_1"), ncol = 1)
+ggsave("Figs/FigureS3.pdf", figS3, width = 8, height = 12, units = "in")
+```
+
+### Figure S4
+```{r figures4}
+observation_noise_0.1 <- loadtruthnoise("Noise_Testing/observation-noise_0.1/")
+observation_noise_0.2 <- loadtruthnoise("Noise_Testing/observation-noise_0.2/")
+observation_noise_0.3 <- loadtruthnoise("Noise_Testing/observation-noise_0.3/")
+observation_noise_0.4 <- loadtruthnoise("Noise_Testing/observation-noise_0.4/")
+observation_noise_0.5 <- loadtruthnoise("Noise_Testing/observation-noise_0.5/")
+observation_noise_0.6 <- loadtruthnoise("Noise_Testing/observation-noise_0.6/")
+observation_noise_0.7 <- loadtruthnoise("Noise_Testing/observation-noise_0.7/")
+observation_noise_0.8 <- loadtruthnoise("Noise_Testing/observation-noise_0.8/")
+observation_noise_0.9 <- loadtruthnoise("Noise_Testing/observation-noise_0.9/")
+observation_noise_1 <- loadtruthnoise("Noise_Testing/observation-noise_1/")
+
+figS4 <- ggarrange(
+plottruthrow(observation_noise_0.1, "observation_noise_0.1"),
+plottruthrow(observation_noise_0.2, "observation_noise_0.2"),
+plottruthrow(observation_noise_0.3, "observation_noise_0.3"),
+plottruthrow(observation_noise_0.4, "observation_noise_0.4"),
+plottruthrow(observation_noise_0.5, "observation_noise_0.5"),
+plottruthrow(observation_noise_0.6, "observation_noise_0.6"),
+plottruthrow(observation_noise_0.7, "observation_noise_0.7"),
+plottruthrow(observation_noise_0.8, "observation_noise_0.8"),
+plottruthrow(observation_noise_0.9, "observation_noise_0.9"),
+plottruthrow(observation_noise_1, "observation_noise_1"), ncol = 1)
+ggsave("Figs/FigureS4.pdf", figS4, width = 8, height = 12, units = "in")
+
+```
+
+### Figure S5
 Tree Size, Peak Size, Time series length x Runtime
-```{r figureS3}
+```{r figureS5}
 macbookreps <- calibration_summary_results %>%
   filter(Batch %in% c(3,4)) %>%
   mutate(Runtime = RunTime/6e10)
 
 
-figS3a <- ggplot(macbookreps, aes(x = TreeSize, y = Runtime)) + 
+figS5a <- ggplot(macbookreps, aes(x = TreeSize, y = Runtime)) + 
   labs(x = "Tree Size (Tips)", y = "Run Time (Minutes)") +
   geom_smooth(method = "lm", col = "#01454f") +
   geom_point(col = "#e95b0d") +
   lshtm_theme()
   
   
-figS3b <- ggplot(macbookreps, aes(x = TruePeak, y = Runtime)) + 
+figS5b <- ggplot(macbookreps, aes(x = TruePeak, y = Runtime)) + 
   labs(x = "Epidemic Size (Peak Infected)", y = "Run Time (Minutes)") +
   geom_smooth(method = "lm", col = "#01454f") +
   geom_point(col = "#fbb800") +
   lshtm_theme()
 
-figS3 <- ggarrange(figS3a, figS3b, nrow = 1, labels = c("A", "B"), font.label = list(color = "#01454f", family = NULL))
-
-figS3
-
-ggsave("Figs/FigureS3.pdf", figS3, width = 7, height = 3.5, units = "in")
-
-
-```
-
-### Figure S4
-```{r figureS4}
-low_transmission_noise_epi_traj_table <- trajectorytable(low_transmission_noise_epi, low_transmission_noise$truthdiscrete, "Epi", "Low Transmission Noise")
-low_transmission_noise_phylo_traj_table <- trajectorytable(low_transmission_noise_phylo, low_transmission_noise$truthdiscrete, "Phylo", "Low Transmission Noise")
-low_transmission_noise_combined_traj_table <- trajectorytable(low_transmission_noise_combined, low_transmission_noise$truthdiscrete, "Combined", "Low Transmission Noise")
-medium_transmission_noise_epi_traj_table <- trajectorytable(medium_transmission_noise_epi, medium_transmission_noise$truthdiscrete, "Epi", "Medium Transmission Noise")
-medium_transmission_noise_phylo_traj_table <- trajectorytable(medium_transmission_noise_phylo, medium_transmission_noise$truthdiscrete, "Phylo", "Medium Transmission Noise")
-medium_transmission_noise_combined_traj_table <- trajectorytable(medium_transmission_noise_combined, medium_transmission_noise$truthdiscrete, "Combined", "Medium Transmission Noise")
-high_transmission_noise_epi_traj_table <- trajectorytable(high_transmission_noise_epi, high_transmission_noise$truthdiscrete, "Epi", "High Transmission Noise")
-high_transmission_noise_phylo_traj_table <- trajectorytable(high_transmission_noise_phylo, high_transmission_noise$truthdiscrete, "Phylo", "High Transmission Noise")
-high_transmission_noise_combined_traj_table <- trajectorytable(high_transmission_noise_combined, high_transmission_noise$truthdiscrete, "Combined", "High Transmission Noise")
-
-transmission_noise_traj_table <- rbind(low_transmission_noise_epi_traj_table, low_transmission_noise_phylo_traj_table, low_transmission_noise_combined_traj_table,
-                                       medium_transmission_noise_epi_traj_table, medium_transmission_noise_phylo_traj_table, medium_transmission_noise_combined_traj_table, 
-                                       high_transmission_noise_epi_traj_table, high_transmission_noise_phylo_traj_table, high_transmission_noise_combined_traj_table)
-
-transmission_noise_traj_table <- transmission_noise_traj_table %>%
-  mutate(Approach = factor(Approach, levels = c("Epi", "Phylo", "Combined")),
-         Scenario = factor(Scenario, levels = c("Low Transmission Noise", "Medium Transmission Noise", "High Transmission Noise"))) %>%
-  rename(True_Infected = I)
-
-figS4 <- ggplot(transmission_noise_traj_table, aes(x = Time)) +
-  geom_hline(aes(yintercept = 1), linetype = 2, color = "darkgrey", linewidth = 0.5) +
-  geom_line(aes(y = Rt)) +
-  labs(y = "Effective Reproduction Number") +
-  geom_line(aes(y = Mean_Rt, col = Approach), show.legend = F) +
-  geom_ribbon(aes(ymin = Lower95_Rt, ymax = Upper95_Rt, fill = Approach), alpha = 0.2, show.legend = F) +
-  geom_ribbon(aes(ymin = Lower88_Rt, ymax = Upper88_Rt, fill = Approach), alpha = 0.2, show.legend = F) +
-  geom_ribbon(aes(ymin = Lower66_Rt, ymax = Upper66_Rt, fill = Approach), alpha = 0.2, show.legend = F) +
-  scale_color_manual(values = c("orangered3", "darkslateblue", "darkolivegreen4")) +
-  scale_fill_manual(values = c("orange", "slateblue", "darkolivegreen3")) +
-  ggh4x::facet_grid2(Scenario ~ Approach, scales = "free", independent = "x") +
-  lshtm_theme()
-
-figS4
-
-ggsave("Figs/FigureS4.pdf", figS4, width = 9, height = 12, units = "in")
-
-
-```
-
-### Figure S5
-```{r figureS5}
-low_observation_noise_epi_traj_table <- trajectorytable(low_observation_noise_epi, low_observation_noise$truthdiscrete, "Epi", "Low Observation Noise")
-low_observation_noise_phylo_traj_table <- trajectorytable(low_observation_noise_phylo, low_observation_noise$truthdiscrete, "Phylo", "Low Observation Noise")
-low_observation_noise_combined_traj_table <- trajectorytable(low_observation_noise_combined, low_observation_noise$truthdiscrete, "Combined", "Low Observation Noise")
-medium_observation_noise_epi_traj_table <- trajectorytable(medium_observation_noise_epi, medium_observation_noise$truthdiscrete, "Epi", "Medium Observation Noise")
-medium_observation_noise_phylo_traj_table <- trajectorytable(medium_observation_noise_phylo, medium_observation_noise$truthdiscrete, "Phylo", "Medium Observation Noise")
-medium_observation_noise_combined_traj_table <- trajectorytable(medium_observation_noise_combined, medium_observation_noise$truthdiscrete, "Combined", "Medium Observation Noise")
-high_observation_noise_epi_traj_table <- trajectorytable(high_observation_noise_epi, high_observation_noise$truthdiscrete, "Epi", "High Observation Noise")
-high_observation_noise_phylo_traj_table <- trajectorytable(high_observation_noise_phylo, high_observation_noise$truthdiscrete, "Phylo", "High Observation Noise")
-high_observation_noise_combined_traj_table <- trajectorytable(high_observation_noise_combined, high_observation_noise$truthdiscrete, "Combined", "High Observation Noise")
-
-observation_noise_traj_table <- rbind(low_observation_noise_epi_traj_table, low_observation_noise_phylo_traj_table, low_observation_noise_combined_traj_table,
-                                       medium_observation_noise_epi_traj_table, medium_observation_noise_phylo_traj_table, medium_observation_noise_combined_traj_table, 
-                                       high_observation_noise_epi_traj_table, high_observation_noise_phylo_traj_table, high_observation_noise_combined_traj_table)
-
-observation_noise_traj_table <- observation_noise_traj_table %>%
-  mutate(Approach = factor(Approach, levels = c("Epi", "Phylo", "Combined")),
-         Scenario = factor(Scenario, levels = c("Low Observation Noise", "Medium Observation Noise", "High Observation Noise"))) %>%
-  rename(True_Infected = I)
-
-figS5 <- ggplot(observation_noise_traj_table, aes(x = Time)) +
-  geom_hline(aes(yintercept = 1), linetype = 2, color = "darkgrey", linewidth = 0.5) +
-  geom_line(aes(y = Rt)) +
-  labs(y = "Effective Reproduction Number") +
-  geom_line(aes(y = Mean_Rt, col = Approach), show.legend = F) +
-  geom_ribbon(aes(ymin = Lower95_Rt, ymax = Upper95_Rt, fill = Approach), alpha = 0.2, show.legend = F) +
-  geom_ribbon(aes(ymin = Lower88_Rt, ymax = Upper88_Rt, fill = Approach), alpha = 0.2, show.legend = F) +
-  geom_ribbon(aes(ymin = Lower66_Rt, ymax = Upper66_Rt, fill = Approach), alpha = 0.2, show.legend = F) +
-  scale_color_manual(values = c("orangered3", "darkslateblue", "darkolivegreen4")) +
-  scale_fill_manual(values = c("orange", "slateblue", "darkolivegreen3")) +
-  ggh4x::facet_grid2(Scenario ~ Approach, scales = "free", independent = "x") +
-  lshtm_theme()
+figS5 <- ggarrange(figS5a, figS5b, nrow = 1, labels = c("A", "B"), font.label = list(color = "#01454f", family = NULL))
 
 figS5
 
-ggsave("Figs/FigureS5.pdf", figS5, width = 9, height = 12, units = "in")
-
+ggsave("Figs/FigureS5.pdf", figS5, width = 7, height = 3.5, units = "in")
 
 
 ```
 
 ### Figure S6
-Likelihood comparison full
 ```{r figureS6}
+transmission_noise_0.2_epi <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_0.2_epi/"), 0.1), transmission_noise_0.2$truthdiscrete, "Epi", "Transmission Noise", 0.2)
+transmission_noise_0.2_phylo <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_0.2_phylo/"), 0.1), transmission_noise_0.2$truthdiscrete, "Phylo", "Transmission Noise", 0.2)
+transmission_noise_0.2_combined <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_0.2_combined/"), 0.1), transmission_noise_0.2$truthdiscrete, "Combined", "Transmission Noise", 0.2)
+transmission_noise_0.4_epi <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_0.4_epi/"), 0.1), transmission_noise_0.4$truthdiscrete, "Epi", "Transmission Noise", 0.4)
+transmission_noise_0.4_phylo <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_0.4_phylo/"), 0.1), transmission_noise_0.4$truthdiscrete, "Phylo", "Transmission Noise", 0.4)
+transmission_noise_0.4_combined <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_0.4_combined/"), 0.1), transmission_noise_0.4$truthdiscrete, "Combined", "Transmission Noise", 0.4)
+transmission_noise_0.6_epi <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_0.6_epi/"), 0.1), transmission_noise_0.6$truthdiscrete, "Epi", "Transmission Noise", 0.6)
+transmission_noise_0.6_phylo <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_0.6_phylo/"), 0.1), transmission_noise_0.6$truthdiscrete, "Phylo", "Transmission Noise", 0.6)
+transmission_noise_0.6_combined <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_0.6_combined/"), 0.1), transmission_noise_0.6$truthdiscrete, "Combined", "Transmission Noise", 0.6)
+transmission_noise_0.8_epi <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_0.8_epi/"), 0.1), transmission_noise_0.8$truthdiscrete, "Epi", "Transmission Noise", 0.8)
+transmission_noise_0.8_phylo <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_0.8_phylo/"), 0.1), transmission_noise_0.8$truthdiscrete, "Phylo", "Transmission Noise", 0.8)
+transmission_noise_0.8_combined <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_0.8_combined/"), 0.1), transmission_noise_0.8$truthdiscrete, "Combined", "Transmission Noise", 0.8)
+transmission_noise_1_epi <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_1_epi/"), 0.1), transmission_noise_1$truthdiscrete, "Epi", "Transmission Noise", 1)
+transmission_noise_1_phylo <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_1_phylo/"), 0.1), transmission_noise_1$truthdiscrete, "Phylo", "Transmission Noise", 1)
+transmission_noise_1_combined <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/transmission-noise_1_combined/"), 0.1), transmission_noise_1$truthdiscrete, "Combined", "Transmission Noise", 1)
+
+transmission_noise_traj_table <- rbind(transmission_noise_0.2_epi, transmission_noise_0.2_phylo, transmission_noise_0.2_combined,
+                                       transmission_noise_0.4_epi, transmission_noise_0.4_phylo, transmission_noise_0.4_combined,
+                                       transmission_noise_0.6_epi, transmission_noise_0.6_phylo, transmission_noise_0.6_combined,
+                                       transmission_noise_0.8_epi, transmission_noise_0.8_phylo, transmission_noise_0.8_combined,
+                                       transmission_noise_1_epi, transmission_noise_1_phylo, transmission_noise_1_combined)
+
+transmission_noise_traj_table <- transmission_noise_traj_table %>%
+  mutate(Approach = factor(Approach, levels = c("Epi", "Phylo", "Combined"))) %>%
+  rename(True_Infected = I)
+
+figS6 <- ggplot(transmission_noise_traj_table, aes(x = Time)) +
+  geom_hline(aes(yintercept = 1), linetype = 2, color = "darkgrey", linewidth = 0.5) +
+  geom_line(aes(y = Rt)) +
+  labs(y = "Effective Reproduction Number") +
+  geom_line(aes(y = Mean_Rt, col = Approach), show.legend = F) +
+  geom_ribbon(aes(ymin = Lower95_Rt, ymax = Upper95_Rt, fill = Approach), alpha = 0.2, show.legend = F) +
+  geom_ribbon(aes(ymin = Lower88_Rt, ymax = Upper88_Rt, fill = Approach), alpha = 0.2, show.legend = F) +
+  geom_ribbon(aes(ymin = Lower66_Rt, ymax = Upper66_Rt, fill = Approach), alpha = 0.2, show.legend = F) +
+  scale_color_manual(values = c("orangered3", "darkslateblue", "darkolivegreen4")) +
+  scale_fill_manual(values = c("orange", "slateblue", "darkolivegreen3")) +
+  ggh4x::facet_grid2(Noise_Level ~ Approach, scales = "free", independent = "x") +
+  lshtm_theme()
+
+figS6
+
+ggsave("Figs/FigureS6.pdf", figS6, width = 9, height = 12, units = "in")
+
+
+```
+
+### Figure S7
+```{r figureS7}
+observation_noise_0.2_epi <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_0.2_epi/"), 0.1), observation_noise_0.2$truthdiscrete, "Epi", "observation Noise", 0.2)
+observation_noise_0.2_phylo <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_0.2_phylo/"), 0.1), observation_noise_0.2$truthdiscrete, "Phylo", "observation Noise", 0.2)
+observation_noise_0.2_combined <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_0.2_combined/"), 0.1), observation_noise_0.2$truthdiscrete, "Combined", "observation Noise", 0.2)
+observation_noise_0.4_epi <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_0.4_epi/"), 0.1), observation_noise_0.4$truthdiscrete, "Epi", "observation Noise", 0.4)
+observation_noise_0.4_phylo <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_0.4_phylo/"), 0.1), observation_noise_0.4$truthdiscrete, "Phylo", "observation Noise", 0.4)
+observation_noise_0.4_combined <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_0.4_combined/"), 0.1), observation_noise_0.4$truthdiscrete, "Combined", "observation Noise", 0.4)
+observation_noise_0.6_epi <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_0.6_epi/"), 0.1), observation_noise_0.6$truthdiscrete, "Epi", "observation Noise", 0.6)
+observation_noise_0.6_phylo <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_0.6_phylo/"), 0.1), observation_noise_0.6$truthdiscrete, "Phylo", "observation Noise", 0.6)
+observation_noise_0.6_combined <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_0.6_combined/"), 0.1), observation_noise_0.6$truthdiscrete, "Combined", "observation Noise", 0.6)
+observation_noise_0.8_epi <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_0.8_epi/"), 0.1), observation_noise_0.8$truthdiscrete, "Epi", "observation Noise", 0.8)
+observation_noise_0.8_phylo <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_0.8_phylo/"), 0.1), observation_noise_0.8$truthdiscrete, "Phylo", "observation Noise", 0.8)
+observation_noise_0.8_combined <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_0.8_combined/"), 0.1), observation_noise_0.8$truthdiscrete, "Combined", "observation Noise", 0.8)
+observation_noise_1_epi <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_1_epi/"), 0.1), observation_noise_1$truthdiscrete, "Epi", "observation Noise", 1)
+observation_noise_1_phylo <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_1_phylo/"), 0.1), observation_noise_1$truthdiscrete, "Phylo", "observation Noise", 1)
+observation_noise_1_combined <- fittablenoise(extract_posterior_epifusion(load_raw_epifusion("Noise_Testing/Results/observation-noise_1_combined/"), 0.1), observation_noise_1$truthdiscrete, "Combined", "observation Noise", 1)
+
+observation_noise_traj_table <- rbind(observation_noise_0.2_epi, observation_noise_0.2_phylo, observation_noise_0.2_combined,
+                                       observation_noise_0.4_epi, observation_noise_0.4_phylo, observation_noise_0.4_combined,
+                                       observation_noise_0.6_epi, observation_noise_0.6_phylo, observation_noise_0.6_combined,
+                                       observation_noise_0.8_epi, observation_noise_0.8_phylo, observation_noise_0.8_combined,
+                                       observation_noise_1_epi, observation_noise_1_phylo, observation_noise_1_combined)
+
+observation_noise_traj_table <- observation_noise_traj_table %>%
+  mutate(Approach = factor(Approach, levels = c("Epi", "Phylo", "Combined"))) %>%
+  rename(True_Infected = I)
+
+figS7 <- ggplot(observation_noise_traj_table, aes(x = Time)) +
+  geom_hline(aes(yintercept = 1), linetype = 2, color = "darkgrey", linewidth = 0.5) +
+  geom_line(aes(y = Rt)) +
+  labs(y = "Effective Reproduction Number") +
+  geom_line(aes(y = Mean_Rt, col = Approach), show.legend = F) +
+  geom_ribbon(aes(ymin = Lower95_Rt, ymax = Upper95_Rt, fill = Approach), alpha = 0.2, show.legend = F) +
+  geom_ribbon(aes(ymin = Lower88_Rt, ymax = Upper88_Rt, fill = Approach), alpha = 0.2, show.legend = F) +
+  geom_ribbon(aes(ymin = Lower66_Rt, ymax = Upper66_Rt, fill = Approach), alpha = 0.2, show.legend = F) +
+  scale_color_manual(values = c("orangered3", "darkslateblue", "darkolivegreen4")) +
+  scale_fill_manual(values = c("orange", "slateblue", "darkolivegreen3")) +
+  ggh4x::facet_grid2(Noise_Level ~ Approach, scales = "free", independent = "x") +
+  lshtm_theme()
+
+figS7
+
+ggsave("Figs/FigureS7.pdf", figS7, width = 9, height = 12, units = "in")
+
+
+```
+
+### Figure S8
+Likelihood comparison full
+```{r figureS8}
 varyingbeta <- likelihood_comparison %>%
   filter(VaryingParam == "Beta") %>%
   pivot_longer(c(AvgLikelihood, BDSkyDensity), names_to = "Model", values_to = "Likelihood") %>%
-  mutate(Model = ifelse(Model == "BDSkyDensity", "BDSky", "EpiFusion"))
+  mutate(Model = ifelse(Model == "BDSkyDensity", "BDSky", "EpiFusion")) %>%
+  filter((TrueBeta==0.19 & ModelBeta < 0.30) | (TrueBeta==0.23 & ModelBeta < 0.32) | (TrueBeta==0.27 & ModelBeta < 0.39))
 
-figS6a <- ggplot(varyingbeta, aes(x = ModelBeta, y = Likelihood)) +
+figS8a <- ggplot(varyingbeta, aes(x = ModelBeta, y = Likelihood)) +
   labs(x = "Model Beta Parameter") +
   geom_vline(aes(xintercept = TrueBeta), col = "steelblue") +
   geom_line(aes(col = Model), linetype = 2, show.legend = F) +
@@ -673,9 +831,10 @@ figS6a <- ggplot(varyingbeta, aes(x = ModelBeta, y = Likelihood)) +
 varyinggamma <- likelihood_comparison %>%
   filter(VaryingParam == "Gamma") %>%
   pivot_longer(c(AvgLikelihood, BDSkyDensity), names_to = "Model", values_to = "Likelihood") %>%
-  mutate(Model = ifelse(Model == "BDSkyDensity", "BDSky", "EpiFusion"))
+  mutate(Model = ifelse(Model == "BDSkyDensity", "BDSky", "EpiFusion")) %>%
+  filter(!((TrueGamma ==0.16 & ModelGamma < 0.1)|(TrueGamma ==0.16 & ModelGamma > 0.25)))
 
-figS6b <- ggplot(varyinggamma, aes(x = ModelGamma, y = Likelihood)) +
+figS8b <- ggplot(varyinggamma, aes(x = ModelGamma, y = Likelihood)) +
   labs(x = "Model Gamma Parameter") +
   geom_vline(aes(xintercept = TrueGamma), col = "steelblue") +
   geom_line(aes(col = Model), linetype = 2, show.legend = F) +
@@ -688,7 +847,7 @@ varyingpsi <- likelihood_comparison %>%
   pivot_longer(c(AvgLikelihood, BDSkyDensity), names_to = "Model", values_to = "Likelihood") %>%
   mutate(Model = ifelse(Model == "BDSkyDensity", "BDSky", "EpiFusion"))
 
-figS6c <- ggplot(varyingpsi, aes(x = ModelPsi, y = Likelihood)) +
+figS8c <- ggplot(varyingpsi, aes(x = ModelPsi, y = Likelihood)) +
   labs(x = "Model Psi Parameter") +
   geom_vline(aes(xintercept = TruePsi), col = "steelblue") +
   geom_line(aes(col = Model), linetype = 2, show.legend = F) +
@@ -696,55 +855,32 @@ figS6c <- ggplot(varyingpsi, aes(x = ModelPsi, y = Likelihood)) +
   scale_color_manual(values = c("red", "darkolivegreen3")) +
   lshtm_theme()
 
-figS6 <- ggarrange(figS6a, figS6b, figS6c, nrow = 3, labels = c("A", "B", "C"), font.label = list(color = "#01454f", family = NULL))
+figS8 <- ggarrange(figS8a, figS8b, figS8c, nrow = 3, labels = c("A", "B", "C"), font.label = list(color = "#01454f", family = NULL))
 
-figS6
+figS8
 
-ggsave("Figs/FigureS6.pdf", figS6, width = 7, height = 8, units = "in")
+ggsave("Figs/FigureS8.pdf", figS8, width = 7, height = 8, units = "in")
 
 ```
 
-
-
-
-### Figure S7
-```{r figureS7}
+### Figure S9
+```{r figureS9}
 baseline_combined_case_fit <- casesfit(baseline_combined, baseline, "Combined", "Baseline")
 baseline_epi_case_fit <- casesfit(baseline_epi, baseline, "Epi", "Baseline")
 sampling_combined_case_fit <- casesfit(sampling_combined, sampling, "Combined", "Sampling")
 sampling_epi_case_fit <- casesfit(sampling_epi, sampling, "Epi", "Sampling")
 transmission_combined_case_fit <- casesfit(transmission_combined, transmission, "Combined", "Transmission")
 transmission_epi_case_fit <- casesfit(transmission_epi, transmission, "Epi", "Transmission")
-low_transmission_noise_combined_case_fit <- casesfit(low_transmission_noise_combined, low_transmission_noise, "Combined", "Low Transmission Noise")
-low_transmission_noise_epi_case_fit <- casesfit(low_transmission_noise_epi, low_transmission_noise, "Epi", "Low Transmission Noise")
-medium_transmission_noise_combined_case_fit <- casesfit(medium_transmission_noise_combined, medium_transmission_noise, "Combined", "Medium Transmission Noise")
-medium_transmission_noise_epi_case_fit <- casesfit(medium_transmission_noise_epi, medium_transmission_noise, "Epi", "Medium Transmission Noise")
-high_transmission_noise_combined_case_fit <- casesfit(high_transmission_noise_combined, high_transmission_noise, "Combined", "High Transmission Noise")
-high_transmission_noise_epi_case_fit <- casesfit(high_transmission_noise_epi, high_transmission_noise, "Epi", "High Transmission Noise")
-low_observation_noise_combined_case_fit <- casesfit(low_observation_noise_combined, low_observation_noise, "Combined", "Low Observation Noise")
-low_observation_noise_epi_case_fit <- casesfit(low_observation_noise_epi, low_observation_noise, "Epi", "Low Observation Noise")
-medium_observation_noise_combined_case_fit <- casesfit(medium_observation_noise_combined, medium_observation_noise, "Combined", "Medium Observation Noise")
-medium_observation_noise_epi_case_fit <- casesfit(medium_observation_noise_epi, medium_observation_noise, "Epi", "Medium Observation Noise")
-high_observation_noise_combined_case_fit <- casesfit(high_observation_noise_combined, high_observation_noise, "Combined", "High Observation Noise")
-high_observation_noise_epi_case_fit <- casesfit(high_observation_noise_epi, high_observation_noise, "Epi", "High Observation Noise")
 
 full_case_fit <- rbind(baseline_epi_case_fit, baseline_combined_case_fit,
                         sampling_epi_case_fit, sampling_combined_case_fit,
-                        transmission_epi_case_fit, transmission_combined_case_fit,
-                       low_transmission_noise_epi_case_fit, low_transmission_noise_combined_case_fit,
-                       medium_transmission_noise_epi_case_fit, medium_transmission_noise_combined_case_fit,
-                       high_transmission_noise_epi_case_fit, high_transmission_noise_combined_case_fit,
-                       low_observation_noise_epi_case_fit, low_observation_noise_combined_case_fit,
-                       medium_observation_noise_epi_case_fit, medium_observation_noise_combined_case_fit,
-                       high_observation_noise_epi_case_fit, high_observation_noise_combined_case_fit)
+                        transmission_epi_case_fit, transmission_combined_case_fit)
 
 full_case_fit <- full_case_fit %>%
   mutate(Approach = factor(Approach, levels = c("Epi", "Combined")),
-         Scenario = factor(Scenario, levels = c("Baseline", "Sampling", "Transmission",
-                                                "Low Transmission Noise", "Medium Transmission Noise", "High Transmission Noise",
-                                                "Low Observation Noise", "Medium Observation Noise", "High Observation Noise")))
+         Scenario = factor(Scenario, levels = c("Baseline", "Sampling", "Transmission")))
 
-figS7 <- ggplot(full_case_fit, aes(x = Time)) +
+figS9 <- ggplot(full_case_fit, aes(x = Time)) +
   geom_point(aes(y = Observed_Cases)) +
   labs(y = "Case Incidence") +
   geom_line(aes(y = Mean_Cases_Fit, col = Approach), show.legend = F) +
@@ -753,25 +889,114 @@ figS7 <- ggplot(full_case_fit, aes(x = Time)) +
   geom_ribbon(aes(ymin = Lower66_Cases_Fit, ymax = Upper66_Cases_Fit, fill = Approach), alpha = 0.3, show.legend = F) +
   scale_color_manual(values = c("orangered3", "darkolivegreen4")) +
   scale_fill_manual(values = c("orange", "darkolivegreen3")) +
-  facet_wrap(Scenario ~ Approach, scales = "free", ncol = 3) +
+  facet_wrap(Scenario ~ Approach, scales = "free", ncol = 2) +
   lshtm_theme()
 
-figS7
+figS9
 
-ggsave("Figs/FigureS7.pdf", figS7, width = 7, height = 9, units = "in")
+ggsave("Figs/FigureS9.pdf", figS9, width = 7, height = 7, units = "in")
 
+```
+
+### Figure S10
+```{r figureS10}
+big_mcc_tree <- read.nexus("EBOV_SierraLeone/Raw_Data/Makona_1610_cds_ig.MCC.tree")
+
+#Turn tree labels into metadata table
+alllabels <- big_mcc_tree$tip.label
+sequence_metadata <- data.frame(matrix(0, ncol = 7, nrow = length(alllabels)))
+for (i in 1:length(alllabels)) {
+  label <- str_remove_all(alllabels[i], "'")
+  row <- c(label, unlist(str_split(label, "\\|")))
+  sequence_metadata[i,] <- row
+}
+colnames(sequence_metadata) <- c("tip", "Pathogen", "ID", "Accession", "Country", "Region", "Date")
+big_mcc_tree$tip.label <- str_remove_all(big_mcc_tree$tip.label, "'")
+
+sequence_metadata_final <- sequence_metadata %>%
+  mutate(Region = ifelse(Country == "SLE", Region, NA)) %>%
+  mutate(Region = ifelse(Region == "?", NA, Region)) %>%
+  mutate(Region = ifelse(Region == "", NA, Region)) %>%
+  filter(Country != "?") %>%
+  filter(!is.na(Country)) %>%
+  mutate(Country = ifelse(Country == "SLE", "Sierra Leone", ifelse(Country == "GIN", "Guinea", "Liberia"))) 
+
+# Pick clade in mcc tree and highlight
+big_mcc_tree$node.label <- seq(1, big_mcc_tree$Nnode)
+
+figS10 <- ggtree(big_mcc_tree, mrsd = max(sequence_metadata_final$Date), linewidth = 0.3) %<+% sequence_metadata_final +
+  geom_hilight(node = "219", fill = "yellow", alpha = 0.2, type = "rect") +
+  geom_tippoint(aes(color = Country), size= 0.8) +
+  scale_color_manual(values = c("#fbb800", "#e95b0d", "#00abce")) +
+  theme_tree2(axis.line.x = element_blank()) +
+  lshtm_theme()
+figS10
+
+ggsave("Figs/FigureS10.pdf", plot = figS10, width = 7, height = 8, units = "in" )
 
 
 ```
 
+### Figure S11
+```{r figures11}
+caselinelist <- read.csv("EBOV_SierraLeone/Raw_Data/pnas.1518587113.sd02.csv") %>%
+  mutate(Date = as.Date(Date.of.symptom.onset, format = "%d-%b-%y")) %>%
+  filter(Date < as.Date("2015-09-20")) %>%
+  mutate(Week = ceiling(as.numeric(Date - as.Date("2014-03-20"))/7)) %>%
+  group_by(Week) %>%
+  mutate(Confirmed = n()) %>%
+  dplyr::select(Week, Confirmed) %>%
+  distinct() %>%
+  ungroup()
+
+suspected_caselinelist <- read.csv("EBOV_SierraLeone/Raw_Data/pnas.1518587113.sd02_suspected.csv") %>%
+  mutate(Date = as.Date(Date.of.symptom.onset, format = "%d-%b-%y")) %>%
+  filter(Date < as.Date("2015-09-20")) %>%
+  mutate(Week = ceiling(as.numeric(Date - as.Date("2014-03-20"))/7)) %>%
+  group_by(Week) %>%
+  mutate(Suspected = n()) %>%
+  dplyr::select(Week, Suspected) %>%
+  distinct() %>%
+  ungroup()
+
+combined <- full_join(caselinelist, suspected_caselinelist) %>%
+  mutate(Suspected = ifelse(is.na(Suspected), 0, Suspected)) %>%
+  mutate(Confirmed = ifelse(is.na(Confirmed), 0, Confirmed)) %>%
+  mutate(WeekDate = (Week*7)+as.Date("2014-03-20")) %>%
+  pivot_longer(!c(WeekDate, Week), names_to = "CaseType", values_to = "N") %>%
+  mutate(CaseType = factor(CaseType, levels = c( "Suspected", "Confirmed")))
+
+figS11 <- ggplot(combined, aes(x = WeekDate)) +
+  geom_bar(aes(y = N, fill = CaseType), col = "white", linewidth = 0.1, position = "stack", stat = "identity") +
+  labs(x = "Time", y = "Ebola Cases in Sierra Leone") +
+  scale_fill_manual(name = "", values = c("grey", "#e95b0d")) +
+  coord_cartesian(xlim = as.Date(c("2014-03-20","2015-08-04"), format = "%Y-%m-%d"))+
+  lshtm_theme()
+
+ggsave("Figs/FigureS11.pdf", plot = figS11, width = 7, height = 5, units = "in" )
+
+
+```
+
+
 ### Table S1
 Simulation based calibration rep summary 
 ```{r tableS1}
-tableS1 <- calibration_summary_results %>%
+tableS1extra <- calibration_summary_results %>%
   dplyr::select(Rep, TruePeak, Cases, TreeSize, TrueGamma, TruePhi, TruePsi, GammaMean, PhiMean, PsiMean, RunTime) %>%
   mutate(RunTime = RunTime / 6e10)
 
-write.csv(tableS1, "Figs/TableS1.csv", row.names = F)
+write.csv(tableS1extra, "Figs/TableS1extra.csv", row.names = F)
+
+tableS1 <- calibration_summary_results %>%
+  dplyr::select(TruePeak, Cases, TreeSize, TrueGamma, TruePhi, TruePsi, GammaMean, PhiMean, PsiMean, RunTime) %>%
+  mutate(RunTime = RunTime / 6e10) %>%
+  mutate(GammaScaledDiff = (TrueGamma - GammaMean) / TrueGamma) %>%
+  mutate(PhiScaledDiff = (TruePhi - PhiMean) / TruePhi) %>%
+  mutate(PsiScaledDiff = (TruePsi - PsiMean) / TruePsi) %>%
+  dplyr::select(TruePeak, Cases, TreeSize, GammaScaledDiff, PhiScaledDiff, PsiScaledDiff, RunTime) 
+
+tableS1 <- data.frame(Characteristic = colnames(tableS1), Mean = colMedians(as.matrix(tableS1)))
 
 ```
 
@@ -793,34 +1018,10 @@ sampling_combined_results <- modelresultstable(sampling_combined, "Combined", "S
 transmission_epi_results <- modelresultstable(transmission_epi, "Epi", "Transmission")
 transmission_phylo_results <- modelresultstable(transmission_phylo, "Phylo", "Transmission")
 transmission_combined_results <- modelresultstable(transmission_combined, "Combined", "Transmission")
-low_transmission_noise_epi_results <- modelresultstable(low_transmission_noise_epi, "Epi", "Low Transmission Noise")
-low_transmission_noise_phylo_results <- modelresultstable(low_transmission_noise_phylo, "Phylo", "Low Transmission Noise")
-low_transmission_noise_combined_results <- modelresultstable(low_transmission_noise_combined, "Combined", "Low Transmission Noise")
-medium_transmission_noise_epi_results <- modelresultstable(medium_transmission_noise_epi, "Epi", "Medium Transmission Noise")
-medium_transmission_noise_phylo_results <- modelresultstable(medium_transmission_noise_phylo, "Phylo", "Medium Transmission Noise")
-medium_transmission_noise_combined_results <- modelresultstable(medium_transmission_noise_combined, "Combined", "Medium Transmission Noise")
-high_transmission_noise_epi_results <- modelresultstable(high_transmission_noise_epi, "Epi", "High Transmission Noise")
-high_transmission_noise_phylo_results <- modelresultstable(high_transmission_noise_phylo, "Phylo", "High Transmission Noise")
-high_transmission_noise_combined_results <- modelresultstable(high_transmission_noise_combined, "Combined", "High Transmission Noise")
-low_observation_noise_epi_results <- modelresultstable(low_observation_noise_epi, "Epi", "Low Observation Noise")
-low_observation_noise_phylo_results <- modelresultstable(low_observation_noise_phylo, "Phylo", "Low Observation Noise")
-low_observation_noise_combined_results <- modelresultstable(low_observation_noise_combined, "Combined", "Low Observation Noise")
-medium_observation_noise_epi_results <- modelresultstable(medium_observation_noise_epi, "Epi", "Medium Observation Noise")
-medium_observation_noise_phylo_results <- modelresultstable(medium_observation_noise_phylo, "Phylo", "Medium Observation Noise")
-medium_observation_noise_combined_results <- modelresultstable(medium_observation_noise_combined, "Combined", "Medium Observation Noise")
-high_observation_noise_epi_results <- modelresultstable(high_observation_noise_epi, "Epi", "High Observation Noise")
-high_observation_noise_phylo_results <- modelresultstable(high_observation_noise_phylo, "Phylo", "High Observation Noise")
-high_observation_noise_combined_results <- modelresultstable(high_observation_noise_combined, "Combined", "High Observation Noise")
 
 tableS4 <- join_all(list(baseline_epi_results, baseline_phylo_results, baseline_combined_results,
                         sampling_epi_results, sampling_phylo_results, sampling_combined_results,
-                        transmission_epi_results, transmission_phylo_results, transmission_combined_results,
-                       low_transmission_noise_epi_results, low_transmission_noise_phylo_results, low_transmission_noise_combined_results,
-                       medium_transmission_noise_epi_results, medium_transmission_noise_phylo_results,medium_transmission_noise_combined_results,
-                       high_transmission_noise_epi_results, high_transmission_noise_phylo_results,high_transmission_noise_combined_results,
-                       low_observation_noise_epi_results, low_observation_noise_phylo_results, low_observation_noise_combined_results,
-                       medium_observation_noise_epi_results, medium_observation_noise_phylo_results, medium_observation_noise_combined_results,
-                       high_observation_noise_epi_results, high_observation_noise_phylo_results, high_observation_noise_combined_results), type = 'full')
+                        transmission_epi_results, transmission_phylo_results, transmission_combined_results), type = 'full')
 
 
 write.csv(tableS4, "Figs/TableS4.csv", row.names = F)

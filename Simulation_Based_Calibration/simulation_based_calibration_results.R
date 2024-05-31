@@ -31,6 +31,7 @@ phicalibrationtable1 <- data.frame(matrix(0, nrow = 700, ncol = 19))
 phicalibrationtable2 <- data.frame(matrix(0, nrow = 700, ncol = 19))
 psicalibrationtable1 <- data.frame(matrix(0, nrow = 700, ncol = 19))
 psicalibrationtable2 <- data.frame(matrix(0, nrow = 700, ncol = 19))
+betacalibrationtable <- data.frame(matrix(0, nrow = 700, ncol = 19))
 
 
 alpha <- seq(0.05, 0.95, 0.05)
@@ -377,6 +378,76 @@ trajcalibrationtable_acceptanceandconvergencefilter <- trajcalibrationtable[simu
 plot(seq(0.05, 0.95, 0.05), colMeans(trajcalibrationtable_acceptanceandconvergencefilter), ylim = c(0, 1), xlim = c(0, 1))
 lines(c(0,1), c(0,1), lty = 2)
 write.csv(trajcalibrationtable_acceptanceandconvergencefilter, "Simulation_Based_Calibration/trajcalibrationtable_acceptanceandconvergencefilter.csv", row.names = F)
+
+
+##### Get the real vs inferred values of beta #####
+betavstruth <- matrix(nrow = 0, ncol = 5)
+for (i in 1:699) {
+  label <- paste0("rep_", i)
+  print(label)
+  epifusionoutputfolder <- paste0("Simulation_Based_Calibration/",label,"/simulate/")
+  truth <- read.csv(paste0("Simulation_Based_Calibration/",label,"/beta.txt"))[,1]
+  beta1 <- read.csv(paste0(epifusionoutputfolder, "betas_chain0.txt"))[100:1001,]
+  beta2 <- read.csv(paste0(epifusionoutputfolder, "betas_chain1.txt"))[100:1001,]
+  beta <- rbind(beta1, beta2)
+  coverage <- c()
+  len <- min((ncol(beta)-1), length(truth))
+  truth <- truth[1:len]
+  HPD <- HDInterval::hdi(beta, 0.95)
+  lower <- HPD[1, 1:len]
+  upper <- HPD[2, 1:len]
+  for (k in 1:length(lower)) {
+    betavstruth <- rbind(betavstruth, c(i, truth[k], mean(na.omit(beta[,k])), lower[k], upper[k]))
+  }
+}
+
+write.csv(betavstruth, "Simulation_Based_Calibration/betavstruth_raw.csv")
+
+repsused <- read.csv("Simulation_Based_Calibration/simulationsummarytable_acceptanceandconvergencefilter.csv")$Rep
+
+colnames(betavstruth) <- c("Rep", "True_Beta", "Mean_Beta", "Lower95_Beta", "Upper95_Beta")
+
+beta_vs_truth_filtered <- data.frame(betavstruth) %>%
+  filter(Rep %in% repsused)
+
+#Subsample as otherwise there's a lot of data points:
+beta_vs_truth_filtered <- beta_vs_truth_filtered[sample(nrow(beta_vs_truth_filtered), 10000),]
+write.csv(beta_vs_truth_filtered, "Simulation_Based_Calibration/betavstruth_acceptanceandconvergencefilter.csv")
+
+
+betacoverage <- matrix(nrow = 700, ncol = 19)
+for (i in 1:698) {
+  label <- paste0("rep_", i)
+  print(label)
+  epifusionoutputfolder <- paste0("Simulation_Based_Calibration/",label,"/simulate/")
+  truth <- read.csv(paste0("Simulation_Based_Calibration/",label,"/beta.txt"))[,1]
+  beta1 <- read.csv(paste0(epifusionoutputfolder, "betas_chain0.txt"))[100:1001,]
+  beta2 <- read.csv(paste0(epifusionoutputfolder, "betas_chain1.txt"))[100:1001,]
+  beta <- rbind(beta1, beta2)
+  len <- min((ncol(beta)-1), length(truth))
+  truth <- truth[1:len]
+  iter <- 0
+  for (j in seq(0.05, 0.95, 0.05)) {
+    iter <- iter + 1
+    coverage <- c()
+    HPD <- HDInterval::hdi(beta, j)
+    lower <- HPD[1, 1:len]
+    upper <- HPD[2, 1:len]
+    for (k in 1:length(lower)) {
+      coverage[k] <- ifelse(lower[k] < truth[k] & upper[k] > truth[k], 1, 0)
+    }
+    cov <- mean(coverage)
+    betacoverage[i, iter] <- cov
+  }
+}
+
+betacoverage_filtered <- betacoverage[repsused,]
+betacoverage_filtered <- na.omit(betacoverage_filtered)
+
+write.csv(betacoverage_filtered, "Simulation_Based_Calibration/betacalibrationtable_acceptanceandconvergencefilter.csv", row.names = F)
+
+
+
 
 
 

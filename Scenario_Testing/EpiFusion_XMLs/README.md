@@ -1,19 +1,20 @@
 # Data Files
-In this folder you can find the data files used in this publication. The EpiFusion XML files in particular can be used to completely rerun the models, if desired.
+In this folder you can find EpiFusion XML files used in the Scenario Testing section of the paper that can be used to completely rerun the models, if desired.
 
 ## Simulated Data Index
+Here's a description of the models each of the files will run:
 
-| Dataset Identifier | Section | Description |
-| :--- | :--- | ----------- |
-| baseline | main_scenarios | Simple intro of pathogen to immune naive population |
-| sampling | main_scenarios | Introduction of pathogen to immune naive population with low sampling initially |
-| transmission | main_scenarios | Increase in transmissibility of an endemic pathogen |
-| low-transmission-noise | transmission_noise | SIRS scenario with slight transmission noise |
-| medium-transmission-noise | transmission_noise | SIRS scenario with medium transmission noise |
-| high-transmission-noise | transmission_noise | SIRS scenario with high transmission noise |
-| low-observation-noise | observation_noise | SIRS scenario with slight observation noise |
-| medium-observation-noise | observation_noise | SIRS scenario with medium observation noise |
-| high-observation-noise | observation_noise | SIRS scenario with high observation noise |
+| Label | Dataset Identifier | Description |
+| :--- | :--- |  ----------- |
+| baseline_combined.xml | baseline | Combined EpiFusion model on the baseline dataset |
+| baseline_epi.xml | baseline | Case incidence only EpiFusion model on the baseline dataset |
+| baseline_phylo.xml | baseline | Phylogenetic tree only EpiFusion model on the baseline dataset |
+| sampling_combined.xml | sampling | Combined EpiFusion model on the sampling dataset |
+| sampling_epi.xml | sampling | Case incidence only EpiFusion model on the sampling dataset |
+| sampling_phylo.xml | sampling | Phylogenetic tree only EpiFusion model on the sampling dataset |
+| transmission_combined.xml | transmission | Combined EpiFusion model on the transmission dataset |
+| transmission_epi.xml | transmission | Case incidence only EpiFusion model on the transmission dataset |
+| transmission_phylo.xml | transmission | Phylogenetic tree only EpiFusion model on the transmission dataset |
 
 
 

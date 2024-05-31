@@ -127,7 +127,56 @@ for (i in 1:numreplicates) {
 
 
 
+betaovertime <- function(xml_file) {
+  xml_doc <- read_xml(xml_file)
+  reactions <- xml_find_all(xml_doc, "//reaction")
+  reaction <- reactions[[1]]
+  rate <- xml_attr(reaction, "rate")
+  changeTimes <- xml_attr(reaction, "changeTimes")
+  if (is.na(changeTimes)) {
+    return(as.numeric(rate))
+  } else {
+    changeTimes <- as.numeric(unlist(str_split(changeTimes, " ")))
+    rate <- as.numeric(unlist(str_split(rate, " ")))
+    return(list(rate = rate, changeTimes = changeTimes))
+  }
+}
 
+getgamma <- function(xml_file, length) {
+  xml_doc <- read_xml(xml_file)
+  reactions <- xml_find_all(xml_doc, "//reaction")
+  reaction <- reactions[[2]]
+  rate <- xml_attr(reaction, "rate")
+  changeTimes <- xml_attr(reaction, "changeTimes")
+  return(rep(as.numeric(rate), length))
+}
+
+
+
+
+library(progress)
+
+pb <- progress_bar$new(total = 700)
+for (i in 1:numreplicates) {
+  pb$tick()
+  label <- paste0("rep_", i)
+  filestem <- paste0("Simulation_Based_Calibration/",label,"/")
+  trajectory <- read.csv(paste0(filestem,"simulate.txt"))
+  colnames(trajectory) <- c("t", "R", "S", "I", "psi")
+  trajectoryspare <- trajectory %>%
+    mutate(t = ceiling(t)) %>%
+    group_by(t) %>%
+    dplyr::select(t, S, I) %>%
+    mutate(S = mean(S), I = mean(I)) %>%
+    distinct()
+  beta <- betaovertime(paste0(filestem,"simulate.xml"))
+  gamma <- getgamma(paste0(filestem,"simulate.xml"), 1)
+  
+  trajectoryspare <- trajectoryspare %>%
+    mutate(Gamma = gamma, Beta = beta) %>%
+    mutate(Beta = ((Beta*(S*I))/(Gamma*I))*Gamma)
+  write.table(trajectoryspare$Beta, paste0(filestem, "beta.txt"), row.names = F)
+}
 
 
 

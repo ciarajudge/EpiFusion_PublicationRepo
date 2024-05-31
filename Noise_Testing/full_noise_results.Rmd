@@ -1,0 +1,538 @@
+---
+title: "Complete Model Results"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(EpiFusionUtilities)
+library(stringr)
+library(tidyverse)
+library(ape)
+library(scoringutils)
+library(Metrics)
+```
+
+```{r helpful_functions, echo = FALSE}
+loadtruth <- function(truthdirectory) {
+  filestem <- tail(unlist(str_split(truthdirectory, "/")), 2)[1]
+  tree <- read.tree(paste0(truthdirectory, "simulate_downsampledtree.tree"))
+  truthcontinuous <- read.csv(paste0(truthdirectory, "simulate_truth.csv"))
+  weeklyincidence <- read.table(paste0(truthdirectory, "simulate_weeklyincidence.txt"))[,1]
+  truthdiscrete <- truthcontinuous %>%
+    dplyr::select(t, I, Rt) %>%
+    mutate(t = ceiling(t)) %>%
+    group_by(t) %>%
+    transmute(Time = t, I = mean(I), Rt = mean(Rt)) %>%
+    distinct()
+  
+  return(list(truthcontinuous = truthcontinuous,
+              truthdiscrete = truthdiscrete,
+              tree = tree,
+              incidence = weeklyincidence
+              ))
+  
+}
+
+add_infection_polygon <- function(epifusion_object, colour) {
+  xs <- c(seq(1, length(epifusion_object$infection_trajectories$mean_infection_trajectory)), seq(length(epifusion_object$infection_trajectories$mean_infection_trajectory), 1))
+  ys95 <- c(epifusion_object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.95$Lower,
+            rev(epifusion_object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.95$Upper))
+  ys88 <- c(epifusion_object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.88$Lower,
+            rev(epifusion_object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.88$Upper))
+  ys66 <- c(epifusion_object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.66$Lower,
+            rev(epifusion_object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.66$Upper))
+  polygon(xs, ys95, col = adjustcolor(colour, alpha.f = 0.2), border = NA)
+  polygon(xs, ys88, col = adjustcolor(colour, alpha.f = 0.2), border = NA)
+  polygon(xs, ys66, col = adjustcolor(colour, alpha.f = 0.2), border = NA)
+}
+
+add_rt_polygon <- function(epifusion_object, colour) {
+  xs <- c(seq(1, length(epifusion_object$rt_trajectories$mean_rt_trajectory)), seq(length(epifusion_object$rt_trajectories$mean_rt_trajectory), 1))
+  ys95 <- c(epifusion_object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.95$Lower,
+            rev(epifusion_object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.95$Upper))
+  ys88 <- c(epifusion_object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.88$Lower,
+            rev(epifusion_object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.88$Upper))
+  ys66 <- c(epifusion_object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.66$Lower,
+            rev(epifusion_object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.66$Upper))
+  polygon(xs, ys95, col = adjustcolor(colour, alpha.f = 0.2), border = NA)
+  polygon(xs, ys88, col = adjustcolor(colour, alpha.f = 0.2), border = NA)
+  polygon(xs, ys66, col = adjustcolor(colour, alpha.f = 0.2), border = NA)
+}
+```
+
+```{r summaryrow, echo = FALSE}
+epifusion_rt_crps <- function(object, truth) {
+  samples <- object$rt_trajectories$rt_trajectory_samples
+  samples <- as.matrix(t(as.matrix(samples)))
+  nonnatruth <- truth[!is.na(truth$Rt),]$t
+  nonnatruth <- nonnatruth[nonnatruth <= length(object$rt_trajectories$mean_rt_trajectory)]
+  true_values <- truth$Rt[!is.na(truth$Rt)]
+  samples <- na.omit(samples[nonnatruth,])
+  l <- min(length(true_values), nrow(samples))
+  crps_value <- scoringutils::crps_sample(true_values[1:l], predictions = samples[1:l,])
+  return(crps_value)
+}
+
+epifusion_infection_crps <- function(object, truth) {
+  samples <- object$infection_trajectories$infection_trajectory_samples
+  samples <- as.matrix(t(as.matrix(samples)))
+  true_values <- truth$I
+  l <- min(length(true_values), nrow(samples))
+  crps_value <- scoringutils::crps_sample(true_values[1:l], predictions = samples[1:l,])
+  return(crps_value)
+}
+
+epifusion_rt_brier <- function(object, truth) {
+  samples <- object$rt_trajectories$rt_trajectory_samples
+  samples <- as.matrix(t(as.matrix(samples)))
+  nonnatruth <- truth[!is.na(truth$Rt),]$t
+  nonnatruth <- nonnatruth[nonnatruth <= length(object$rt_trajectories$mean_rt_trajectory)]
+  true_values <- truth$Rt[!is.na(truth$Rt)]
+  samples <- na.omit(samples[nonnatruth,])
+  l <- min(length(true_values), nrow(samples))
+  true_values <- true_values[1:l]
+  transmission_phase <- as.numeric(true_values >= 1)
+  predicted_transmission_phases <- samples[1:l,]
+  predicted_transmission_phases[predicted_transmission_phases < 1] <- 0
+  predicted_transmission_phases[predicted_transmission_phases >= 1] <- 1
+  predictions <- rowMeans(predicted_transmission_phases)
+  brier <- mean(scoringutils::brier_score(transmission_phase, predictions = predictions))
+  return(brier)
+}
+
+performancemetrics <- function(object, truth, noise_type, noise_level, approach) {
+  time <- length(object$infection_trajectories$mean_infection_trajectory)
+  table <- data.frame(
+    Time = seq(1, time),
+    Mean_Infected = object$infection_trajectories$mean_infection_trajectory,
+    Lower95_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.95$Lower,
+    Upper95_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.95$Upper,
+    Mean_Rt = object$rt_trajectories$mean_rt_trajectory,
+    Lower95_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.95$Lower,
+    Upper95_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.95$Upper
+  ) 
+  
+  table <- table %>%
+    filter(Time < max(truth$t))
+  table <- table %>%
+    full_join(truth) %>%
+    mutate(Infection_Coverage = ifelse((I >= Lower95_Infected & I <= Upper95_Infected), 1, 0)) %>%
+    mutate(Rt_Coverage = ifelse((Rt >= Lower95_Rt & Rt <= Upper95_Rt), 1, 0))
+  
+  table <- na.omit(table) %>%
+    mutate(Scaled_Inf_HPD_Width  = (Upper95_Infected - Lower95_Infected)/Mean_Infected) %>%
+    mutate(Scaled_Rt_HPD_Width = (Upper95_Rt - Lower95_Rt)/Mean_Rt)
+  inf_rmse <- round(rmse(table$I, table$Mean_Infected), 2)
+  inf_coverage <- round((sum(table$Infection_Coverage)/nrow(table))/0.95, 2)
+  scaled_inf_hpd_width <- round(mean(table$Scaled_Inf_HPD_Width), 2)
+  rt_rmse <- round(rmse(table$Rt, table$Mean_Rt), 3)
+  rt_coverage <- round((sum(table$Rt_Coverage)/nrow(table))/0.95, 2)
+  scale_rt_hpd_width <- round(mean(table$Scaled_Rt_HPD_Width), 2)
+  infection_crps <- round(mean(epifusion_infection_crps(object, truth)), 2)
+  rt_crps <- round(mean(epifusion_rt_crps(object, truth)),3)
+  
+  brier <- round(epifusion_rt_brier(object, truth), 3)
+
+  return(c(noise_type,
+           noise_level,
+           approach,
+           inf_rmse,
+           inf_coverage,
+           scaled_inf_hpd_width,
+           rt_rmse,
+           rt_coverage,
+           scale_rt_hpd_width,
+           infection_crps,
+           rt_crps,
+           brier))
+}
+```
+
+```{r truth, echo = FALSE}
+# No Noise
+no_noise <- loadtruth("transmission-noise_0/")
+
+# Transmission Noise
+transmission_noise_0.1 <- loadtruth("transmission-noise_0.1/")
+transmission_noise_0.2 <- loadtruth("transmission-noise_0.2/")
+transmission_noise_0.3 <- loadtruth("transmission-noise_0.3/")
+transmission_noise_0.4 <- loadtruth("transmission-noise_0.4/")
+transmission_noise_0.5 <- loadtruth("transmission-noise_0.5/")
+transmission_noise_0.6 <- loadtruth("transmission-noise_0.6/")
+transmission_noise_0.7 <- loadtruth("transmission-noise_0.7/")
+transmission_noise_0.8 <- loadtruth("transmission-noise_0.8/")
+transmission_noise_0.9 <- loadtruth("transmission-noise_0.9/")
+transmission_noise_1 <- loadtruth("transmission-noise_1/")
+
+observation_noise_0.1 <- loadtruth("observation-noise_0.1/")
+observation_noise_0.2 <- loadtruth("observation-noise_0.2/")
+observation_noise_0.3 <- loadtruth("observation-noise_0.3/")
+observation_noise_0.4 <- loadtruth("observation-noise_0.4/")
+observation_noise_0.5 <- loadtruth("observation-noise_0.5/")
+observation_noise_0.6 <- loadtruth("observation-noise_0.6/")
+observation_noise_0.7 <- loadtruth("observation-noise_0.7/")
+observation_noise_0.8 <- loadtruth("observation-noise_0.8/")
+observation_noise_0.9 <- loadtruth("observation-noise_0.9/")
+observation_noise_1 <- loadtruth("observation-noise_1/")
+
+```
+
+
+```{r plotmodeloutput}
+plotmodeloutput <- function(outputfolder, truth, color) {
+  raw_epifusion <- load_raw_epifusion(outputfolder)
+  layout(matrix(c(1,2,3), nrow = 1))
+  plot_likelihood_trace(raw_epifusion)
+  
+  parsed_epifusion <- extract_posterior_epifusion(raw_epifusion, 0.1)
+  
+  plot(truth$truthdiscrete$t, truth$truthdiscrete$I, type = "l")
+  add_infection_polygon(parsed_epifusion, color)
+  
+  plot(truth$truthdiscrete$t, truth$truthdiscrete$Rt, type = "l")
+  add_rt_polygon(parsed_epifusion, color)
+  
+}
+
+
+```
+
+# Model Results {.tabset}
+## No Noise
+```{r plotnonoise}
+plotmodeloutput("Results/transmission-noise_0_combined/", no_noise, "green")
+plotmodeloutput("Results/transmission-noise_0_phylo/", no_noise, "purple")
+plotmodeloutput("Results/transmission-noise_0_epi/", no_noise, "orange")
+
+```
+
+
+## Transmission {.tabset}
+### 0.1
+```{r transmission0.1}
+plotmodeloutput("Results/transmission-noise_0.1_combined/", transmission_noise_0.1, "green")
+plotmodeloutput("Results/transmission-noise_0.1_phylo/", transmission_noise_0.1, "purple")
+plotmodeloutput("Results/transmission-noise_0.1_epi/", transmission_noise_0.1, "orange")
+
+```
+
+
+### 0.2
+```{r transmission0.2}
+plotmodeloutput("Results/transmission-noise_0.2_combined/", transmission_noise_0.2, "green")
+plotmodeloutput("Results/transmission-noise_0.2_phylo/", transmission_noise_0.2, "purple")
+plotmodeloutput("Results/transmission-noise_0.2_epi/", transmission_noise_0.2, "orange")
+
+```
+
+### 0.3
+```{r transmission0.3}
+plotmodeloutput("Results/transmission-noise_0.3_combined/", transmission_noise_0.3, "green")
+plotmodeloutput("Results/transmission-noise_0.3_phylo/", transmission_noise_0.3, "purple")
+plotmodeloutput("Results/transmission-noise_0.3_epi/", transmission_noise_0.3, "orange")
+
+```
+
+### 0.4
+```{r transmission0.4}
+plotmodeloutput("Results/transmission-noise_0.4_combined/", transmission_noise_0.4, "green")
+plotmodeloutput("Results/transmission-noise_0.4_phylo/", transmission_noise_0.4, "purple")
+plotmodeloutput("Results/transmission-noise_0.4_epi/", transmission_noise_0.4, "orange")
+
+```
+
+### 0.5
+```{r transmission0.5}
+plotmodeloutput("Results/transmission-noise_0.5_combined/", transmission_noise_0.5, "green")
+plotmodeloutput("Results/transmission-noise_0.5_phylo/", transmission_noise_0.5, "purple")
+plotmodeloutput("Results/transmission-noise_0.5_epi/", transmission_noise_0.5, "orange")
+
+```
+
+### 0.6
+```{r transmission0.6}
+plotmodeloutput("Results/transmission-noise_0.6_combined/", transmission_noise_0.6, "green")
+plotmodeloutput("Results/transmission-noise_0.6_phylo/", transmission_noise_0.6, "purple")
+plotmodeloutput("Results/transmission-noise_0.6_epi/", transmission_noise_0.6, "orange")
+
+```
+
+### 0.7
+```{r transmission0.7}
+plotmodeloutput("Results/transmission-noise_0.7_combined/", transmission_noise_0.7, "green")
+plotmodeloutput("Results/transmission-noise_0.7_phylo/", transmission_noise_0.7, "purple")
+plotmodeloutput("Results/transmission-noise_0.7_epi/", transmission_noise_0.7, "orange")
+
+```
+
+### 0.8
+```{r transmission0.8}
+plotmodeloutput("Results/transmission-noise_0.8_combined/", transmission_noise_0.8, "green")
+plotmodeloutput("Results/transmission-noise_0.8_phylo/",transmission_noise_0.8, "purple")
+plotmodeloutput("Results/transmission-noise_0.8_epi/", transmission_noise_0.8, "orange")
+
+```
+
+
+### 0.9
+```{r transmission0.9}
+plotmodeloutput("Results/transmission-noise_0.9_combined/", transmission_noise_0.9, "green")
+plotmodeloutput("Results/transmission-noise_0.9_phylo/",transmission_noise_0.9, "purple")
+plotmodeloutput("Results/transmission-noise_0.9_epi/", transmission_noise_0.9, "orange")
+
+```
+
+### 1
+```{r transmission1}
+plotmodeloutput("Results/transmission-noise_1_combined/", transmission_noise_1, "green")
+plotmodeloutput("Results/transmission-noise_1_phylo/", transmission_noise_1, "purple")
+plotmodeloutput("Results/transmission-noise_1_epi/", transmission_noise_1, "orange")
+
+```
+
+
+
+
+## Observation {.tabset}
+### 0.1
+```{r observation0.1}
+plotmodeloutput("Results/observation-noise_0.1_combined/", observation_noise_0.1, "green")
+plotmodeloutput("Results/observation-noise_0.1_phylo/", observation_noise_0.1, "purple")
+plotmodeloutput("Results/observation-noise_0.1_epi/", observation_noise_0.1, "orange")
+
+```
+
+
+### 0.2
+```{r observation0.2}
+plotmodeloutput("Results/observation-noise_0.2_combined/", observation_noise_0.2, "green")
+plotmodeloutput("Results/observation-noise_0.2_phylo/", observation_noise_0.2, "purple")
+plotmodeloutput("Results/observation-noise_0.2_epi/", observation_noise_0.2, "orange")
+
+```
+
+### 0.3
+```{r observation0.3}
+plotmodeloutput("Results/observation-noise_0.3_combined/", observation_noise_0.3, "green")
+plotmodeloutput("Results/observation-noise_0.3_phylo/", observation_noise_0.3, "purple")
+plotmodeloutput("Results/observation-noise_0.3_epi/", observation_noise_0.3, "orange")
+
+```
+
+### 0.4
+```{r observation0.4}
+plotmodeloutput("Results/observation-noise_0.4_combined/", observation_noise_0.4, "green")
+plotmodeloutput("Results/observation-noise_0.4_phylo/", observation_noise_0.4, "purple")
+plotmodeloutput("Results/observation-noise_0.4_epi/", observation_noise_0.4, "orange")
+
+```
+
+### 0.5
+```{r observation0.5}
+plotmodeloutput("Results/observation-noise_0.5_combined/", observation_noise_0.5, "green")
+plotmodeloutput("Results/observation-noise_0.5_phylo/", observation_noise_0.5, "purple")
+plotmodeloutput("Results/observation-noise_0.5_epi/", observation_noise_0.5, "orange")
+
+```
+
+### 0.6
+```{r observation0.6}
+plotmodeloutput("Results/observation-noise_0.6_combined/", observation_noise_0.6, "green")
+plotmodeloutput("Results/observation-noise_0.6_phylo/", observation_noise_0.6, "purple")
+plotmodeloutput("Results/observation-noise_0.6_epi/", observation_noise_0.6, "orange")
+
+```
+
+### 0.7
+```{r observation0.7}
+plotmodeloutput("Results/observation-noise_0.7_combined/", observation_noise_0.7, "green")
+plotmodeloutput("Results/observation-noise_0.7_phylo/", observation_noise_0.7, "purple")
+plotmodeloutput("Results/observation-noise_0.7_epi/", observation_noise_0.7, "orange")
+
+```
+
+### 0.8
+```{r observation0.8}
+plotmodeloutput("Results/observation-noise_0.8_combined/", observation_noise_0.8, "green")
+plotmodeloutput("Results/observation-noise_0.8_phylo/",observation_noise_0.8, "purple")
+plotmodeloutput("Results/observation-noise_0.8_epi/", observation_noise_0.8, "orange")
+
+```
+
+
+### 0.9
+```{r observation0.9}
+plotmodeloutput("Results/observation-noise_0.9_combined/", observation_noise_0.9, "green")
+plotmodeloutput("Results/observation-noise_0.9_phylo/",observation_noise_0.9, "purple")
+plotmodeloutput("Results/observation-noise_0.9_epi/", observation_noise_0.9, "orange")
+
+```
+
+### 1
+```{r observation1}
+plotmodeloutput("Results/observation-noise_1_combined/", observation_noise_1, "green")
+plotmodeloutput("Results/observation-noise_1_phylo/", observation_noise_1, "purple")
+plotmodeloutput("Results/observation-noise_1_epi/", observation_noise_1, "orange")
+
+```
+
+
+## Summary
+```{r makesummarytable}
+summarytable <- data.frame(matrix(0, nrow = 0, ncol = 12))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0_combined/"), 0.1), no_noise$truthdiscrete, "Transmission Noise", 0, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.1_combined/"), 0.1), transmission_noise_0.1$truthdiscrete, "Transmission Noise", 0.1, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.2_combined/"), 0.1), transmission_noise_0.2$truthdiscrete, "Transmission Noise", 0.2, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.3_combined/"), 0.1), transmission_noise_0.3$truthdiscrete, "Transmission Noise", 0.3, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.4_combined/"), 0.1), transmission_noise_0.4$truthdiscrete, "Transmission Noise", 0.4, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.5_combined/"), 0.1), transmission_noise_0.5$truthdiscrete, "Transmission Noise", 0.5, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.6_combined/"), 0.1), transmission_noise_0.6$truthdiscrete, "Transmission Noise", 0.6, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.7_combined/"), 0.1), transmission_noise_0.7$truthdiscrete, "Transmission Noise", 0.7, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.8_combined/"), 0.1), transmission_noise_0.8$truthdiscrete, "Transmission Noise", 0.8, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.9_combined/"), 0.1), transmission_noise_0.9$truthdiscrete, "Transmission Noise", 0.9, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_1_combined/"), 0.1), transmission_noise_1$truthdiscrete, "Transmission Noise", 1, "Combined"))
+
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0_phylo/"), 0.1), no_noise$truthdiscrete, "Transmission Noise", 0, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.1_phylo/"), 0.1), transmission_noise_0.1$truthdiscrete, "Transmission Noise", 0.1, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.2_phylo/"), 0.1), transmission_noise_0.2$truthdiscrete, "Transmission Noise", 0.2, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.3_phylo/"), 0.1), transmission_noise_0.3$truthdiscrete, "Transmission Noise", 0.3, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.4_phylo/"), 0.1), transmission_noise_0.4$truthdiscrete, "Transmission Noise", 0.4, "phylo"))
+#summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.5_phylo/"), 0.1), transmission_noise_0.5$truthdiscrete, "Transmission Noise", 0.5, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.6_phylo/"), 0.1), transmission_noise_0.6$truthdiscrete, "Transmission Noise", 0.6, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.7_phylo/"), 0.1), transmission_noise_0.7$truthdiscrete, "Transmission Noise", 0.7, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.8_phylo/"), 0.1), transmission_noise_0.8$truthdiscrete, "Transmission Noise", 0.8, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.9_phylo/"), 0.1), transmission_noise_0.9$truthdiscrete, "Transmission Noise", 0.9, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_1_phylo/"), 0.1), transmission_noise_1$truthdiscrete, "Transmission Noise", 1, "phylo"))
+
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0_epi/"), 0.1), no_noise$truthdiscrete, "Transmission Noise", 0, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.1_epi/"), 0.1), transmission_noise_0.1$truthdiscrete, "Transmission Noise", 0.1, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.2_epi/"), 0.1), transmission_noise_0.2$truthdiscrete, "Transmission Noise", 0.2, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.3_epi/"), 0.1), transmission_noise_0.3$truthdiscrete, "Transmission Noise", 0.3, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.4_epi/"), 0.1), transmission_noise_0.4$truthdiscrete, "Transmission Noise", 0.4, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.5_epi/"), 0.1), transmission_noise_0.5$truthdiscrete, "Transmission Noise", 0.5, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.6_epi/"), 0.1), transmission_noise_0.6$truthdiscrete, "Transmission Noise", 0.6, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.7_epi/"), 0.1), transmission_noise_0.7$truthdiscrete, "Transmission Noise", 0.7, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.8_epi/"), 0.1), transmission_noise_0.8$truthdiscrete, "Transmission Noise", 0.8, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0.9_epi/"), 0.1), transmission_noise_0.9$truthdiscrete, "Transmission Noise", 0.9, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_1_epi/"), 0.1), transmission_noise_1$truthdiscrete, "Transmission Noise", 1, "epi"))
+
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0_combined/"), 0.1), no_noise$truthdiscrete, "observation Noise", 0, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.1_combined/"), 0.1), observation_noise_0.1$truthdiscrete, "observation Noise", 0.1, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.2_combined/"), 0.1), observation_noise_0.2$truthdiscrete, "observation Noise", 0.2, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.3_combined/"), 0.1), observation_noise_0.3$truthdiscrete, "observation Noise", 0.3, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.4_combined/"), 0.1), observation_noise_0.4$truthdiscrete, "observation Noise", 0.4, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.5_combined/"), 0.1), observation_noise_0.5$truthdiscrete, "observation Noise", 0.5, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.6_combined/"), 0.1), observation_noise_0.6$truthdiscrete, "observation Noise", 0.6, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.7_combined/"), 0.1), observation_noise_0.7$truthdiscrete, "observation Noise", 0.7, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.8_combined/"), 0.1), observation_noise_0.8$truthdiscrete, "observation Noise", 0.8, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.9_combined/"), 0.1), observation_noise_0.9$truthdiscrete, "observation Noise", 0.9, "Combined"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_1_combined/"), 0.1), observation_noise_1$truthdiscrete, "observation Noise", 1, "Combined"))
+
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0_phylo/"), 0.1), no_noise$truthdiscrete, "observation Noise", 0, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.1_phylo/"), 0.1), observation_noise_0.1$truthdiscrete, "observation Noise", 0.1, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.2_phylo/"), 0.1), observation_noise_0.2$truthdiscrete, "observation Noise", 0.2, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.3_phylo/"), 0.1), observation_noise_0.3$truthdiscrete, "observation Noise", 0.3, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.4_phylo/"), 0.1), observation_noise_0.4$truthdiscrete, "observation Noise", 0.4, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.5_phylo/"), 0.1), observation_noise_0.5$truthdiscrete, "observation Noise", 0.5, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.6_phylo/"), 0.1), observation_noise_0.6$truthdiscrete, "observation Noise", 0.6, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.7_phylo/"), 0.1), observation_noise_0.7$truthdiscrete, "observation Noise", 0.7, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.8_phylo/"), 0.1), observation_noise_0.8$truthdiscrete, "observation Noise", 0.8, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.9_phylo/"), 0.1), observation_noise_0.9$truthdiscrete, "observation Noise", 0.9, "phylo"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_1_phylo/"), 0.1), observation_noise_1$truthdiscrete, "observation Noise", 1, "phylo"))
+
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/transmission-noise_0_epi/"), 0.1), no_noise$truthdiscrete, "observation Noise", 0, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.1_epi/"), 0.1), observation_noise_0.1$truthdiscrete, "observation Noise", 0.1, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.2_epi/"), 0.1), observation_noise_0.2$truthdiscrete, "observation Noise", 0.2, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.3_epi/"), 0.1), observation_noise_0.3$truthdiscrete, "observation Noise", 0.3, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.4_epi/"), 0.1), observation_noise_0.4$truthdiscrete, "observation Noise", 0.4, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.5_epi/"), 0.1), observation_noise_0.5$truthdiscrete, "observation Noise", 0.5, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.6_epi/"), 0.1), observation_noise_0.6$truthdiscrete, "observation Noise", 0.6, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.7_epi/"), 0.1), observation_noise_0.7$truthdiscrete, "observation Noise", 0.7, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.8_epi/"), 0.1), observation_noise_0.8$truthdiscrete, "observation Noise", 0.8, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_0.9_epi/"), 0.1), observation_noise_0.9$truthdiscrete, "observation Noise", 0.9, "epi"))
+summarytable <- rbind(summarytable, performancemetrics(extract_posterior_epifusion(load_raw_epifusion("Results/observation-noise_1_epi/"), 0.1), observation_noise_1$truthdiscrete, "observation Noise", 1, "epi"))
+
+
+
+```
+
+```{r savesummarytableandplots}
+colnames(summarytable) <- c("Noise Type", "Noise Level", "Approach", "Infection_RMSE", "Infection_Coverage", "Scaled_Infection_HPDWidth", "RT_RMSE", "RT_Coverage", "Scaled_Rt_HPDWidth", "Infection_CRPS", "Rt_CRPS", "Brier")
+write.csv(summarytable, "noisesummarytable.csv", row.names = F)
+
+for (i in 4:12) {
+  summarytable[,i] <- as.numeric(summarytable[,i])
+}
+
+summarytable <- summarytable %>%
+  mutate(`Noise.Type` = ifelse(`Noise.Type` == "observation Noise", "Observation Noise", "Transmission Noise")) %>%
+  mutate(`Approach` = ifelse(Approach == "Combined", "Combined", ifelse(Approach == "epi", "Epi", "Phylo"))) %>%
+  mutate(Approach = factor(Approach, levels = c("Epi", "Phylo", "Combined")))
+  
+write.csv(summarytable, "noisesummarytable.csv", row.names = F)
+
+```
+
+```{r plots}
+ggplot(summarytable, aes(x = `Noise.Level`, y = Infection_RMSE)) +
+  geom_point(aes(col = Approach)) +
+  scale_color_manual(values = c("orange", "slateblue", "darkolivegreen3")) +
+  geom_smooth(aes(col = Approach), fill = "lightgrey", alpha = 0.2, method = 'lm') +
+  #scale_color_manual(values = c("orangered3", "darkslateblue", "darkolivegreen4")) +
+  facet_wrap(~`Noise.Type`)+
+  lshtm_theme()
+
+ggplot(summarytable, aes(x = `Noise.Level`, y = RT_RMSE)) +
+  geom_point(aes(col = Approach)) +
+  scale_color_manual(values = c("orange", "slateblue", "darkolivegreen3")) +
+  geom_smooth(aes(col = Approach), fill = "lightgrey", alpha = 0.2, method = 'lm') +
+  #scale_color_manual(values = c("orangered3", "darkslateblue", "darkolivegreen4")) +
+  facet_wrap(~`Noise.Type`)+
+  lshtm_theme()
+
+ggplot(summarytable, aes(x = `Noise.Level`, y = Infection_CRPS)) +
+  geom_point(aes(col = Approach)) +
+  scale_color_manual(values = c("orange", "slateblue", "darkolivegreen3")) +
+  geom_smooth(aes(col = Approach), fill = "lightgrey", alpha = 0.2, method = 'lm') +
+  #scale_color_manual(values = c("orangered3", "darkslateblue", "darkolivegreen4")) +
+  facet_wrap(~`Noise.Type`)+
+  lshtm_theme()
+
+ggplot(summarytable, aes(x = `Noise.Level`, y = Rt_CRPS)) +
+  geom_point(aes(col = Approach)) +
+  scale_color_manual(values = c("orange", "slateblue", "darkolivegreen3")) +
+  geom_smooth(aes(col = Approach), fill = "lightgrey", alpha = 0.2, method = 'lm') +
+  #scale_color_manual(values = c("orangered3", "darkslateblue", "darkolivegreen4")) +
+  facet_wrap(~`Noise.Type`)+
+  lshtm_theme()
+
+
+ggplot(summarytable, aes(x = `Noise.Level`, y = Brier)) +
+  geom_point(aes(col = Approach)) +
+  scale_color_manual(values = c("orange", "slateblue", "darkolivegreen3")) +
+  geom_smooth(aes(col = Approach), fill = "lightgrey", alpha = 0.2, method = 'lm') +
+  #scale_color_manual(values = c("orangered3", "darkslateblue", "darkolivegreen4")) +
+  facet_wrap(~`Noise.Type`)+
+  lshtm_theme()
+
+
+summarytable_long <- summarytable %>%
+  select(Noise.Type, Noise.Level, Approach, RT_RMSE, Rt_CRPS, Brier) %>%
+  pivot_longer(!c(Noise.Type, Noise.Level, Approach), names_to = "Performance_Metric", values_to = "Value")
+
+p <- ggplot(summarytable_long, aes(x = `Noise.Level`, y = Value)) +
+  geom_point(aes(col = Approach)) +
+  scale_color_manual(values = c("orange", "slateblue", "darkolivegreen3")) +
+  geom_smooth(aes(col = Approach), fill = "lightgrey", alpha = 0.2, method = 'lm') +
+  #scale_color_manual(values = c("orangered3", "darkslateblue", "darkolivegreen4")) +
+  facet_grid(Performance_Metric~Noise.Type, scales = "free")+
+  lshtm_theme()
+
+p
+
+ggsave("NewNoise.pdf", p, height = 10, width = 7, units = c("in"))
+
+
+```

@@ -20,6 +20,9 @@ library(stringr)
 library(ggh4x)
 library(ggpubr)
 library(sjmisc)
+library(ggtree)
+library(gridExtra)
+library(robustbase)
 
 
 
@@ -76,7 +79,34 @@ loadtruth <- function(truthdirectory) {
               gamma = gamma,
               phi = phi,
               psi = psi))
+  
+}
 
+loadtruthnoise <- function(truthdirectory) {
+  filestem <- "simulate"
+  tree <- read.tree(paste0(truthdirectory, filestem, "_downsampledtree.tree"))
+  truthcontinuous <- read.csv(paste0(truthdirectory, filestem, "_truth.csv"))
+  weeklyincidence <- read.table(paste0(truthdirectory, filestem, "_weeklyincidence.txt"))[,1]
+  beta <- xmlreader(paste0(truthdirectory, filestem, ".xml"), 1)
+  gamma <- xmlreader(paste0(truthdirectory, filestem, ".xml"), 2)
+  phi <- xmlreader(paste0(truthdirectory, filestem, ".xml"), 3)
+  psi <- phi$rate*(length(tree$tip.label)/sum(weeklyincidence))
+  truthdiscrete <- truthcontinuous %>%
+    dplyr::select(t, I, Rt) %>%
+    mutate(t = ceiling(t)) %>%
+    group_by(t) %>%
+    transmute(Time = t, I = mean(I), Rt = mean(Rt)) %>%
+    distinct()
+  
+  return(list(truthcontinuous = truthcontinuous,
+              truthdiscrete = truthdiscrete,
+              tree = tree,
+              incidence = weeklyincidence,
+              beta = beta,
+              gamma = gamma,
+              phi = phi,
+              psi = psi))
+  
   
   
 }
@@ -96,13 +126,6 @@ xmlreader <- function(xml_file, r) {
   }
 }
 
-plottruthrow <- function(baselinetruth, title) {
-  plot(baselinetruth$truthcontinuous$t, baselinetruth$truthcontinuous$I, type = "l", ylab = "True Number Infected", xlab = "Time", lwd = 1.5)
-  plot(seq(7, 7*length(baselinetruth$incidence), 7), baselinetruth$incidence, main = title, pch = 10, col = "orangered3", ylab = "Weekly Case Incidence", xlab = "Time", cex = 1.5)
-  plot(baselinetruth$tree, root.edge = TRUE, edge.color = c("darkslateblue"), show.tip.label = F)
-  plot(baselinetruth$truthcontinuous$t, baselinetruth$truthcontinuous$Rt, type = "l", ylab = "True Rt", xlab = "Time", lwd = 1.5)
-  axis(1)
-}
 
 trajectorytable <- function(object, truth, approach, scenario) {
   time <- length(object$infection_trajectories$mean_infection_trajectory)
@@ -131,6 +154,95 @@ trajectorytable <- function(object, truth, approach, scenario) {
     full_join(truth)
   table$Approach[is.na(table$Approach)] <- approach
   table$Scenario[is.na(table$Scenario)] <- scenario
+  return(table)
+}
+
+
+plottruthrow <- function(baselinetruth, title) {
+  figS2a <- ggplot(baselinetruth$truthcontinuous, aes(x = t, y = I)) +
+    geom_line(colour = "#01454f") +
+    labs(x = "Time (Days)", y = "True Number Infected") +
+    coord_cartesian(xlim = c(0, 200))+
+    lshtm_theme() +
+    theme(text = element_text(size = 8))
+  
+  incidence <- data.frame(t = seq(7, 7*length(baselinetruth$incidence), 7), incidence = baselinetruth$incidence)
+  figS2b <- ggplot(incidence, aes(x = t, y = incidence)) +
+    geom_point(colour = "orangered3") +
+    labs(x = "Time (Days)", y = "Case Incidence") +
+    coord_cartesian(xlim = c(0, 200))+
+    lshtm_theme() +
+    theme(text = element_text(size = 8))
+  
+  figS2c <- ggtree(baselinetruth$tree, color = "darkslateblue", linewidth = 0.2)+
+    geom_tippoint(col = "darkslateblue", size = 0.5) +
+    xlim_tree(c(0, 200)) +
+    theme_tree2(axis.line.x = element_blank()) +
+    labs(x = "Time (Days)") +
+    lshtm_theme()+
+    theme(text = element_text(size = 8))
+  
+  figS2abc <- ggarrange(figS2a, figS2b, figS2c, nrow = 1)
+  figS2abc <- annotate_figure(figS2abc, top = text_grob(title, 
+                                        color = "#01454f", face = "bold", size = 10))
+  return(figS2abc)
+}
+
+
+fittable <- function(object, approach, scenario) {
+  time <- length(object$infection_trajectories$mean_infection_trajectory)
+  table <- data.frame(
+    Time = seq(1, time),
+    Approach = rep(approach, time),
+    Scenario = rep(scenario, time),
+    Mean_Infected = object$infection_trajectories$mean_infection_trajectory,
+    Lower95_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.95$Lower,
+    Upper95_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.95$Upper,
+    Lower88_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.88$Lower,
+    Upper88_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.88$Upper,
+    Lower66_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.66$Lower,
+    Upper66_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.66$Upper,
+    Mean_Rt = object$rt_trajectories$mean_rt_trajectory,
+    Lower95_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.95$Lower,
+    Upper95_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.95$Upper,
+    Lower88_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.88$Lower,
+    Upper88_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.88$Upper,
+    Lower66_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.66$Lower,
+    Upper66_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.66$Upper
+  )
+  return(table)
+}
+
+
+fittablenoise <- function(object, truth, approach, noise_type, noise_level) {
+  time <- length(object$infection_trajectories$mean_infection_trajectory)
+  table <- data.frame(
+    Time = seq(1, time),
+    Approach = rep(approach, time),
+    Noise_Type = rep(noise_type, time),
+    Noise_Level = rep(noise_level, time),
+    Mean_Infected = object$infection_trajectories$mean_infection_trajectory,
+    Lower95_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.95$Lower,
+    Upper95_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.95$Upper,
+    Lower88_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.88$Lower,
+    Upper88_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.88$Upper,
+    Lower66_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.66$Lower,
+    Upper66_Infected = object$infection_trajectories$infection_trajectory_hpdintervals$HPD0.66$Upper,
+    Mean_Rt = object$rt_trajectories$mean_rt_trajectory,
+    Lower95_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.95$Lower,
+    Upper95_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.95$Upper,
+    Lower88_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.88$Lower,
+    Upper88_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.88$Upper,
+    Lower66_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.66$Lower,
+    Upper66_Rt = object$rt_trajectories$rt_trajectory_hpdintervals$HPD0.66$Upper
+  )
+  table <- table %>%
+    filter(Time < max(truth$t))
+  table <- table %>%
+    full_join(truth)
+  table$Approach[is.na(table$Approach)] <- approach
+  table$Noise_Type[is.na(table$Noise_Type)] <- noise_type
+  table$Noise_Level[is.na(table$Noise_Level)] <- noise_level
   return(table)
 }
 
