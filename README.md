@@ -23,6 +23,9 @@ To test model robustness to noise we simulated outbreaks with increasing levels 
 ### 5. Benchmarking (against other programs)
 This paper also features models run with other tools in the section where we benchmark EpiFusion performance. We do not include detailed information on how to rerun these other programs, but we do provide the parameter files in the folder `Benchmarking/Data`, and the results are already in the `Benchmarking/Results` folder.
 
+### 6. Ebola Virus Example
+We include a small example where we use EpiFusion to model Rt of Ebola in Sierra Leone from March 2014 - August 2015. The code to prepare the raw data into 'EpiFusion friendly' format is in `EBOV_SierraLeone`. We show that EpiFusion works on real data although anecdotally found a lot of 'tinkering' to be necessary with model parameterisation. Future publications will aim to address this and make the software more user friendly.
+
 
 ## Reproducing plots and tables
 This repository has all the results featured in the paper in the folders for their specific section, and you can use the .Rmd file `figures_and_tables.Rmd` to reproduce plots and tables. If you have rerun the scenario models (Step 1.2) and want to use your own output, be sure to change the `scenario_results` folder in the script to `Scenario_Testing/Results2` (this will be clearly marked in the script).
