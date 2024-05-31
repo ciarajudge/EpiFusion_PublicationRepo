@@ -1,5 +1,5 @@
 # EpiFusion Publication Repository
-This repository houses the data and code to fully reproduce the results of the paper 'EpiFusion: Joint inference of the effective reproduction number by integrating phylodynamic and epidemiological modelling with particle filtering'. By cloning this repository and following the instructions in this README and in the `replicate_results.Rmd` file, you will be able to fully reproduce the results in the paper, including the appendix.
+This repository houses the data and code to fully reproduce the results of the paper 'EpiFusion: Joint inference of the effective reproduction number by integrating phylodynamic and epidemiological modelling with particle filtering'. By cloning this repository and following the instructions in this README and in the `figures_and_tables.Rmd` file, you will be able to fully reproduce the results in the paper, including the appendix.
 
 ## Main Sections of the Paper
 ### 1. Likelihood Comparison
