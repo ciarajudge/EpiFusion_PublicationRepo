@@ -39,7 +39,7 @@ transmission_combined_file <- paste0("Scenario_Testing/", resultsdir, "/transmis
 #Main Scenarios
 baseline_epi <- extract_posterior_epifusion(load_raw_epifusion(baseline_epi_file), 0.1)
 baseline_phylo <- extract_posterior_epifusion(load_raw_epifusion(baseline_phylo_file), 0.1)
-baseline_combined <- extract_posterior_epifusion(load_raw_epifusion(baseline_combined_file), 0.15)
+baseline_combined <- extract_posterior_epifusion(load_raw_epifusion(baseline_combined_file), 0.1)
 sampling_epi <- extract_posterior_epifusion(load_raw_epifusion(sampling_epi_file), 0.1)
 sampling_phylo <- extract_posterior_epifusion(load_raw_epifusion(sampling_phylo_file), 0.1)
 sampling_combined <- extract_posterior_epifusion(load_raw_epifusion(sampling_combined_file), 0.1)
@@ -51,6 +51,7 @@ transmission_combined <- extract_posterior_epifusion(load_raw_epifusion(transmis
 ```{r other}
 likelihood_comparison <- read.csv("Likelihood_Comparison/EpiFusionvsBDSky_Likelihoods.csv")
 calibration_summary_results <- read.csv("Simulation_Based_Calibration/simulationsummarytable_acceptanceandconvergencefilter.csv")
+ess_per_min <- read.csv("Simulation_Based_Calibration/ESS_per_min.csv")
 beta_results <- read.csv("Simulation_Based_Calibration/betavstruth_acceptanceandconvergencefilter.csv")
 beta_calibration_results <- read.csv("Simulation_Based_Calibration/betacalibrationtable_acceptanceandconvergencefilter.csv")
 gamma_calibration_results <- read.csv("Simulation_Based_Calibration/gammacalibrationtable_acceptanceandconvergencefilter.csv")
@@ -393,7 +394,7 @@ ggsave("Figs/Figure8.pdf", fig8, width = 7, height = 7, units = "in")
 ```
 
 ```{r table4}
-benchmarking_performance_metrics <- na.omit(benchmarking_fits) %>%
+benchmarking_performance_metrics_init <- na.omit(dplyr::select(benchmarking_fits, !Step_Change)) %>%
   group_by(Scenario, Model) %>%
   mutate(RMSE = rmse(Mean, Rt)) %>%
   mutate(Coverage = (sum(Rt >= Lower95 & Rt <= Upper95)/n())/0.95) %>%
@@ -446,7 +447,7 @@ epifusionothermetrics <- as.data.frame(performancemetrics_table) %>%
   rename(CRPS = 'Rt CRPS', Brier = 'Brier Score') %>%
   rbind(othermetrics)
 
-benchmarking_performance_metrics <- left_join(benchmarking_performance_metrics, epifusionothermetrics)
+benchmarking_performance_metrics <- left_join(benchmarking_performance_metrics_init, epifusionothermetrics)
 
 write.csv(benchmarking_performance_metrics, "Figs/Table4.csv", row.names = F)
 
@@ -695,22 +696,43 @@ macbookreps <- calibration_summary_results %>%
 
 figS5a <- ggplot(macbookreps, aes(x = TreeSize, y = Runtime)) + 
   labs(x = "Tree Size (Tips)", y = "Run Time (Minutes)") +
-  geom_smooth(method = "lm", col = "#01454f") +
-  geom_point(col = "#e95b0d") +
+  geom_smooth(method = "lm", col = "#2aac6d") +
+  geom_point(col = "#01454f") +
   lshtm_theme()
   
   
 figS5b <- ggplot(macbookreps, aes(x = TruePeak, y = Runtime)) + 
   labs(x = "Epidemic Size (Peak Infected)", y = "Run Time (Minutes)") +
-  geom_smooth(method = "lm", col = "#01454f") +
-  geom_point(col = "#fbb800") +
+  geom_smooth(method = "lm", col = "#2aac6d") +
+  geom_point(col = "#01454f") +
   lshtm_theme()
 
-figS5 <- ggarrange(figS5a, figS5b, nrow = 1, labels = c("A", "B"), font.label = list(color = "#01454f", family = NULL))
+figS5c <- ggplot(calibration_summary_results, aes(x = Epidemic_Length, y = RunTime/6e10)) + 
+  labs(x = "Epidemic Length (Days)", y = "Run Time (Minutes)") +
+  geom_smooth(method = "lm", col = "#2aac6d") +
+  geom_point(col = "#01454f") +
+  lshtm_theme()
+
+figS5abc <- ggarrange(figS5a, figS5b, figS5c, nrow = 1, labels = c("A", "B", "C"), font.label = list(color = "#01454f", family = NULL))
+
+ess_per_min_long <- dplyr::select(ess_per_min, !c(Rep, RunTime))
+ess_per_min_long <- pivot_longer(ess_per_min_long, cols = everything(), names_to = "Parameter", values_to = "ESS/min") %>%
+  mutate(Parameter = str_replace(Parameter, "_ESS", "")) %>%
+  mutate(Parameter = ifelse(Parameter == "Gamma", "\u03B3", ifelse(Parameter == "InitialBeta", "Initial \u03B2", ifelse(Parameter == "Psi", "\u03C8", "\u03C6")))) %>%
+  mutate(Parameter = factor(Parameter, levels = c("Initial \u03B2", "\u03B3", "\u03C6", "\u03C8")))
+
+figS5d <- ggplot(ess_per_min_long, aes(x = Parameter, y = `ESS/min`)) +
+  geom_boxplot(aes(fill = Parameter), outlier.colour="grey", col = "#01454f") +
+  scale_fill_manual(name = "", values = c("#2aac6d", "#00abce", "#fbb800", "#e95b0d")) +
+  lshtm_theme() +
+  theme(legend.text = element_text(family = "Arial"),
+        axis.text = element_text(colour = "#01454f", size = 7))
+
+figS5 <- ggarrange(figS5abc, figS5d, nrow = 2, heights = c(1, 1.5), labels = c("", "D"), font.label = list(color = "#01454f", family = NULL))
 
 figS5
 
-ggsave("Figs/FigureS5.pdf", figS5, width = 7, height = 3.5, units = "in")
+ggsave("Figs/FigureS5.pdf", figS5, width = 7.5, height = 6.5, units = "in", device = cairo_pdf)
 
 
 ```
@@ -996,7 +1018,7 @@ tableS1 <- calibration_summary_results %>%
   mutate(PsiScaledDiff = (TruePsi - PsiMean) / TruePsi) %>%
   dplyr::select(TruePeak, Cases, TreeSize, GammaScaledDiff, PhiScaledDiff, PsiScaledDiff, RunTime) 
 
-tableS1 <- data.frame(Characteristic = colnames(tableS1), Mean = colMedians(as.matrix(tableS1)))
+tableS1 <- data.frame(Characteristic = colnames(tableS1), Mean = colMedians(as.matrix(tableS1)), Lower95 = unlist(HDInterval::hdi(as.matrix(tableS1))[1,]), Upper95 = unlist(HDInterval::hdi(as.matrix(tableS1))[2,]))
 
 ```
 

@@ -448,6 +448,46 @@ write.csv(betacoverage_filtered, "Simulation_Based_Calibration/betacalibrationta
 
 
 
+##### Get ESS x runtime and epidemic length x runtime #####
+numreplicates <- 700
 
+more_runtime_metrics <- data.frame(matrix(0, nrow = 700, ncol = 7))
+
+for (i in 1:numreplicates) {
+  label <- paste0("rep_", i)
+  print(label)
+  epifusionoutputfolder <- paste0("Simulation_Based_Calibration/",label,"/simulate/")
+  
+  #Rep
+  more_runtime_metrics[i, 1] <- i
+  
+  epifusionoutput <- extract_posterior_epifusion(load_raw_epifusion(epifusionoutputfolder), 0.1)
+  
+  more_runtime_metrics[i, 2] <- epifusionoutput$parameters$gamma$ess
+  more_runtime_metrics[i, 3] <- epifusionoutput$parameters$psi$ess
+  more_runtime_metrics[i, 4] <- epifusionoutput$parameters$phi$ess
+  more_runtime_metrics[i, 5] <- epifusionoutput$parameters$initialBeta$ess
+  more_runtime_metrics[i, 6] <- length(epifusionoutput$infection_trajectories$mean_infection_trajectory)
+  
+  more_runtime_metrics[i, 7] <- suppressWarnings(read.table(paste0(epifusionoutputfolder, "timings.txt"), header = F)[1,1])
+}
+
+summarytable <- read.csv("Simulation_Based_Calibration/simulationsummarytable_acceptanceandconvergencefilter.csv")
+colnames(more_runtime_metrics) <- c("Rep", "Gamma_ESS", "Psi_ESS", "Phi_ESS", "InitialBeta_ESS", "Epidemic_Length", "RunTime")
+
+runtimexlength <- dplyr::select(more_runtime_metrics, Rep, Epidemic_Length)
+summarytable <- left_join(summarytable, runtimexlength)
+
+write.csv(summarytable, "Simulation_Based_Calibration/simulationsummarytable_acceptanceandconvergencefilter.csv", row.names = F)
+
+ESSpermin <- more_runtime_metrics %>%
+  dplyr::select(Rep, Gamma_ESS, Psi_ESS, Phi_ESS, InitialBeta_ESS, RunTime) %>%
+  mutate(RunTime = RunTime / 6e10) %>%
+  mutate(Gamma_ESS = Gamma_ESS/RunTime,
+         Psi_ESS = Psi_ESS/RunTime,
+         Phi_ESS = Phi_ESS/RunTime,
+         InitialBeta_ESS = InitialBeta_ESS/RunTime)
+
+write.csv(ESSpermin, "Simulation_Based_Calibration/ESS_per_min.csv", row.names = F)
 
 

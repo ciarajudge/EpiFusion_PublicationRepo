@@ -87,7 +87,7 @@ highlightedclade <- ggtree(big_mcc_tree) %<+% sequence_metadata_final +
   theme_tree2()
 highlightedclade
 
-ggsave("EBOV_SierraLeone/Intermediate_Figures/MCC_highlightedclade.pdf", plot = highlightedclade, width = 10, height = 20, units = "in" )
+ggsave("EBOV_SierraLeone/Intermediate_Figures/MCC_highlightedclade.pdf", plot = highlightedclade, width = 10, height = 20, units = "in")
 
 
 # Subset to the clade and filter out the GIN clusters

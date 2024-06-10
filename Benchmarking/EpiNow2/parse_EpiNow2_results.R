@@ -1,5 +1,7 @@
 library(EpiNow2)
 library(magrittr)
+library(tidyverse)
+library(dplyr)
 
 parseoutput <- function(epinow2object) {
   estimates <- epinow2object$estimates
@@ -17,6 +19,12 @@ parseoutput <- function(epinow2object) {
     dplyr::mutate(Time = as.numeric(date - as.Date("01-01-2021", format = "%d-%m-%Y"))) %>%
     dplyr::select(Time, sample, value) %>%
     tidyr::pivot_wider(names_from = sample, values_from = value)
+  transformedtab <- t(tab)
+  hpd95 <- HDInterval::hdi(transformedtab, 0.95)
+  summarytable$Lower95 <- unlist(hpd95[1,])
+  summarytable$Upper95 <- unlist(hpd95[2,])
+  summarytable <- summarytable %>%
+    dplyr::select(Time, Mean, Lower95, Upper95)
   return(list(summary = summarytable, samples = tab))
 }
 
@@ -73,8 +81,7 @@ transmission_epinow2_results <- full_join(transmission, transmission_truth) %>%
   mutate(Scenario = "Transmission")
 
 
-full_epinow2_results <- rbind(baseline_epinow2_results, sampling_epinow2_results, transmission_epinow2_results) %>%
-  rename(Upper95 = Upper90, Lower95 = Lower90)
+full_epinow2_results <- rbind(baseline_epinow2_results, sampling_epinow2_results, transmission_epinow2_results)
 
 write.csv(full_epinow2_results, "Benchmarking/EpiNow2/full_epinow2_results.csv", row.names = F)
 
