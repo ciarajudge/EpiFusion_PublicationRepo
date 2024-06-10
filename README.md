@@ -1,6 +1,9 @@
 # EpiFusion Publication Repository
 This repository houses the data and code to fully reproduce the results of the paper 'EpiFusion: Joint inference of the effective reproduction number by integrating phylodynamic and epidemiological modelling with particle filtering'. By cloning this repository and following the instructions in this README and in the `figures_and_tables.Rmd` file, you will be able to fully reproduce the results in the paper, including the appendix.
 
+## EpiFusion executable
+This repo contains [EpiFusion.jar](https://github.com/ciarajudge/EpiFusion_PublicationRepo/blob/main/EpiFusion.jar), the jar file used to run the models in this paper. We include it so that if there are any future versions of EpiFusion on the main repo, it is still easy to replicate the results of this paper.
+
 ## Main Sections of the Paper
 ### 1. Likelihood Comparison
 To validate our discretised phylogenetic likelihood we compared the likelihood of ranges of parameters given the same dataset under a Phylo-Only EpiFusion model to a BDSky model. We repeated this on a selection of 7 total datasets with different true parameters for `beta`, `gamma` and `psi`, trying 3 different true values of each. This required the automated creation and running of 450 EpiFusion parameter files. Scripts to recreate this section, as well as further information, is in the `Likelihood_Comparison` folder.
