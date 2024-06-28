@@ -492,29 +492,44 @@ ebola_incidence_plot <- ggplot(ebola_cases, aes(x = Date)) +
         legend.text = element_text(size=9)) 
 ebola_incidence_plot
   
-ebola_fit <- fittable(ebola, "Combined", "EBOV_Sierra") %>%
+ebola_fit <- fittable(ebola, "EpiFusion", "EBOV_Sierra") %>%
   mutate(Date = as.Date("2014-03-20", format = "%Y-%m-%d") + Time) 
 
-key_epidemic_events <- as.Date(c("2014-08-06", "2014-09-19", "2014-10-01"))
+alizon_et_al <- data.frame(Date = seq(as.Date("2014-05-25"), as.Date("2014-06-18"), 1), Approach = "Alizon et. al", Mean_Rt = 1.26, Lower95_Rt = 1.04, Upper95_Rt = 1.54)
+
+WHO_response_team <- data.frame(Date = seq(as.Date("2014-07-28"), as.Date("2014-09-07"), 1), Approach = "WHO Ebola Response Team", Mean_Rt = 1.32, Lower95_Rt = 1.21, Upper95_Rt = 1.42)
+
+towers_et_al <- data.frame(Date = seq(as.Date("2014-07-01"), as.Date("2014-09-08"), 1), Approach = "Towers et. al", Mean_Rt = 1.2, Lower95_Rt = 1.0, Upper95_Rt = 1.5)
+
+full_ebola_fit <- ebola_fit %>%
+  full_join(alizon_et_al) %>%
+  full_join(WHO_response_team)%>%
+  full_join(towers_et_al) %>%
+  mutate(Approach = factor(Approach, levels = c("EpiFusion", "Alizon et. al", "WHO Ebola Response Team", "Towers et. al")))
+
+
+key_epidemic_events <- as.Date(c("2014-08-06", "2014-09-19"))
 key_events_rt <- ebola_fit$Mean_Rt[match(key_epidemic_events, ebola_fit$Date)]
 
 national_emergency <- data.frame(x = rep(key_epidemic_events[1], 2), y = c(key_events_rt[1], 1.7))
 national_quarantine <- data.frame(x = rep(key_epidemic_events[2], 2), y = c(key_events_rt[2], 0.5))
-who_response <- data.frame(x = rep(key_epidemic_events[3], 2), y = c(key_events_rt[3], 1.5))
+#who_response <- data.frame(x = rep(key_epidemic_events[3], 2), y = c(key_events_rt[3], 1.5))
 
-ebola_rt <- ggplot(ebola_fit, aes(x = Date)) +
+ebola_rt <- ggplot(full_ebola_fit, aes(x = Date)) +
   geom_hline(aes(yintercept = 1), linetype = 2, color = "darkgrey", linewidth = 0.5) +
-  labs(y = "Effective Reproduction Number") +
+  labs(y = "Rt") +
   coord_cartesian(xlim = as.Date(c("2014-03-20","2015-08-04"), format = "%Y-%m-%d"))+
-  geom_line(aes(y = Mean_Rt), col = "#2aac6d") +
-  geom_ribbon(aes(ymin = Lower95_Rt, ymax = Upper95_Rt), fill = "#2aac6d", alpha = 0.2) +
-  geom_ribbon(aes(ymin = Lower88_Rt, ymax = Upper88_Rt), fill = "#2aac6d", alpha = 0.2) +
-  geom_ribbon(aes(ymin = Lower66_Rt, ymax = Upper66_Rt), fill = "#2aac6d", alpha = 0.2) +
+  geom_line(aes(y = Mean_Rt, col = Approach)) +
+  geom_ribbon(aes(ymin = Lower95_Rt, ymax = Upper95_Rt, fill = Approach), alpha = 0.2) +
+  geom_ribbon(aes(ymin = Lower88_Rt, ymax = Upper88_Rt, fill = Approach), alpha = 0.2) +
+  geom_ribbon(aes(ymin = Lower66_Rt, ymax = Upper66_Rt, fill = Approach), alpha = 0.2) +
+  scale_color_manual(values = c("#2aac6d", "#633372", "#d8443c", "#f4c40f")) +
+  scale_fill_manual(values = c("#2aac6d", "#633372", "#d8443c", "#f4c40f")) +
   lshtm_theme() +
   geom_point(data = data.frame(key_epidemic_events, key_events_rt), aes(x = key_epidemic_events, y = key_events_rt), colour = "#01454f") +
   geom_line(data = national_emergency, aes(x = x, y = y), col =  "#01454f") +
   geom_line(data = national_quarantine, aes(x = x, y = y), col = "#01454f") +
-  geom_line(data = who_response, aes(x = x, y = y), col = "#01454f") +
+  #geom_line(data = who_response, aes(x = x, y = y), col = "#01454f") +
   geom_label(
     label="National State of\nEmergency Declared", 
     x=key_epidemic_events[1], y=1.7,
@@ -532,21 +547,42 @@ ebola_rt <- ggplot(ebola_fit, aes(x = Date)) +
     color = "white",
     fill="#01454f",
     size = 2.3
-  ) +
-  geom_label(
-    label="UN Emergency\nResponse begins", 
-    x=key_epidemic_events[3], y=1.45,
-    label.padding = unit(0.3, "lines"),
-    label.size = 0.3,
-    color = "white",
-    fill="#01454f",
-    size = 2.3
-  )
+  ) #+
+  # geom_label(
+  #   label="UN Emergency\nResponse begins", 
+  #   x=key_epidemic_events[3], y=1.45,
+  #   label.padding = unit(0.3, "lines"),
+  #   label.size = 0.3,
+  #   color = "white",
+  #   fill="#01454f",
+  #   size = 2.3
+  # )
   
 
 
-fig9 <- ggarrange(ebola_tree_plot, ebola_incidence_plot, ebola_rt, ncol = 1, align = "v", heights = c(2.8,1.4,1.6), labels = c("A", "B", "C"), font.label = list(color = "#01454f", family = NULL))
-ggsave("Figs/Figure9.pdf", fig9, width = 8, height = 10.5, units = "in")
+fig9 <- ggarrange(ebola_tree_plot, ebola_incidence_plot, ebola_rt, ncol = 1, align = "v", heights = c(2.8,1.4,1.6), labels = c("A", "B", "C"), font.label = list(color = "#01454f", family = "Arial"))
+
+
+
+ggsave("Figs/Figure9.pdf", fig9, width = 8, height = 10.5, units = "in", device = cairo_pdf)
+
+## Other stats for writeup
+# Initial values
+mean(ebola_fit$Mean_Rt[1:7])
+mean(ebola_fit$Lower95_Rt[1:7])
+mean(ebola_fit$Upper95_Rt[1:7])
+
+#Mean over full time interval
+mean(ebola_fit$Mean_Rt[1:365])
+mean(ebola_fit$Lower95_Rt[1:365])
+mean(ebola_fit$Upper95_Rt[1:365])
+
+#Point crosses 1
+ebola_fit$Date[ebola_fit$Mean_Rt < 1]
+ebola_fit$Date[ebola_fit$Lower95_Rt < 1]
+ebola_fit$Date[ebola_fit$Upper95_Rt < 1]
+
+
 ```
 
 ## Supplementary Information
